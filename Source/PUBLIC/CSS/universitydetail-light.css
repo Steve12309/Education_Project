@@ -1,0 +1,17 @@
+.info-container {
+  padding: 10px;
+}
+
+
+body {
+  overflow-x: hidden;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 25px;
+}

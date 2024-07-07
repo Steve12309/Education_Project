@@ -1,0 +1,47 @@
+<div id="sidebar">
+  <div id="contai-search">
+    <img src="/img/tool_imgs/search.png" class="search" />
+    <input
+      type="text"
+      placeholder="Tìm kiếm"
+      id="search-pre"
+      class="search-in"
+    />
+  </div>
+  <div id="contai-list-sch">
+    <div id="list-sch">
+    </div>
+  </div>
+</div>
+<iframe
+  id="school-detail"
+  src="http://localhost:5500/university/bachkhoa"
+  frameborder="0"
+></iframe>
+
+{{! <div id="pop-search">
+  <div id="pop-contai-search">
+    <img src="/img/tool_imgs/search.png" />
+    <input type="text" placeholder="Search" id="search-in" />
+  </div>
+</div> }}
+<div id="error-page" class="hide">
+  <div class="content">
+    <h2 class="header" data-text="404">
+      404
+    </h2>
+    <h4>
+      Opps! College not found
+    </h4>
+    <p>
+      Sorry, the college you're looking for doesn't exist. If you think
+      something is broken, report a problem.
+    </p>
+    <div class="btns">
+      <a href="/university" id="restart-search">Restart Search</a>
+    </div>
+  </div>
+</div>
+
+<template id="data-container" data-university="{{universities}}"></template>
+<script src="https://cdn.jsdelivr.net/npm/intro.js@7.2.0/intro.min.js"></script>

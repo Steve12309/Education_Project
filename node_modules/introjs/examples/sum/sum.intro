@@ -1,0 +1,21 @@
+def main()
+  var n = read_int()
+  if n <= 0
+    return
+  end
+  while 1
+    var values = read_ints(n)
+    if !$values
+      break
+    end
+    write_int(sum(values))
+  end
+end
+
+def sum(values: Int[]): Int
+  var ret = 0
+  for v in values
+    ret += v
+  end
+  return ret
+end

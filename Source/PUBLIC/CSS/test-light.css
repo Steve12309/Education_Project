@@ -1,0 +1,750 @@
+/*------------------------------------------------------------------------------------Basic------------------------------------------------------------------*/
+
+body {
+  background-color: rgb(260, 260, 260);
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+h3 {
+  padding: 0px;
+  font-size: 17px;
+  font-weight: 200;
+
+}
+
+h2 {
+  font-size: 25px;
+  padding: 20px;
+  font-weight: 200;
+}
+
+h4 {
+  font-size: 20px;
+  font-family: hywen;
+  font-weight: 100;
+}
+
+#choose h2 {
+  padding-top: 40px;
+  padding-bottom: 0px;
+}
+
+#test-container h2 {
+  font-weight: 100;
+}
+
+/*--------------------------------------------------------------------------------Button----------------------------------------------------------------------------*/
+
+#butchose button {
+  display: block;
+  border: none;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 180px;
+  height: 180px;
+  border: 3px solid black;
+  background-color: rgba(240, 240, 240);
+  transform-style: preserve-3d;
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    background 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+#butchose button::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  border-radius: inherit;
+  box-shadow: 0 0 0 3px rgb(0, 0, 0);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+#butchose button:hover {
+  background: rgba(260, 260, 260);
+  transform: translate(0, 0.25em);
+}
+
+#butchose button:hover::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0.5em, -1em);
+}
+
+#butchose button:active {
+  transform: translate(0em, 0.75em);
+}
+
+#butchose button:active::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0, -1em);
+}
+
+.quesans button {
+  width: 31%;
+  height: 100%;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  font-family: hywen;
+  font-size: 18px;
+  font-weight: 50;
+  background-color: rgba(250, 250, 250);
+}
+
+.divide button {
+  width: 100%;
+  height: 47%;
+  cursor: pointer;
+  background-color: rgba(250, 250, 250);
+}
+
+#fistest1 {
+  width: 100%;
+  height: 50px;
+  display: flex !important;
+  flex-direction: row-reverse;
+}
+
+#fistest1 img {
+  width: 50px;
+  height: 50px;
+}
+
+.arrowright {
+  background: none;
+  width: 50px;
+  height: 50px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.arrowright img {
+  width: auto;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.arrowleft {
+  background: none;
+  width: 50px;
+  height: 50px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.arrowleft img {
+  width: auto;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#submitBtn {
+  cursor: pointer;
+  font-family: hywen;
+  font-size: 18px;
+  font-weight: 400;
+  color: black;
+  padding: 10px;
+  border: 3px solid black;
+  background: rgb(240, 240, 240);
+  border-radius: 15px;
+  transform-style: preserve-3d;
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    background 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+#submitBtn::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  border-radius: inherit;
+  box-shadow: 0 0 0 3px rgb(0, 0, 0);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+#submitBtn:hover {
+  background: rgba(260, 260, 260);
+  transform: translate(0, 0.25em);
+}
+
+#submitBtn:hover::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0.5em, -1em);
+}
+
+#submitBtn:active {
+  transform: translate(0em, 0.75em);
+}
+#submitBtn:focus {
+  background-color: rgba(100, 100, 100);
+  color: white;
+}
+#submitBtn:active::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0, -1em);
+}
+#demoM {
+  width: 45%;
+  cursor: pointer;
+  font-family: hywen;
+  font-size: 18px;
+  font-weight: 400;
+  color: black;
+  padding: 20px;
+  border: 3px solid black;
+  background: rgb(240, 240, 240);
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    background 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+#demoM::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  border-radius: inherit;
+  box-shadow: 0 0 0 3px rgb(0, 0, 0);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+#demoM:hover {
+  background: rgba(260, 260, 260);
+  transform: translate(0, 0.25em);
+}
+
+#demoM:hover::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0.5em, -1em);
+}
+
+#demoM:active {
+  transform: translate(0em, 0.75em);
+}
+
+#demoM:active::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0, -1em);
+}
+
+/*-----------------------------------------*/
+#demo {
+  cursor: pointer;
+  border: 3px solid black;
+  background: rgb(240, 240, 240);
+  transform-style: preserve-3d;
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    background 150ms cubic-bezier(0, 0, 0.58, 2);
+}
+
+#demo::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  border-radius: inherit;
+  box-shadow: 0 0 0 3px rgb(0, 0, 0);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0.58, 2);
+}
+
+#demo:hover {
+  background: rgba(260, 260, 260);
+  transform: translate(0, 0.25em);
+}
+
+#demo:hover::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0.5em, -1em);
+}
+
+#demo:active {
+  transform: translate(0em, 0.75em);
+}
+
+#demo:active::before {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+  transform: translate3d(0, 0, -1em);
+}
+
+/*------------------------------------------------------------------------------hover&focus---------------------------------------------------------------------------*/
+
+.arrowleft img:hover {
+  background-color: rgba(250, 250, 250);
+}
+
+.arrowright img:hover {
+  background-color: rgba(250, 250, 250);
+}
+
+/*-----------------------------------------------------------------------------------container-----------------------------------------------------------------------*/
+#choose {
+  position: absolute;
+  display: block;
+  border-radius: 20px;
+  text-align: center;
+  transition: 1s ease-out;
+  top: 50vh;
+  margin-top: -21vh;
+  left: 50vw;
+  margin-left: -25vw;
+  width: 50vw;
+  height: 50vh;
+  background: rgba(260, 260, 260, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+#butchose {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px;
+}
+
+.instruction {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  margin: 0px auto;
+  color: black;
+  border-radius: 20px;
+  background-color: rgba(260, 260, 260);
+}
+
+#test-container {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100000vw;
+  margin-top: 13vh;
+  transition: ease-in-out 1s;
+}
+
+.sceentest {
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.testc {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90vw;
+  height: 80vh;
+  border-radius: 20px;
+  text-align: center;
+  padding: 8vh;
+  background: rgba(260, 260, 260, 0.2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.ques {
+  width: 50%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  margin: 0px auto;
+  color: black;
+  border-radius: 20px;
+  background-color: rgba(250, 250, 250);
+}
+
+.quesans {
+  padding: 10px;
+  width: 50%;
+  height: 85%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.divide {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 31%;
+  justify-content: space-between;
+}
+
+.quesans2 {
+  margin-top: 15vh;
+  padding: 10px;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.dividem {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.move1 {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.submitBtnContainer {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+/*---------------------------------------------------------------------------------other---------------------------------------------------------------------------*/
+.changecolor {
+  background-color: rgba(100, 100, 100) !important;
+  color: white !important;
+}
+
+#main-pic {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 100vw;
+  height: auto;
+  z-index: -1000;
+  overflow: hidden;
+}
+
+/*---------------------------------------------------------------------------Alert Toast Message CSS Style-------------------------------------------------------------*/
+.alert {
+  background: #ffdb9b;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  border-radius: 4px;
+  border-left: 8px solid #ffa502;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.alert.showAlert {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alert.show {
+  animation: show_slide 1s ease forwards;
+}
+
+.alert .fa-exclamation-circle {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ce8500;
+  font-size: 30px;
+}
+
+.alert .msg {
+  padding: 0 20px;
+  font-size: 18px;
+  color: #ce8500;
+}
+
+.alert .close-btn {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffd080;
+  padding: 20px 18px;
+  cursor: pointer;
+}
+
+.alert .close-btn:hover {
+  background: #ffc766;
+}
+
+.alert .close-btn .fas {
+  color: #ce8500;
+  font-size: 22px;
+  line-height: 40px;
+}
+
+.alert.hide {
+  animation: hide_slide 1s ease forwards;
+}
+
+/*----------------------------------------------------------------------------Keyframe---------------------------------------------------------------------------------*/
+@keyframes hide_slide {
+  0% {
+    transform: translateX(-10px);
+  }
+
+  40% {
+    transform: translateX(0%);
+  }
+
+  80% {
+    transform: translateX(-10%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+
+  40% {
+    transform: translateX(-10%);
+  }
+
+  80% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+/*------------------------------------------------------------------------------responsible---------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 1100px) {
+  h4 {
+    font-size: 18px;
+  }
+
+  #butchose button {
+    width: 170px;
+    height: 170px;
+  }
+
+  #butchose {
+    padding: 20px;
+    padding-top: 45px;
+  }
+
+  #main-pic {
+    width: 140vw;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  h4 {
+    font-size: 16px;
+  }
+
+  #choose {
+    top: 50vh;
+    margin-top: -18vh;
+    margin-left: -35vw;
+    width: 70vw;
+    height: 45vh;
+  }
+  #butchose button {
+    width: 150px;
+    height: 150px;
+  }
+  #test-container {
+    margin-top: 11vh;
+  }
+  .testc {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5%;
+    height: 84vh;
+  }
+  .quesans2 {
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 50%;
+    height: 85%;
+  }
+
+  #main-pic {
+    width: 200vw;
+  }
+
+  .dividem {
+    flex-direction: column;
+    height: fit-content;
+    margin: auto;
+  }
+
+  #demoM {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .quesans {
+    margin-top: 0px;
+    margin-bottom: 20%;
+    width: 50%;
+    height: 60%;
+    flex-wrap: wrap;
+  }
+
+  .quesans button {
+    width: 95%;
+    height: 35%;
+  }
+  #fistest1 {
+    height: 50px;
+  }
+  .divide {
+    height: 100%;
+    width: 45%;
+    margin-bottom: 25px;
+  }
+
+  .divide button {
+    width: 100%;
+    height: 46%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  h2 {
+    font-size: 22px;
+  }
+
+  h4 {
+    font-size: 15px;
+  }
+
+  #choose {
+    top: 50vh;
+    margin-top: -18vh;
+    margin-left: -45vw;
+    width: 90vw;
+    height: 40vh;
+  }
+
+  #butchose button {
+    width: 130px;
+    height: 130px;
+  }
+
+  #butchose {
+    padding-top: 40px;
+  }
+
+  .instruction {
+    font-size: 20px;
+  }
+
+  .ques {
+    width: 100%;
+    height: 35%;
+    margin: 0;
+  }
+
+  .quesans {
+    margin-top: 0px;
+    margin-bottom: 80px;
+    width: 100%;
+    height: 40%;
+    flex-wrap: wrap;
+  }
+
+  .quesans button {
+    width: 95%;
+    height: 35%;
+  }
+  #fistest1 {
+    margin: 0;
+    height: 50px;
+  }
+  .divide {
+    height: 90%;
+    width: 45%;
+    margin-bottom: 20px;
+  }
+
+  .divide button {
+    width: 100%;
+    height: 44%;
+  }
+
+  .submitBtnContainer {
+    height: 50px;
+  }
+
+  #main-pic {
+    width: 260vw;
+  }
+
+  #demoM {
+    width: 100%;
+    height: 40%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .dividem {
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+  }
+
+  .quesans2 {
+    width: 100%;
+    height: 50%;
+    padding: 20px;
+  }
+}

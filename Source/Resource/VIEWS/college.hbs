@@ -1,0 +1,27 @@
+<div class="info-container">
+  {{#with college}}
+    <h1>Tên trường</h1>
+    <pre>{{name}}</pre>
+    {{#if history}}
+      <h1>Lịch sử hình thành và phát triển</h1>
+      <pre>{{history}}</pre>
+    {{else}}
+    {{/if}}
+    {{#if facility}}
+      <h1>Cơ sở vật chất</h1>
+      <pre>{{facility}}</pre>
+    {{else}}
+    {{/if}}
+  {{/with}}
+  <h1>Ngành đào tạo</h1>
+  <table border="1">
+    <tr>
+      <th>Ngành đào tạo</th>
+    </tr>
+    {{#each college.subject}}
+      <tr>
+        <td>{{this}}</td>
+      </tr>
+    {{/each}}
+  </table>
+</div>

@@ -1,0 +1,74 @@
+def main()
+  write_empty(2)
+  write_ints([])
+  write_ints([3])
+  write_ints([3, 1, 4])
+
+  write_empty(2)
+  write_ints(new Int[0])
+  write_ints(new Int[1])
+  write_ints(new Int[3])
+
+  var matrix = new Int[2][3]
+  matrix[1][2] = 3
+  write_empty(4)
+  write_ints(matrix[1])
+  write_int(matrix[1][2])
+
+  var cuboid = new Int[2][3][4]
+  cuboid[1][2][3] = 4
+  write_empty(4)
+  write_ints(cuboid[1][2])
+  write_int(cuboid[1][2][3])
+
+  cuboid[1][2] = [1, 2, 3]
+  write_empty(3)
+  write_ints(cuboid[1][2])
+
+  matrix = [[1, 2], [3, 4, 5]]
+  write_empty(3)
+  write_int($matrix)
+  write_int($matrix[0])
+  write_ints(matrix[0])
+  write_int($matrix[1])
+  write_ints(matrix[1])
+
+  matrix = increment(matrix)
+  write_empty(3)
+  write_ints(matrix[0])
+  write_ints(matrix[1])
+  write_int(total([[[1, 2], [3, 4]], [[5, 6], [7, 8, 9]]]))
+end
+
+def write_empty(n: Int)
+  for i in n
+    write_ints([])
+  end
+end
+
+def increment(a: Int[][]): Int[][]
+  var ret = new Int[$a][0]
+  for i in $ret
+    ret[i] = new Int[$a[i]]
+    for j in $ret[i]
+      ret[i][j] = a[i][j] + 1
+    end
+  end
+  return ret
+end
+
+def min(a: Int, b: Int): Int
+  return a < b ? a : b
+end
+
+def total(cuboid: Int[][][]): Int
+  var ret = 0
+  for matrix in cuboid
+    for row in matrix
+      for value in row
+        ret += value
+      end
+    end
+  end
+  return ret
+end

@@ -1,0 +1,68 @@
+def main()
+  write_ints(compound_assignments(5, 3))
+  write_ints(indexed_assignments(5, 3))
+end
+
+def compound_assignments(a: Int, b: Int): Int[]
+  var add = a
+  add += b
+
+  var sub = a
+  sub -= b
+
+  var mul = a
+  mul *= b
+
+  var fdiv = a
+  fdiv /= b
+
+  var zdiv = a
+  zdiv /= b
+
+  var mod = a
+  mod %%= b
+
+  var rem = a
+  rem %= b
+
+  var lsh = a
+  lsh <<= b
+
+  var rsh = a
+  rsh >>= b
+
+  var zrsh = a
+  zrsh >>>= b
+
+  var band = a
+  band &= b
+
+  var bor = a
+  bor |= b
+
+  var bxor = a
+  bxor ^= b
+
+  return [add, sub, mul, fdiv, zdiv, mod, rem, lsh, rsh, zrsh, band, bor, bxor]
+end
+
+def indexed_assignments(a: Int, b: Int): Int[]
+  var values = new Int[13]
+  for i in $values
+    values[i] = a
+  end
+  values[0] += b
+  values[1] -= b
+  values[2] *= b
+  values[3] //= b
+  values[4] /= b
+  values[5] %%= b
+  values[6] %= b
+  values[7] <<= b
+  values[8] >>>= b
+  values[9] >>= b
+  values[10] &= b
+  values[11] |= b
+  values[12] ^= b
+  return values
+end

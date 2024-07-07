@@ -1,0 +1,4 @@
+def main()
+  var a = new Int[2][3]
+  a[0] += [1, 2, 3]
+end
