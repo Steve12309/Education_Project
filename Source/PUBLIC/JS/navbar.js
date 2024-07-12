@@ -19,6 +19,7 @@ var passimg = document.getElementById("passimg");
 var feedimg = document.getElementById("feedimg");
 var lauchimg = document.querySelectorAll(".lauch");
 var backimg = document.querySelectorAll(".backimg");
+var alertInfo = document.querySelector(".alert");
 introBtn.addEventListener("click", function () {
   startIntro();
 });
@@ -177,6 +178,15 @@ var pageexpand = document.querySelectorAll(".page-expand");
 pageexpand.forEach((e) => {
   e.style.display = "none";
 });
+
+feedpage.addEventListener("submit", function () {
+  setTimeout(function () {
+    console.log(feedpage.getAttribute("action"));
+    feedpage.action = "/feedback";
+    feedpage.submit();
+  }, 1000);
+});
+
 //open setting
 function openset() {
   userexpand.classList.add("active");
@@ -200,6 +210,7 @@ function feedclick() {
   movesetting = movesetting - 100;
   moveset();
 }
+
 //avatarpage
 function avatarclick() {
   avatarpage.style.display = "block";

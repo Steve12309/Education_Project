@@ -41,6 +41,7 @@
       {{else}}
         <img
           src="https://scontent.fsgn5-15.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_eui2=AeFDln0uGNr2ftT3JD4lMqVlso2H55p0AlGyjYfnmnQCUTFM01ydBlQovol_D0_d_Xx0OSHzHWGhFRGAnH-ibHvh&_nc_ohc=ajY79JSPPYMQ7kNvgFBSqJA&_nc_ht=scontent.fsgn5-15.fna&oh=00_AYCrj_D6rIhxkOnzVsZISaJBl7EXsTPj8H9bCBd5KO75LQ&oe=66A34878"
+          onclick="openset()"
         />
       {{/if}}
     {{else}}
@@ -179,7 +180,7 @@
       </div>
     </div>
 
-    <form action="" class="page-expand" id="passpage">
+    <form action="/changepass" class="page-expand" id="passpage" method="POST">
       <div class="line2">
         <img
           src="/img/tool_imgs/back.png"
@@ -190,11 +191,27 @@
       </div>
       <h4>Mật khẩu của bạn phải có tối thiểu 6 ký tự, đồng thời bao gồm cả chữ
         số, chữ cái và ký tự đặc biệt.</h4>
-      <input type="password" placeholder="Mật khẩu hiện tại" name="" id="" />
-      <input type="password" placeholder="Mật khẩu mới" name="" id="" />
+      <input
+        type="password"
+        placeholder="Mật khẩu hiện tại"
+        name="oldpassword"
+        id="oldpass"
+      />
+      <input
+        type="password"
+        placeholder="Mật khẩu mới"
+        name="newpassword"
+        id="newpass"
+      />
+      <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
       <button>Đổi mật khẩu</button>
     </form>
-    <form action="" class="page-expand" id="feedpage">
+    <form
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      class="page-expand"
+      id="feedpage"
+    >
       <div class="line2">
         <img
           src="/img/tool_imgs/back.png"
@@ -203,14 +220,31 @@
         />
         <h3>Đóng góp ý kiến</h3>
       </div>
+      <input
+        type="hidden"
+        name="access_key"
+        value="c59d3a96-74b5-41d2-a295-8a19cdf40568"
+      />
       <h4>Chúng tôi có thể cải thiện như thế nào?</h4>
-      <select name="" id="">
+      <select name="typefeed" id="choices">
         <option value="error">Báo lỗi</option>
         <option value="feedback">Đóng góp</option>
       </select>
-      <textarea placeholder="Chi tiết..." name="" id=""></textarea>
+      <input type="text" name="name" required placeholder="Nhập tên của bạn" />
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder="Nhập địa chỉ email của bạn"
+      />
+      <textarea
+        placeholder="Chi tiết..."
+        name="detailtext"
+        id="opinion"
+      ></textarea>
       <input type="image" />
-      <button>Gửi</button>
+      <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
+      <button type="submit">Gửi</button>
     </form>
     <form action="" class="page-expand" id="avatarpage">
       <div class="line2">

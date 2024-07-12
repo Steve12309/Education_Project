@@ -8,6 +8,7 @@ const account = require("../APP/MIDDLEWARE/Account");
 const passport = require("passport");
 
 function route(app) {
+  app.post("/feedback", loginController.postfeedback);
   app.get("/login/forgetpassword", loginController.forgotpassword);
   app.post("/login/forgetpassword", loginController.resetpassword);
   app.get("/user/account", account.isLogin, userController.user);
@@ -19,7 +20,9 @@ function route(app) {
   app.get("/university/:slug", universityController.show);
   app.get("/test", account.isLogin, testRouter);
   app.get("/story", account.isLogin, homeRouter);
+  app.post("/changepass", loginController.changepassword);
   app.get("/", account.isLogin, homeRouter);
+  app.post("/", account.isLogin, homeRouter);
   app.get(
     "/login/fb",
     passport.authenticate("facebook", { scope: ["email", "user_photos"] })

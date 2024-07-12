@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const { engine } = require("express-handlebars");
 const path = require("path");
 const port = 5500;
@@ -11,6 +10,9 @@ const passportgg = require("passport-google-oauth2").Strategy;
 const passportfb = require("passport-facebook").Strategy;
 const route = require("./ROUTES");
 const db = require("./CONFIG/DB");
+const flash = require("connect-flash");
+const toastr = require("express-toastr");
+const app = express();
 require("dotenv").config();
 
 app.engine(
@@ -28,17 +30,23 @@ app.use(express.static(path.join(__dirname, "PUBLIC/CSS/")));
 app.use(express.static(path.join(__dirname, "PUBLIC/JS/")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(
   session({
     secret: "accountsessionsecret",
-    resave: false,
     saveUninitialized: false,
+    resave: false,
     cookie: {
-      // maxAge: 1000 * 60 * 60 * 5,
+      // maxAge: 1000 * 60 * 60 * 10,
     },
   })
 );
+app.use(flash());
+app.use(toastr());
+
+app.use(function (req, res, next) {
+  req.toastr.render();
+  next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -57,9 +65,6 @@ passport.use(
           return done(null, user);
         }
         let pictureUrl = profile.picture;
-        if (pictureUrl && pictureUrl.indexOf("=") !== -1) {
-          pictureUrl = pictureUrl.split("=")[0] + "?sz=500";
-        }
 
         const newUser = new accountggdb({
           id: profile._json.sub,
@@ -91,8 +96,6 @@ passport.use(
         if (user) {
           return done(null, user);
         }
-        const highResPhotoURL = `https://graph.facebook.com/${profile.id}/picture?&access_token=${accessToken}`;
-        profile.photos = [{ value: highResPhotoURL }];
         const newUser = new accountfbdb({
           id: profile._json.id,
           name: profile._json.name,

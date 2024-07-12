@@ -7,6 +7,7 @@ class TestController {
       navbar: "navbar.js",
       username: req.user.name,
       userimg: req.user.img,
+      toastr_render: req.toastr.render(),
     });
   }
 }
