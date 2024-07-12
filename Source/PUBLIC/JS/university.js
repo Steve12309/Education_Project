@@ -128,9 +128,9 @@ document.body.addEventListener("keyup", function (e) {
 function renderCollege(data) {
   var htmls = data.map(function (college) {
     return `
-    <div class="sch">
+    <div class="sch" data-slug="${college.slug}" onclick="detail(this)">
             <div class="sch-contai-img">
-              <img id="college" data-slug="${college.slug}" src="${college.img}" onclick="detail(this)">
+              <img id="college" src="${college.img}">
             </div>
             <div class="info">
                 <div class="info-text">
