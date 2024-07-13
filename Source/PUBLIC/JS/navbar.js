@@ -20,10 +20,52 @@ var feedimg = document.getElementById("feedimg");
 var lauchimg = document.querySelectorAll(".lauch");
 var backimg = document.querySelectorAll(".backimg");
 var alertInfo = document.querySelector(".alert");
+var equalsElement = document.querySelector(".fa-equals");
+var xElement = document.querySelector(".fa-x");
+var firstNavbar = document.querySelector("nav");
+var secondNavbar = document.getElementById("extend-navbar");
+var titleElement = document.getElementById("name");
+secondNavbar.classList.add("out");
 introBtn.addEventListener("click", function () {
   startIntro();
 });
+//respon narbar
+xElement.addEventListener("click", function () {
+  returnViewNavbar();
+});
 
+equalsElement.addEventListener("click", function () {
+  changeViewNavbar();
+});
+
+function resizeHandle() {
+  if (window.innerWidth <= 850) {
+    equalsElement.style.display = "block";
+    firstNavbar.style.display = "none";
+    window.onload = returnViewNavbar;
+  } else {
+    equalsElement.style.display = "none";
+    xElement.style.display = "none";
+    firstNavbar.style.display = "flex";
+  }
+}
+
+window.addEventListener("resize", resizeHandle);
+resizeHandle();
+
+function changeViewNavbar() {
+  xElement.style.display = "block";
+  equalsElement.style.display = "none";
+  secondNavbar.classList.remove("out");
+  secondNavbar.classList.add("appear");
+}
+titleElement.style.display = "block";
+function returnViewNavbar() {
+  xElement.style.display = "none";
+  equalsElement.style.display = "block";
+  secondNavbar.classList.remove("appear");
+  secondNavbar.classList.add("out");
+}
 turnAutoMode.addEventListener("click", function () {
   changeAutoMode();
 });
@@ -89,6 +131,14 @@ function changeTheme() {
     theme.href = "/story-light.css";
     header.href = "/header-light.css";
     mode.href = "/mode-light.css";
+    modeValue = "light";
+  }
+  //detail uni page
+  if (theme.getAttribute("href") === "/universitydetail-light.css") {
+    theme.href = "/universitydetail-dark.css";
+    modeValue = "dark";
+  } else if (theme.getAttribute("href") === "/universitydetail-dark.css") {
+    theme.href = "/universitydetail-light.css";
     modeValue = "light";
   }
   localStorage.setItem("mode", modeValue);
@@ -243,4 +293,59 @@ function clicklay() {
   }, 500);
   deletes(passpage);
   deletes(feedpage);
+  deletes(avatarpage);
+}
+
+// picavatar
+const avatarp = document.getElementById("avatarp");
+const dropZone = document.getElementById("drop-zone");
+const fileInput = document.getElementById("file-input");
+const preview = document.getElementById("preview");
+
+dropZone.addEventListener("click", () => fileInput.click());
+
+dropZone.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  dropZone.classList.add("dragover");
+});
+
+dropZone.addEventListener("dragleave", () => {
+  dropZone.classList.remove("dragover");
+});
+
+dropZone.addEventListener("drop", (event) => {
+  event.preventDefault();
+  dropZone.classList.remove("dragover");
+  const files = event.dataTransfer.files;
+  if (files.length) {
+    handleFiles(files);
+  }
+});
+
+fileInput.addEventListener("change", () => {
+  const files = fileInput.files;
+  if (files.length) {
+    handleFiles(files);
+  }
+});
+
+function handleFiles(files) {
+  const file = files[0];
+  if (file.type.startsWith("image/")) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      preview.src = event.target.result;
+      preview.style.display = "block";
+      dropZone.style.display = "none";
+      const cropper = new Cropper(preview, {
+        aspectRatio: 16 / 9,
+        dragMode: "move",
+        autoCrop: false,
+        toggleDragModeOnDblclick: false,
+      });
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert("Vui lòng chọn một tệp ảnh.");
+  }
 }

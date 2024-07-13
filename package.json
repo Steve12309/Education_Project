@@ -4,6 +4,7 @@
     "body-parser": "^1.20.2",
     "browserify-shim": "^3.8.16",
     "connect-flash": "^0.1.1",
+    "cropperjs": "^1.6.2",
     "darkmode-js": "^1.5.7",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

@@ -46,10 +46,12 @@
       {{/if}}
     {{else}}
       <a href="/createaccount">
-        <h3>Tạo<br /> Tài khoản</h3>
+        <h3>Đăng nhập</h3>
       </a>
     {{/if}}
   </button>
+  <i class="fa-solid fa-equals"></i>
+  <i class="fa-solid fa-x"></i>
 </div>
 <div id="extend-navbar">
   <button id="step-three">
@@ -183,7 +185,7 @@
     <form action="/changepass" class="page-expand" id="passpage" method="POST">
       <div class="line2">
         <img
-          src="/img/tool_imgs/back.png"
+          src="/img/tool_imgs/back2.png"
           class="backimg"
           onclick="back(passpage)"
         />
@@ -203,7 +205,6 @@
         name="newpassword"
         id="newpass"
       />
-      <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
       <button>Đổi mật khẩu</button>
     </form>
     <form
@@ -214,7 +215,7 @@
     >
       <div class="line2">
         <img
-          src="/img/tool_imgs/back.png"
+          src="/img/tool_imgs/back2.png"
           class="backimg"
           onclick="back(feedpage)"
         />
@@ -242,24 +243,28 @@
         name="detailtext"
         id="opinion"
       ></textarea>
-      <input type="image" />
+      <input type="file" />
       <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
       <button type="submit">Gửi</button>
     </form>
     <form action="" class="page-expand" id="avatarpage">
       <div class="line2">
         <img
-          src="/img/tool_imgs/back.png"
+          src="/img/tool_imgs/back2.png"
           class="backimg"
           onclick="back(avatarpage)"
         />
         <h3>Đổi ảnh đai diện</h3>
       </div>
-      <input type="image" />
+      <div id="pic">
+        <div id="drop-zone">
+          <p id="avatarp">Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
+          <input type="file" id="file-input" accept="image/*" hidden />
+        </div>
+        <img id="preview" style="display: none;" />
+      </div>
       <button>Đổi ảnh</button>
     </form>
   </div>
 </div>
 <div id="overlay" onclick="clicklay()"></div>
-<i class="fa-solid fa-equals"></i>
-<i class="fa-solid fa-x"></i>

@@ -1,9 +1,3 @@
-var lists = document.getElementById("extend-navbar");
-var equalsElement = document.querySelector(".fa-equals");
-var xElement = document.querySelector(".fa-x");
-var firstNavbar = document.querySelector("nav");
-var secondNavbar = document.getElementById("extend-navbar");
-var titleElement = document.getElementById("name");
 var chosediv = document.getElementById("choose");
 var tescontai = document.getElementById("test-container");
 let s = 0;
@@ -90,13 +84,14 @@ function createIntroduction() {
   Bạn đang chuẩn bị kiểm tra bài test trắc nghiệm nghề nghiệp Holland với 54 câu hỏi tất cả.
 
   Với mỗi câu hỏi sẽ có 5 mức độ tương ứng từ 0 đến 4 điểm ở phía dưới:
+  
   (1) Chưa bao giờ đúng: 0 điểm;
   (2) Đúng trong một vài trường hợp: 1 điểm
   (3) Đúng trong khoảng ½ trường hợp: 2 điểm
   (4) Đúng trong đa số các trường hợp: 3 điểm
   (5) Đúng trong tất cả trường hợp: 4 điểm
 
-  Sau khi hoàn thành bài test chúng tôi sẽ trả về kết quả bạn thuộc nhóm nào trong tất cả 6 nhóm do Holland đã chia ra và gợi ý một số ngành nghề phù hợp với nhóm nghề của bạn`;
+  Sau khi hoàn thành bài test chúng tôi sẽ trả về kết quả bạn thuộc nhóm nào trong tất cả 6 nhóm do Holland đã chia ra và gợi ý một số ngành nghề phù hợp với nhóm nghề của bạn.`;
 
   var divQues = document.createElement("div");
   divQues.classList.add("instruction");

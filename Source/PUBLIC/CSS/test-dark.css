@@ -1,7 +1,11 @@
-@import "https://code.highcharts.com/css/themes/brand-dark.css";
+/*------------------------------------------------------------------------------------Basic------------------------------------------------------------------*/
+
 body {
-  background-color: rgb(0, 0, 0);
-  overflow: hidden;
+  background-color: rgb(260, 260, 260);
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: black;
 }
 
 a {
@@ -95,7 +99,7 @@ h4 {
 .quesans button {
   width: 31%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
   border: none;
   cursor: pointer;
   transition-duration: 0.2s;
@@ -328,12 +332,11 @@ h4 {
   border-radius: 20px;
   text-align: center;
   transition: 1s ease-out;
-  top: 50vh;
-  margin-top: -21vh;
-  left: 50vw;
-  margin-left: -25vw;
-  width: 50vw;
-  height: 50vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  height: 350px;
   background: rgba(50, 50, 50, 0.2);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -364,21 +367,22 @@ h4 {
   display: flex;
   flex-wrap: wrap;
   width: 100000vw;
-  margin-top: 13vh;
+  top: 50%;
+  transform: translateY(-50%);
   transition: ease-in-out 1s;
 }
 
 .sceentest {
-  padding-left: 5vw;
-  padding-right: 5vw;
+  padding-left: 2.5vw;
+  padding-right: 2.5vw;
 }
 
 .testc {
   display: flex;
   flex-wrap: wrap;
-  width: 90vw;
+  width: 95vw;
   height: 80vh;
-  border-radius: 20px;
+  border-radius: 30px;
   text-align: center;
   padding: 8vh;
   background: rgba(50, 50, 50, 0.2);
@@ -400,7 +404,7 @@ h4 {
 }
 
 .quesans {
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   width: 50%;
   height: 85%;
   display: flex;
@@ -453,14 +457,17 @@ h4 {
 }
 
 #main-pic {
-  position: fixed;
+  position: relative;
   top: 0px;
   right: 0px;
   width: 100vw;
-  height: auto;
+  height: 100vh;
   z-index: -1000;
   overflow: hidden;
-  opacity: 0.8;
+  background-image: url(/img/others_imgs/bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
 }
 
 /*---------------------------------------------------------------------------Alert Toast Message CSS Style-------------------------------------------------------------*/
@@ -580,10 +587,6 @@ h4 {
     padding: 20px;
     padding-top: 45px;
   }
-
-  #main-pic {
-    width: 140vw;
-  }
 }
 
 @media only screen and (max-width: 850px) {
@@ -592,24 +595,19 @@ h4 {
   }
 
   #choose {
-    top: 50vh;
-    margin-top: -18vh;
-    margin-left: -35vw;
-    width: 70vw;
-    height: 45vh;
+    width: 500px;
+    height: 330px;
   }
   #butchose button {
     width: 150px;
     height: 150px;
   }
-  #test-container {
-    margin-top: 11vh;
-  }
+
   .testc {
     display: flex;
     flex-wrap: wrap;
     padding: 5%;
-    height: 84vh;
+    height: 600px;
   }
   .quesans2 {
     margin-top: 0px;
@@ -619,9 +617,6 @@ h4 {
     height: 85%;
   }
 
-  #main-pic {
-    width: 200vw;
-  }
 
   .dividem {
     flex-direction: column;
@@ -636,6 +631,7 @@ h4 {
   }
 
   .quesans {
+    padding: 10px;
     margin-top: 0px;
     margin-bottom: 20%;
     width: 50%;
@@ -668,15 +664,12 @@ h4 {
   }
 
   h4 {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   #choose {
-    top: 50vh;
-    margin-top: -18vh;
-    margin-left: -45vw;
-    width: 90vw;
-    height: 40vh;
+    width: 90%;
+    height: 300px;
   }
 
   #butchose button {
@@ -729,10 +722,6 @@ h4 {
     height: 50px;
   }
 
-  #main-pic {
-    width: 260vw;
-  }
-
   #demoM {
     width: 100%;
     height: 40%;
@@ -752,4 +741,5 @@ h4 {
     height: 50%;
     padding: 20px;
   }
+
 }

@@ -8,44 +8,44 @@
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form action="/register" method="POST">
-                <h1>Create Account</h1>
+                <h1>Tạo Tài Khoản</h1>
                 <div class="social-icons">
                     <a href="/login/gg" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="/login/fb" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 </div>
-                <span>or use your email for registeration</span>
-                <input type="text" placeholder="Username" id="name" name="username" required>
-                <input type="password" placeholder="Password" id="pass" name="password" required>
-                <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
-                <button type="submit">Sign Up</button>
+                <span>Tạo tài khoản với email</span>
+                <input type="text" placeholder="Tên tài khoản" id="name" name="username" required>
+                <input type="text" placeholder="Email" id="name" name="username" required>
+                <input type="password" placeholder="Mật khẩu" id="pass" name="password" required>
+                <button type="submit">Đăng kí</button>
             </form>
         </div>
         <div class="form-container sign-in">
             <form action="/login" method="POST">
-                <h1>Sign In</h1>
+                <h1>Đăng Nhập</h1>
                 <div class="social-icons">
                     <a href="/login/gg" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="/login/fb" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 </div>
-                <span>or use your email password</span>
-                <input type="text" placeholder="Username" id="name" name="username" required>
-                <input type="password" placeholder="Password" id="pass" name="password" required>
-                <a href="/login/forgetpassword">Forget Your Password?</a>
-                <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
-                <button>Sign In</button>
+                <span>Đăng nhập bằng email</span>
+                <input type="text" placeholder="Tên tài khoản" id="name" name="username" required>
+                <input type="password" placeholder="Mật khẩu" id="pass" name="password" required>
+                <a id="forgot" href="/login/forgetpassword">Quên mật khẩu?</a>
+
+                <button>Đăng Nhập</button>
             </form>
         </div>
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
-                    <h1>Welcome Back!</h1>
-                    <p>Enter your personal details to use all of site features</p>
-                    <button class="hidden" id="login">Sign In</button>
+                    <h1>Đã có tài khoản?</h1>
+                    <p>Quay lại với trải nghiệm không giới hạn của trang😊</p>
+                    <button class="hidden" id="login">Đăng Nhập</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Register with your personal details to use all of site features</p>
-                    <button class="hidden" id="register">Sign Up</button>
+                    <h1>Chưa có tài khoản?</h1>
+                    <p>Đăng kí để trải nghiệm tất cả tính năng của trang😊</p>
+                    <button class="hidden" id="register">Đăng Kí</button>
                 </div>
             </div>
         </div>

@@ -2,9 +2,11 @@ body {
   background-color: #f9f5e9;
   width: 100%;
 }
+
 #navbar {
   background-color: unset;
 }
+
 h1 {
   padding: 6px;
   font-size: 28px;
@@ -21,6 +23,7 @@ a {
   text-decoration: none;
   color: black;
 }
+
 #navbar {
   box-shadow: none !important;
 }
@@ -28,9 +31,11 @@ a {
 nav button:hover {
   background-color: rgba(260, 260, 260, 0.9);
 }
+
 #user-avar:hover {
   background: rgb(260, 260, 260, 0.9);
 }
+
 #user-avar {
   height: 5vh;
   margin-top: 0.5vh;
@@ -38,45 +43,69 @@ nav button:hover {
   padding-right: 5px;
   border-radius: 5px;
 }
+
 #user-avar h3 {
   color: rgb(105, 74, 54);
   font-weight: 600;
 }
+
 #sidebar {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  padding-bottom: 1vh;
-  left: 0px;
-  top: 6vh;
-  width: 25%;
-  height: 94vh;
+  flex-basis: 350px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 100%;
   z-index: 2;
 }
-#school-detail {
+
+#mainbar {
+  height: 100%;
+  width: 100%;
+  padding-left: 10px;
+}
+#search-page{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#main-contai {
+  width: 100%;
+  height: 94vh;
+  display: flex;
   position: absolute;
-  width: 74.5%;
-  height: 93vh;
-  right: 0.5%;
   top: 6vh;
+  flex-direction: row;
+  padding:0px 10px 10px 10px;
+}
+
+#school-detail {
+  width: 100%;
+  height: 100%;
   background-color: rgba(250, 250, 250);
   border-radius: 10px;
   z-index: 3;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+#iframedetail{
+  width: 100%;
+  height: 100%;
 }
 #contai-search {
-  margin: 2vh auto;
+  margin: 15px auto;
   padding-right: 20px;
   background-color: white;
   width: 85%;
   background-color: rgba(260, 260, 260);
-  height: 6vh;
+  height:40px;
   display: flex;
   border-radius: 25px;
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
+
 #pop-contai-search {
   width: 100%;
   height: 50px;
@@ -85,6 +114,7 @@ nav button:hover {
   background-color: rgb(240, 240, 240);
   display: flex;
 }
+
 #pop-search {
   top: 50%;
   left: 50%;
@@ -97,6 +127,7 @@ nav button:hover {
   z-index: 9998;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
+
 #search-in {
   width: 100%;
   height: 100%;
@@ -104,26 +135,33 @@ nav button:hover {
   font-size: 20px;
   background-color: transparent;
 }
+
 #search-pre {
   width: 100%;
   height: 100%;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   background-color: transparent;
+  font-family: math;
+  letter-spacing: 0.5px;
 }
+
 #search-pre::placeholder {
   color: rgb(200, 200, 200);
 }
+
 #contai-search img {
   width: 20px;
   height: 20px;
   margin: 10px;
 }
+
 #pop-contai-search img {
   width: 20px;
   height: 20px;
   margin: 15px;
 }
+
 #location {
   border: none;
   background-color: rgb(240, 240, 240);
@@ -202,15 +240,17 @@ select:focus {
   width: fit-content;
   margin: auto;
 }
+
 #contai-list-sch {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 2.5% 0 2.5% 2.5%;
   height: 100%;
-  width: 95%;
-  margin: auto;
+  width: 100%;
   border-radius: 20px;
   overflow: hidden;
+  border: 1px solid rgb(200, 200, 200);
 }
+
 #list-sch {
   width: 100%;
   height: 100%;
@@ -218,57 +258,65 @@ select:focus {
   overflow-x: hidden;
   border-radius: 15px;
 }
+
 .sch {
   color: black;
   display: flex;
   flex-direction: row;
-  padding-right: 5px;
   background-color: rgba(250, 250, 250);
   border-radius: 15px;
   width: 97.5%;
   margin: 2px auto 10px 2px;
   height: 75px;
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   animation: scroll linear;
+  cursor: pointer;
+
   animation-timeline: view();
+
+}
+.sch:hover {
+
 }
 @keyframes scroll {
   0% {
     scale: 0.85;
     opacity: 0;
   }
+
   10% {
     scale: 1;
     opacity: 1;
   }
+
   90% {
     scale: 1;
     opacity: 1;
   }
+
   100% {
     scale: 0.85;
     opacity: 0;
   }
 }
+
 .info {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  padding: 0 5px 5px 0;
 }
 
-.info-text {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: fit-content;
-}
+
 .sch-contai-img {
   padding: 10px;
   height: 100%;
   object-fit: contain;
 }
+
 .sch img {
   position: relative;
   top: 50%;
@@ -280,86 +328,96 @@ select:focus {
 }
 
 .info h2 {
-  font-weight: 200;
+  font-weight: 600;
   width: 100%;
   font-size: 15px;
   margin-top: 2px;
   margin-bottom: 2px;
+  font-family: math;
 }
 
-.info-label {
-  display: flex;
-  flex-direction: row;
-  height: 25px;
+.info h4 {
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: 1;
+  background-color: beige;
+  color: black;
+  padding: 3px 6px;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
-.info-label label {
-  display: block;
-  background-color: aqua;
-  border-radius: 25px;
-  padding: 2px;
-  padding-right: 6px;
-  padding-left: 6px;
-  font-size: 17px;
-  margin-right: 12px;
-  width: fit-content;
-  height: fit-content;
+.info h4::-webkit-scrollbar {
+  width: 2px;
 }
+
+.info h4::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+
 #error-page {
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  right: 15%;
-  bottom: 10%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
+  width: 80%;
 }
+
 #error-page .content {
   max-width: 600px;
   text-align: center;
 }
+
 .content h2.header {
   font-size: 18vw;
   line-height: 1em;
   position: relative;
 }
+
 .content h2.header:after {
   position: absolute;
   content: attr(data-text);
   top: 0;
   left: 0;
   right: 0;
-  background: -webkit-repeating-linear-gradient(
-    -45deg,
-    #71b7e6,
-    #69a6ce,
-    #b98acc,
-    #ee8176,
-    #b98acc,
-    #69a6ce,
-    #9b59b6
-  );
+  background: -webkit-repeating-linear-gradient(-45deg,
+      #71b7e6,
+      #69a6ce,
+      #b98acc,
+      #ee8176,
+      #b98acc,
+      #69a6ce,
+      #9b59b6);
   background-size: 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
   animation: animate 10s ease-in-out infinite;
 }
+
 @keyframes animate {
   0% {
     background-position: 0 0;
   }
+
   25% {
     background-position: 100% 0;
   }
+
   50% {
     background-position: 100% 100%;
   }
+
   75% {
     background-position: 0% 100%;
   }
+
   100% {
     background-position: 0% 0%;
   }
@@ -371,8 +429,7 @@ select:focus {
   margin-bottom: 20px;
   text-transform: uppercase;
   color: white;
-  font-size: 2em;
-  max-width: 600px;
+  width: 100%;
   position: relative;
 }
 
@@ -409,76 +466,79 @@ select:focus {
   #main-pic {
     width: 140vw;
   }
-  #school-detail {
-    width: 64.5%;
-  }
-  #sidebar {
-    width: 35%;
-  }
+
 }
 
 @media only screen and (max-width: 850px) {
+  #main-contai {
+    flex-direction: column-reverse;
+    padding: 0 5px 5px 5px;
+  }
+
   #sidebar {
     display: flex;
     flex-direction: row;
+    flex-basis: 75px;
     width: 100%;
-    height: 10vh;
-    top: unset;
-    bottom: 0px;
     padding: 0px;
-    padding-right: 0.5%;
   }
-  #school-detail {
-    width: 99%;
-    height: 83vh;
+  #mainbar {
+    padding: 0 0 5px 0;
   }
 
   #contai-search {
-    width: 7vh;
-    height: 7vh;
-    margin: 1.5vh;
+    width: 50px;
+    height: 50px;
     padding: 0;
+    margin: 12.5px;
     border-radius: 50%;
   }
+
   #contai-search img {
     margin: auto;
     width: 50%;
     height: 50%;
   }
+
   #search-pre {
     display: none;
   }
+
   #contai-list-sch {
-    margin: auto 0;
-    height: 90%;
+    height: 75px;
     width: 1px;
     flex-grow: 5;
     padding: 0px;
   }
+
   #list-sch {
-    height: 100%;
+    height: 75px;
     width: unset;
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
     border-radius: 10px;
-    padding-left: 5px;
+    padding: 0 0 0 5px;
   }
+
   .sch {
-    height: 90%;
-    margin: 4px 15px 0 0px;
+    height: 65px;
+    margin: 5px 10px 0px 0px;
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 220px;
+    flex-basis: 270px;
   }
+
   .sch-contai-img {
     padding: 5px;
   }
+
   .sch img {
     width: 50px;
     height: 50px;
   }
+
   #main-pic {
     width: 200vw;
   }
@@ -487,9 +547,14 @@ select:focus {
     font-size: 12px;
   }
 
+  .info h4 {
+    font-size: 11px;
+  }
+
   .info-label label {
     font-size: 12px;
   }
+
   #pop-search {
     width: 525px;
     height: 350px;
