@@ -5,13 +5,14 @@ const loginController = require("../APP/CONTROLLERS/LoginController");
 const userController = require("../APP/CONTROLLERS/UserController");
 const registerController = require("../APP/CONTROLLERS/RegisterController");
 const account = require("../APP/MIDDLEWARE/Account");
+const avatar = require("../APP/MIDDLEWARE/Avatar");
 const passport = require("passport");
-
 function route(app) {
+  app.post("/uploadavatar", avatar.checkAvatar, userController.avatar);
   app.post("/feedback", loginController.postfeedback);
   app.get("/login/forgetpassword", loginController.forgotpassword);
   app.post("/login/forgetpassword", loginController.resetpassword);
-  app.get("/user/account", account.isLogin, userController.user);
+  // app.get("/user/account", account.isLogin, userController.user);
   app.post("/login", loginController.login);
   app.get("/logout", account.isLogOut, loginController.logout);
   app.get("/createaccount", account.isLogOut, registerController.registerForm);

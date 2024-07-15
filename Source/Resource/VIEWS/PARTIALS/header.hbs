@@ -247,7 +247,7 @@
       <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
       <button type="submit">Gửi</button>
     </form>
-    <form action="" class="page-expand" id="avatarpage">
+    <form class="page-expand" id="avatarpage" enctype="multipart/form-data">
       <div class="line2">
         <img
           src="/img/tool_imgs/back2.png"
@@ -259,11 +259,17 @@
       <div id="pic">
         <div id="drop-zone">
           <p id="avatarp">Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
-          <input type="file" id="file-input" accept="image/*" hidden />
+          <input
+            type="file"
+            id="file-input"
+            name="avatar"
+            accept="image/*"
+            hidden
+          />
         </div>
         <img id="preview" style="display: none;" />
       </div>
-      <button>Đổi ảnh</button>
+      <button id="upload">Đổi ảnh</button>
     </form>
   </div>
 </div>

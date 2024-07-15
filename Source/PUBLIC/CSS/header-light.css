@@ -2,6 +2,7 @@
   width: 100vw;
   height: auto;
   z-index: 10000;
+  position: fixed;
 }
 
 #navbar {
@@ -16,7 +17,7 @@
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
-#pic{
+#pic {
   border: 2px dashed black;
   width: 300px;
   height: 300px;
@@ -24,7 +25,7 @@
   border-radius: 50%;
   overflow: hidden;
 }
-#drop-zone{
+#drop-zone {
   text-align: center;
   width: 300px;
   height: 300px;
@@ -36,30 +37,30 @@
   align-items: center;
   cursor: pointer;
 }
-#drop-zone:hover{
+#drop-zone:hover {
   background-color: rgb(260, 260, 260);
 }
 
-#preview{
+#preview {
   width: 300px !important;
   height: 300px !important;
 }
 
-.page-expand{
- flex-basis: 100%;
- flex-grow: 0;
- flex-shrink:0 ;
- padding: 10px;
- overflow-y: auto;
- height: fit-content;
- max-height:90vh ;
+.page-expand {
+  flex-basis: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 10px;
+  overflow-y: auto;
+  height: fit-content;
+  max-height: 90vh;
 }
-.lauch{
+.lauch {
   margin: auto 0px auto auto;
   width: 20px !important;
   height: 20px !important;
 }
-#contai-page-expand{
+#contai-page-expand {
   height: 100%;
   left: 0px;
   display: flex;
@@ -68,10 +69,10 @@
   transition-duration: 0.5s;
 }
 
-#user-expand{
+#user-expand {
   position: fixed;
   right: -350px;
-  top:8vh;
+  top: 8vh;
   width: 350px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -82,7 +83,7 @@
   transition-duration: 0.5s;
   overflow: hidden;
 }
-#user-expand select{
+#user-expand select {
   border: 1px solid #bba58f;
   padding: 10px;
   width: 90%;
@@ -92,7 +93,7 @@
   font-size: 14px;
   font-family: hywen;
 }
-#user-expand textarea{
+#user-expand textarea {
   padding: 10px;
   border: 1px solid #bba58f;
   width: 90%;
@@ -103,7 +104,7 @@
   font-family: hywen;
   resize: none;
 }
-#user-expand button{
+#user-expand button {
   border: none;
   background-color: #bba58f;
   color: white;
@@ -116,11 +117,11 @@
   font-family: hywen;
   cursor: pointer;
 }
-.h-captcha{
+.h-captcha {
   width: fit-content;
   margin: 0 auto;
 }
-#user-expand input{
+#user-expand input {
   letter-spacing: 1px;
   padding: 10px;
   border: 1px solid #bba58f;
@@ -133,7 +134,7 @@
 }
 #user-expand.active {
   right: 0px;
-  top:8vh;
+  top: 8vh;
 }
 
 .setting {
@@ -144,10 +145,10 @@
   overflow: hidden;
   background-color: #e8d9cd;
 }
-#user-expand h4{
+#user-expand h4 {
   font-weight: 100;
   font-size: 15px;
-  padding: 10px 6%; 
+  padding: 10px 6%;
   line-height: 20px;
   letter-spacing: 0.3px;
   color: black;
@@ -160,18 +161,18 @@
   cursor: pointer;
 }
 
-#user-line{
+#user-line {
   border-radius: 20px;
   height: 70px;
-  background-color:#bba58f ;
+  background-color: #bba58f;
 }
-#user-line img{
+#user-line img {
   width: 45px;
   height: 45px;
   margin: auto 7.5px;
   border-radius: 7.5px;
 }
-#user-line span{
+#user-line span {
   text-transform: capitalize;
   font-family: hywen;
   font-size: 18px;
@@ -184,7 +185,7 @@
   height: fit-content;
   background-color: #e8d9cd;
 }
-.line2{
+.line2 {
   display: flex;
   padding: 0 10px 10px 10px;
   height: fit-content;
@@ -195,14 +196,14 @@
   margin: auto 0;
 }
 .line:hover {
-  background-color: rgb(260, 260, 260,0.3);
+  background-color: rgb(260, 260, 260, 0.3);
   cursor: pointer;
 }
 
 .line h3 {
   padding-left: 10px;
   margin: auto 0;
-  font-size:15px;
+  font-size: 15px;
   font-weight: 100;
 }
 
@@ -231,7 +232,7 @@
 #contai-intro:active {
   box-shadow: none;
 }
-#user-avar{
+#user-avar {
   height: 100%;
   width: fit-content;
   padding-left: 10px;
@@ -239,20 +240,20 @@
   appearance: none;
   border: none;
   cursor: pointer;
-  background:unset;
+  background: unset;
 }
 
-#user-avar h3{
+#user-avar h3 {
   margin: auto 0;
   font-size: 12px;
   color: white;
   font-weight: 200;
   letter-spacing: 1px;
 }
-#user-avar:hover{
-  background: rgb(260, 260, 260,0.4);
+#user-avar:hover {
+  background: rgb(260, 260, 260, 0.4);
 }
-#user-avar img{
+#user-avar img {
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -263,7 +264,7 @@ a img {
   height: 23px;
 }
 
-nav{
+nav {
   margin: auto 0px auto auto;
   padding: 0.5vh;
 }
@@ -303,7 +304,7 @@ nav h3 {
 }
 
 nav button:hover {
-  background: rgb(260, 260, 260,0.4);
+  background: rgb(260, 260, 260, 0.4);
 }
 
 #extend-navbar {
@@ -367,10 +368,10 @@ h2 {
   font-size: 40px;
   text-align: left;
   height: fit-content;
-  border-bottom: 1px solid rgb(260, 260, 260,0.2);
+  border-bottom: 1px solid rgb(260, 260, 260, 0.2);
 }
 #extend-navbar button:hover {
- background-color: rgb(260, 260, 260,0.2);
+  background-color: rgb(260, 260, 260, 0.2);
 }
 .hidden {
   display: none;
@@ -496,7 +497,6 @@ a {
   display: none;
   transition-duration: 0.5s;
 }
-
 
 /*Media CSS Style*/
 
@@ -951,28 +951,28 @@ a {
   .footer-col {
     width: 50%;
   }
-  #user-avar{
+  #user-avar {
     margin: auto 0 auto auto;
   }
 }
 @media only screen and (max-width: 550px) {
-  #user-expand{
+  #user-expand {
     width: 100vw;
     border-radius: 0px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    top:unset;
+    top: unset;
     right: unset;
     bottom: -100%;
     left: 0;
   }
-  #user-expand.active{
+  #user-expand.active {
     top: unset;
     right: 0px;
     bottom: 0vh;
     max-height: 70vh;
   }
-  .page-expand{
+  .page-expand {
     max-height: 70vh;
   }
   #footer {
@@ -1003,4 +1003,26 @@ a {
     width: 100vw;
     right: 0px;
   }
+}
+
+.cropper-view-box {
+  transform: none !important;
+  width: 300px !important;
+  height: 300px !important;
+  border-radius: 50%;
+  display: none !important;
+}
+
+.cropper-face,
+.cropper-move {
+  border-radius: 50%;
+}
+
+.cropper-dashed,
+.cropper-point.point-se,
+.cropper-point.point-sw,
+.cropper-point.point-nw,
+.cropper-point.point-ne,
+.cropper-line {
+  display: none !important;
 }

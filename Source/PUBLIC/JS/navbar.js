@@ -301,6 +301,8 @@ const avatarp = document.getElementById("avatarp");
 const dropZone = document.getElementById("drop-zone");
 const fileInput = document.getElementById("file-input");
 const preview = document.getElementById("preview");
+const uploadBtn = document.getElementById("upload");
+var cropper;
 
 dropZone.addEventListener("click", () => fileInput.click());
 
@@ -329,6 +331,29 @@ fileInput.addEventListener("change", () => {
   }
 });
 
+function getRoundedCanvas(sourceCanvas) {
+  var canvas = document.createElement("canvas");
+  var context = canvas.getContext("2d");
+  var width = sourceCanvas.width;
+  var height = sourceCanvas.height;
+  canvas.width = width;
+  canvas.height = height;
+  context.imageSmoothingEnabled = true;
+  context.drawImage(sourceCanvas, 0, 0, width, height);
+  context.globalCompositeOperation = "destination-in";
+  context.beginPath();
+  context.arc(
+    width / 2,
+    height / 2,
+    Math.min(width, height) / 2,
+    0,
+    2 * Math.PI,
+    true
+  );
+  context.fill();
+  return canvas;
+}
+
 function handleFiles(files) {
   const file = files[0];
   if (file.type.startsWith("image/")) {
@@ -337,11 +362,19 @@ function handleFiles(files) {
       preview.src = event.target.result;
       preview.style.display = "block";
       dropZone.style.display = "none";
-      const cropper = new Cropper(preview, {
-        aspectRatio: 16 / 9,
+      if (cropper) {
+        cropper.destroy();
+      }
+      cropper = new Cropper(preview, {
+        aspectRatio: 1,
         dragMode: "move",
-        autoCrop: false,
+        autoCrop: true,
+        center: true,
+        viewMode: 1,
+        autoCropArea: 0.9,
         toggleDragModeOnDblclick: false,
+        cropBoxResizable: false,
+        background: false,
       });
     };
     reader.readAsDataURL(file);
@@ -349,3 +382,28 @@ function handleFiles(files) {
     alert("Vui lòng chọn một tệp ảnh.");
   }
 }
+
+uploadBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (cropper) {
+    const croppedCanvas = cropper.getCroppedCanvas();
+    const roundedCanvas = getRoundedCanvas(croppedCanvas);
+
+    roundedCanvas.toBlob((blob) => {
+      const formData = new FormData();
+      formData.append("avatar", blob, "avatar.png");
+
+      fetch("/uploadavatar", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+  }
+});
