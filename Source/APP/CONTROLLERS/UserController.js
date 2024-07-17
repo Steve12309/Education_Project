@@ -2,10 +2,22 @@ const Account = require("../MODELS/Accountbs");
 
 class UserController {
   async avatar(req, res) {
-    const avatarUrl = req.session.avatarUrl;
-    const username = req.session.username;
-    await Account.findByIdAndUpdate(username, { img: avatarUrl });
-    res.redirect("/");
+    try {
+      const avatarUrl = req.session.avatarUrl;
+      const username = req.session.username;
+      var filter = { name: username };
+      var updateDoc = {
+        $set: {
+          img: avatarUrl,
+        },
+      };
+      await Account.updateOne(filter, updateDoc);
+      req.flash("successschangeavatar", "Successfully changed avatar");
+      res.redirect("/");
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).json({ message: "Failed to update avatar" });
+    }
   }
 }
 

@@ -1,3 +1,4 @@
+const Account = require("../MODELS/Accountbs");
 const isLogin = async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
@@ -5,9 +6,10 @@ const isLogin = async (req, res, next) => {
       }
     }
     if (req.session.username) {
+      var checkUser = await Account.findOne({ name: req.session.username });
       req.user = {
         name: req.session.username,
-        img: "",
+        img: checkUser.img,
       };
     }
     if (req.user === undefined) {

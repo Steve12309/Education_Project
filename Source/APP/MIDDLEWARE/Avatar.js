@@ -18,11 +18,11 @@ const checkAvatar = async (req, res, next) => {
       }
       const fileUrl = `/img/useravatar_imgs/${req.file.filename}`;
       req.session.avatarUrl = fileUrl;
-      res.json({ message: "Upload thành công!", file: req.file });
       next();
     });
   } catch (err) {
     console.log(err.message);
+    res.status(500).json({ message: err.message });
   }
 };
 

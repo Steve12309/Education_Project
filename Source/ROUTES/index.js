@@ -12,7 +12,6 @@ function route(app) {
   app.post("/feedback", loginController.postfeedback);
   app.get("/login/forgetpassword", loginController.forgotpassword);
   app.post("/login/forgetpassword", loginController.resetpassword);
-  // app.get("/user/account", account.isLogin, userController.user);
   app.post("/login", loginController.login);
   app.get("/logout", account.isLogOut, loginController.logout);
   app.get("/createaccount", account.isLogOut, registerController.registerForm);
