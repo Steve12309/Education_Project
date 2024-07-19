@@ -1,8 +1,6 @@
 .info-container {
   padding: 40px;
-  color: white;
 }
-
 
 body {
   overflow-x: hidden;
@@ -15,5 +13,4 @@ pre {
   font-size: 1.3rem;
   font-weight: 600;
   line-height: 25px;
-
 }
