@@ -137,9 +137,17 @@ function changeTheme() {
     modeValue = "light";
   }
   //detail uni page
-  iframe.onload = function () {
-    iframe.contentWindow.postMessage({ action: "toggleTheme" }, "*");
-  };
+  if (iframe === null) {
+  } else {
+    iframe.onload = function () {
+      var constmodeValue = localStorage.getItem("mode");
+      if (constmodeValue === "light") {
+        iframe.contentWindow.postMessage({ action: "light" }, "*");
+      } else if (constmodeValue === "dark") {
+        iframe.contentWindow.postMessage({ action: "dark" }, "*");
+      }
+    };
+  }
   localStorage.setItem("mode", modeValue);
   changeMode(modeValue);
 }
