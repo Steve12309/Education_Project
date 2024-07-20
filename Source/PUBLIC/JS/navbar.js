@@ -26,17 +26,7 @@ var firstNavbar = document.querySelector("nav");
 var secondNavbar = document.getElementById("extend-navbar");
 var titleElement = document.getElementById("name");
 var iframe = document.getElementById("iframedetail");
-var iframeHead;
 
-if (iframe === null) {
-  iframeHead = null;
-} else {
-  iframe.addEventListener("load", function () {
-    var iframeDocument =
-      iframe.contentDocument || iframe.contentWindow.document;
-    iframeHead = iframeDocument.getElementById("theme-link");
-  });
-}
 secondNavbar.classList.add("out");
 introBtn.addEventListener("click", function () {
   startIntro();
@@ -62,8 +52,9 @@ function resizeHandle() {
   }
 }
 
-window.addEventListener("resize", resizeHandle);
-resizeHandle();
+window.addEventListener("resize", function () {
+  resizeHandle();
+});
 
 function changeViewNavbar() {
   xElement.style.display = "block";
@@ -146,16 +137,9 @@ function changeTheme() {
     modeValue = "light";
   }
   //detail uni page
-  if (iframeHead === null) {
-  } else {
-    if (iframeHead.getAttribute("href") === "/universitydetail-light.css") {
-      iframeHead.href = "/universitydetail-dark.css";
-      modeValue = "dark";
-    } else {
-      iframeHead.href = "/universitydetail-light.css";
-      modeValue = "light";
-    }
-  }
+  iframe.onload = function () {
+    iframe.contentWindow.postMessage({ action: "toggleTheme" }, "*");
+  };
   localStorage.setItem("mode", modeValue);
   changeMode(modeValue);
 }

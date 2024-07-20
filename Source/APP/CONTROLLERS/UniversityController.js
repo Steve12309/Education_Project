@@ -25,7 +25,7 @@ class UniversityController {
         res.render("college", {
           layout: "extend",
           style: "universitydetail-light.css",
-          navbar: "navbar.js",
+          function1: "iframe.js",
           college: mongooseToObject(college),
         });
       })
