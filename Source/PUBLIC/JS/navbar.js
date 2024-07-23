@@ -338,29 +338,6 @@ fileInput.addEventListener("change", () => {
   }
 });
 
-function getRoundedCanvas(sourceCanvas) {
-  var canvas = document.createElement("canvas");
-  var context = canvas.getContext("2d");
-  var width = sourceCanvas.width;
-  var height = sourceCanvas.height;
-  canvas.width = width;
-  canvas.height = height;
-  context.imageSmoothingEnabled = true;
-  context.drawImage(sourceCanvas, 0, 0, width, height);
-  context.globalCompositeOperation = "destination-in";
-  context.beginPath();
-  context.arc(
-    width / 2,
-    height / 2,
-    Math.min(width, height) / 2 + 100,
-    0,
-    2 * Math.PI,
-    true
-  );
-  context.fill();
-  return canvas;
-}
-
 function handleFiles(files) {
   const file = files[0];
   if (file.type.startsWith("image/")) {
@@ -373,8 +350,11 @@ function handleFiles(files) {
         cropper.destroy();
       }
       cropper = new Cropper(preview, {
-        aspectRatio: 1 / 1,
+        aspectRatio: 1,
+        viewMode: 1,
         dragMode: "move",
+        autoCrop: true,
+        autoCropArea: 1,
         toggleDragModeOnDblclick: false,
         cropBoxMovable: false,
         cropBoxResizable: false,
@@ -388,25 +368,40 @@ function handleFiles(files) {
 }
 
 uploadBtn.addEventListener("click", (e) => {
-  if (cropper) {
-    const croppedCanvas = cropper.getCroppedCanvas();
-    const roundedCanvas = getRoundedCanvas(croppedCanvas);
+  var croppedCanvas = cropper.getCroppedCanvas();
 
-    roundedCanvas.toBlob((blob) => {
-      const formData = new FormData();
-      formData.append("avatar", blob, "avatar.png");
+  var dataURL = croppedCanvas.toDataURL("image/png");
+  var blob = dataURLToBlob(dataURL);
 
-      fetch("/uploadavatar", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }, "image/png");
-  }
+  const formData = new FormData();
+  formData.append("avatar", blob, "avatar.png");
+
+  fetch("/uploadavatar", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 });
+
+function dataURLToBlob(dataURL) {
+  const parts = dataURL.split(",");
+  const byteString = atob(parts[1]);
+  const mimeString = parts[0].split(":")[1].split(";")[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+}

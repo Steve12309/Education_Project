@@ -12,7 +12,11 @@ class UserController {
         },
       };
       await Account.updateOne(filter, updateDoc);
-      req.flash("successschangeavatar", "Successfully changed avatar");
+      try {
+        req.flash("successschangeavatar", "Successfully changed avatar");
+      } catch (err) {
+        console.log(err.message);
+      }
       res.redirect("/");
     } catch (err) {
       console.log(err.message);
