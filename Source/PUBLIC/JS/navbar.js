@@ -352,7 +352,7 @@ function getRoundedCanvas(sourceCanvas) {
   context.arc(
     width / 2,
     height / 2,
-    Math.min(width, height) / 2,
+    Math.min(width, height) / 2 + 100,
     0,
     2 * Math.PI,
     true
@@ -373,13 +373,10 @@ function handleFiles(files) {
         cropper.destroy();
       }
       cropper = new Cropper(preview, {
-        aspectRatio: 1,
+        aspectRatio: 1 / 1,
         dragMode: "move",
-        autoCrop: true,
-        center: true,
-        viewMode: 1,
-        autoCropArea: 0.9,
         toggleDragModeOnDblclick: false,
+        cropBoxMovable: false,
         cropBoxResizable: false,
         background: false,
       });
@@ -410,6 +407,6 @@ uploadBtn.addEventListener("click", (e) => {
         .catch((error) => {
           console.error("Error:", error);
         });
-    });
+    }, "image/png");
   }
 });

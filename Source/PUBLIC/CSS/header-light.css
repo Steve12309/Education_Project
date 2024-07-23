@@ -1005,7 +1005,9 @@ a {
   }
 }
 
+.cropper-crop-box,
 .cropper-view-box {
+  border-radius: 50%;
   transform: none !important;
   width: 300px !important;
   height: 300px !important;
@@ -1013,16 +1015,7 @@ a {
   display: none !important;
 }
 
-.cropper-face,
-.cropper-move {
-  border-radius: 50%;
-}
-
-.cropper-dashed,
-.cropper-point.point-se,
-.cropper-point.point-sw,
-.cropper-point.point-nw,
-.cropper-point.point-ne,
-.cropper-line {
-  display: none !important;
+.cropper-view-box {
+  box-shadow: 0 0 0 1px #39f;
+  outline: 0;
 }
