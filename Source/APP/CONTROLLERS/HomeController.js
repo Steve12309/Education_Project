@@ -92,7 +92,6 @@ class HomeController {
       });
     } catch (err) {
       console.log(err.message);
-      req.toastr.error("FAILED!!!");
       res.status(400).json({ error: "FAILED!!!" });
     }
   }
