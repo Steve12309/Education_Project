@@ -12,7 +12,7 @@ class HomeController {
       if (Object.keys(successAvatar).length === 0) {
       } else {
         req.toastr.success(
-          "Have a good day!",
+          "Chúc một ngày tốt lành!",
           Object.values(successAvatar)[0],
           {
             closeButton: true,
@@ -36,7 +36,7 @@ class HomeController {
       if (Object.keys(successFeedback).length === 0) {
       } else {
         req.toastr.success(
-          "Have a good day!",
+          "Chúc một ngày tốt lành!",
           Object.values(successFeedback)[0],
           {
             closeButton: true,
@@ -60,7 +60,7 @@ class HomeController {
       if (Object.keys(successPassword).length === 0) {
       } else {
         req.toastr.success(
-          "Have a good day!",
+          "Chúc một ngày tốt lành!",
           Object.values(successPassword)[0],
           {
             closeButton: true,

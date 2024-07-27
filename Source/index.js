@@ -35,14 +35,10 @@ app.use(
     secret: "accountsessionsecret",
     saveUninitialized: false,
     resave: false,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 10,
-    },
   })
 );
 app.use(flash());
 app.use(toastr());
-
 app.use(function (req, res, next) {
   req.toastr.render();
   next();

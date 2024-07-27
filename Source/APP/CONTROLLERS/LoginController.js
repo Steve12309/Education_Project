@@ -35,7 +35,7 @@ class LoginController {
 
       const check = await Account.findOne({ name: username });
       if (!check) {
-        req.flash("wrongname", "Please check your username again");
+        req.flash("wrongname", "Hãy kiểm tra lại tên đăng nhập của bạn");
         res.redirect("/createaccount");
       } else {
         const isPasswordMatch = await bcrypt.compare(password, check.password);
@@ -45,7 +45,7 @@ class LoginController {
           const redirectUrl = req.session.currentPath || "/";
           res.redirect(redirectUrl);
         } else {
-          req.flash("wrongpass", "Please check your password again");
+          req.flash("wrongpass", "Hãy kiểm tra lại mật khẩu của bạn");
           res.redirect("/createaccount");
         }
       }
@@ -90,10 +90,10 @@ class LoginController {
           console.log("Message sent: %s", info.messageId);
         }
         main().catch(console.error);
-        req.flash("sendmail", "Successfully sent mail");
+        req.flash("sendmail", "Email đã được gửi thành công");
         res.redirect("/createaccount");
       } else {
-        req.flash("wrongmail", "Please check your mail again");
+        req.flash("wrongmail", "Hãy xem lại tài khoản email của bạn");
         res.redirect("/createaccount");
       }
     } catch (error) {
