@@ -45,6 +45,9 @@
   </head>
   <body>
     {{{toastr_render}}}
+    {{#each register_msg}}
+      <p>{{this}}</p>
+    {{/each}}
     {{{body}}}
     <script src="https://app.tudongchat.com/js/chatbox.js"></script>
     <script>

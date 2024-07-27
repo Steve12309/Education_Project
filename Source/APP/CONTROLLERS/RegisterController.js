@@ -9,25 +9,13 @@ class RegisterController {
       email: req.body.email,
     };
 
-    const existingUser = await Account.findOne({ name: data.name });
-    if (existingUser) {
-      req.flash(
-        "errorusername",
-        "Tên tài khoản đã được sử dụng. Vui lòng chọn tên khác"
-      );
+    const User = await Account.findOne({ name: data.name });
+    if (User) {
     } else {
-      const existingPass = await Account.findOne({ password: data.password });
-      if (existingPass) {
-        req.flash(
-          "errorpassword",
-          "Mật khẩu đã được sử dụng. Vui lòng chọn mật khẩu khác"
-        );
-      } else {
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
-        data.password = hashedPassword;
-        const userdata = await Account.insertMany(data);
-      }
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+      data.password = hashedPassword;
+      const userdata = await Account.insertMany(data);
     }
 
     res.redirect("/createaccount");
@@ -36,58 +24,30 @@ class RegisterController {
   async registerForm(req, res) {
     try {
       const errorPassword = req.flash("wrongpass");
+      const errorRegistermsg = req.flash("errorMessages");
       const errorUsername = req.flash("wrongname");
-      const errorCreatename = req.flash("errorusername");
       const errorEmail = req.flash("wrongmail");
       const successSendemail = req.flash("sendmail");
-      const errorCreatepass = req.flash("errorpassword");
-      if (Object.keys(errorCreatepass).length === 0) {
+      const errorRegister = req.flash("errorregister");
+      if (Object.keys(errorRegister).length === 0) {
       } else {
-        req.toastr.error(
-          "Chúc một ngày tốt lành!",
-          Object.values(errorCreatepass)[0],
-          {
-            closeButton: true,
-            debug: true,
-            newestOnTop: false,
-            progressBar: true,
-            positionClass: "toast-top-right",
-            preventDuplicates: true,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            timeOut: "5000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-          }
-        );
-      }
-      if (Object.keys(errorCreatename).length === 0) {
-      } else {
-        req.toastr.error(
-          "Chúc một ngày tốt lành!",
-          Object.values(errorCreatename)[0],
-          {
-            closeButton: true,
-            debug: true,
-            newestOnTop: false,
-            progressBar: true,
-            positionClass: "toast-top-right",
-            preventDuplicates: true,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            timeOut: "5000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-          }
-        );
+        req.toastr.error("Xem kỹ lại nhé!", Object.values(errorRegister)[0], {
+          closeButton: true,
+          debug: true,
+          newestOnTop: false,
+          progressBar: true,
+          positionClass: "toast-top-right",
+          preventDuplicates: true,
+          onclick: null,
+          showDuration: "300",
+          hideDuration: "1000",
+          timeOut: "5000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
+        });
       }
       if (Object.keys(successSendemail).length === 0) {
       } else {
@@ -178,6 +138,7 @@ class RegisterController {
         function1: "login-register.js",
         layout: "extend",
         toastr_render: req.toastr.render(),
+        register_msg: errorRegistermsg,
       });
     } catch (err) {
       console.log(err.message);
