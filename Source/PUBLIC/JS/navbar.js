@@ -236,13 +236,19 @@ pageexpand.forEach((e) => {
   e.style.display = "none";
 });
 
-feedpage.addEventListener("submit", function () {
+function handleSubmit() {
+  feedpage.removeEventListener("submit", handleSubmit);
   setTimeout(function () {
     console.log(feedpage.getAttribute("action"));
     feedpage.action = "/feedback";
     feedpage.submit();
-  }, 1000);
-});
+  }, 500);
+  setTimeout(function () {
+    feedpage.addEventListener("submit", handleSubmit);
+  }, 1500);
+}
+
+feedpage.addEventListener("submit", handleSubmit);
 
 //open setting
 function openset() {

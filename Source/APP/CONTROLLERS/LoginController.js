@@ -130,13 +130,13 @@ class LoginController {
 
   async postfeedback(req, res, next) {
     try {
-      const email = req.body.email;
-      const checkemail = await Account.findOne({ email });
+      const emailUser = req.body.email;
+      const checkemail = await Account.findOne({ email: emailUser });
       if (checkemail) {
         async function main() {
           const info = await transporter.sendMail({
             from: '"BeYourself Education Platform"',
-            to: email,
+            to: emailUser,
             subject: "Send Feedback",
             template: "sendfeedback",
           });
