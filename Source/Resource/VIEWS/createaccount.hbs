@@ -4,7 +4,11 @@
 </head>
 
 <body>
-
+    {{#each register_msg}}
+        <div class="alert show showAlert">
+        <span class="msg">{{this}}</span>
+        </div>
+    {{/each}}
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form action="/register" method="POST">
