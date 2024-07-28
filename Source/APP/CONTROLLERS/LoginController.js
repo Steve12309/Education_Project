@@ -78,6 +78,7 @@ class LoginController {
   async resetpassword(req, res, next) {
     try {
       const email = req.body.email;
+      req.session.email = email;
       const checkemail = await Account.findOne({ email });
       if (checkemail) {
         async function main() {
@@ -146,6 +147,38 @@ class LoginController {
       }
       req.flash("successsendfeed", "Successfully sent feedback");
       res.redirect("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async createnewpassword(req, res, next) {
+    try {
+      res.render("createnewpassword", {
+        layout: "extend",
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async savenewpassword(req, res, next) {
+    try {
+      var newpass = req.body.newpass;
+      const checkuser = await Account.findOne({ email: req.session.email });
+      if (checkuser) {
+        var filter = { email: req.session.email };
+        var saltRounds = 10;
+        var hashedPassword = await bcrypt.hash(newpass, saltRounds);
+        newpass = hashedPassword;
+        var updateDoc = {
+          $set: {
+            password: newpass,
+          },
+        };
+        await Account.updateOne(filter, updateDoc);
+        res.redirect("/createaccount");
+      }
     } catch (error) {
       console.log(error.message);
     }

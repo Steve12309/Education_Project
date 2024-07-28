@@ -9,6 +9,8 @@ const avatar = require("../APP/MIDDLEWARE/Avatar");
 const validation = require("../APP/MIDDLEWARE/Validation");
 const passport = require("passport");
 function route(app) {
+  app.get("/createnewpass", loginController.createnewpassword);
+  app.post("/createnewpass", loginController.savenewpassword);
   app.post("/uploadavatar", avatar.checkAvatar, userController.avatar);
   app.post("/feedback", loginController.postfeedback);
   app.get("/login/forgetpassword", loginController.forgotpassword);
