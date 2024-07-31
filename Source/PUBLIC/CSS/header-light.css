@@ -1,12 +1,9 @@
 .full-navbar {
   width: 100vw;
   height: auto;
-  z-index: 10000;
-  position: fixed;
 }
 
 #navbar {
-  position: fixed;
   user-select: none;
   width: 100vw;
   height: 6vh;
@@ -16,6 +13,68 @@
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  position: fixed;
+}
+
+#drop-zone2 {
+  border: 2px dashed #cccccc;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 90%;
+  cursor: pointer;
+  margin: 7.5px auto;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+p {
+  margin: revert;
+}
+#drop-zone2:hover {
+  background-color: #f0f0f0;
+}
+
+#preview-container {
+  width: 90%;
+  margin: 7.5px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preview {
+  position: relative;
+  display: inline-block;
+}
+
+.preview-image {
+  width: 65px !important;
+  height: 65px !important;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+}
+
+.remove-button {
+  position: absolute !important;
+  top: 5px !important;
+  right: 5px !important;
+  background-color: black !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 20px !important;
+  height: 20px !important;
+  text-align: center !important;
+  display: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 18px !important ;
+}
+
+.preview:hover .remove-button {
+  display: block;
 }
 #pic {
   border: 2px dashed black;
@@ -313,7 +372,7 @@ nav button:hover {
   padding-top: 6vh;
   background-color: transparent;
   backdrop-filter: blur(20px);
-  z-index: 1;
+  z-index: 9999;
 }
 #name {
   font-size: 1.1rem;
@@ -328,6 +387,7 @@ nav button:hover {
 .name-container {
   display: flex;
   flex-direction: row;
+  height: 6vh;
 }
 .name-container img {
   width: 45px;
@@ -383,7 +443,6 @@ h2 {
   cursor: pointer;
   font-size: 2.5rem;
   text-align: center;
-  z-index: 10001;
 }
 
 .fa-x {
@@ -394,7 +453,6 @@ h2 {
   cursor: pointer;
   font-size: 2.5rem;
   text-align: center;
-  z-index: 10001;
 }
 
 a {
@@ -546,6 +604,7 @@ a {
   color: rgb(2, 48, 33);
   background-color: unset;
   font-size: 25px;
+  overflow: hidden;
 }
 /*Theme Mode CSS Style*/
 .theme-switch {
@@ -925,7 +984,7 @@ a {
   height: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(50, 50, 50);
+  background-color: rgb(130, 130, 130);
   border-radius: 15px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -935,9 +994,10 @@ a {
   border-radius: 15px;
 }
 ::-webkit-scrollbar-track-piece {
-  background-color: rgba(150, 150, 150);
+  background-color: transparent;
   border-radius: 15px;
 }
+
 @media only screen and (max-width: 850px) {
   #footer h4 {
     font-size: 22px;

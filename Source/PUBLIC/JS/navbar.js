@@ -25,6 +25,7 @@ var xElement = document.querySelector(".fa-x");
 var firstNavbar = document.querySelector("nav");
 var secondNavbar = document.getElementById("extend-navbar");
 var titleElement = document.getElementById("name");
+var searchimgs = document.querySelectorAll(".searchimg");
 var iframe = document.getElementById("iframedetail");
 
 secondNavbar.classList.add("out");
@@ -52,9 +53,8 @@ function resizeHandle() {
   }
 }
 
-window.addEventListener("resize", function () {
-  resizeHandle();
-});
+window.addEventListener("resize", resizeHandle);
+resizeHandle();
 
 function changeViewNavbar() {
   xElement.style.display = "block";
@@ -179,6 +179,11 @@ function changeMode(modeValue) {
     backimg.forEach((e) => {
       e.src = "/img/tool_imgs/back2.png";
     });
+    rightimg = "/img/arrow_imgs/right.png";
+    leftimg = "/img/arrow_imgs/left.png";
+    searchimgs.forEach((e) => {
+      e.src = "/img/tool_imgs/search2.png";
+    });
   } else if (modeValue === "dark") {
     home.forEach((e) => {
       e.src = "/img/navbar_imgs/white_imgs/home_white.png";
@@ -204,6 +209,11 @@ function changeMode(modeValue) {
     });
     backimg.forEach((e) => {
       e.src = "/img/tool_imgs/back1.png";
+    });
+    rightimg = "/img/arrow_imgs/right2.png";
+    leftimg = "/img/arrow_imgs/left2.png";
+    searchimgs.forEach((e) => {
+      e.src = "/img/tool_imgs/search1.png";
     });
   }
 }
@@ -242,7 +252,7 @@ function handleSubmit() {
     console.log(feedpage.getAttribute("action"));
     feedpage.action = "/feedback";
     feedpage.submit();
-  }, 500);
+  }, 1000);
   setTimeout(function () {
     feedpage.addEventListener("submit", handleSubmit);
   }, 1500);
@@ -410,4 +420,65 @@ function dataURLToBlob(dataURL) {
     ia[i] = byteString.charCodeAt(i);
   }
   return new Blob([ab], { type: mimeString });
+}
+///drop-zone2
+const dropZone2 = document.getElementById("drop-zone2");
+const fileInput2 = document.getElementById("file-input2");
+const previewContainer = document.getElementById("preview-container");
+
+dropZone2.addEventListener("click", () => fileInput2.click());
+
+dropZone2.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  dropZone2.classList.add("dragover");
+});
+
+dropZone2.addEventListener("dragleave", () => {
+  dropZone2.classList.remove("dragover");
+});
+
+dropZone2.addEventListener("drop", (event) => {
+  event.preventDefault();
+  dropZone.classList.remove("dragover");
+  const files = event.dataTransfer.files;
+  if (files.length) {
+    handleFiles2(files);
+  }
+});
+
+fileInput2.addEventListener("change", () => {
+  const files = fileInput2.files;
+  if (files.length) {
+    handleFiles2(files);
+  }
+});
+
+function handleFiles2(files) {
+  Array.from(files).forEach((file) => {
+    if (file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const previewDiv = document.createElement("div");
+        previewDiv.classList.add("preview");
+
+        const img = document.createElement("img");
+        img.src = event.target.result;
+        img.classList.add("preview-image");
+        previewDiv.appendChild(img);
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "×";
+        removeButton.classList.add("remove-button");
+        removeButton.addEventListener("click", () => {
+          previewDiv.remove();
+        });
+        previewDiv.appendChild(removeButton);
+
+        previewContainer.appendChild(previewDiv);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Vui lòng chọn một tệp ảnh.");
+    }
+  });
 }

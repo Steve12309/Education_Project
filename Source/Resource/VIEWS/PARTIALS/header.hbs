@@ -51,7 +51,7 @@
     {{/if}}
   </button>
   <i class="fa-solid fa-equals"></i>
-  <i class="fa-solid fa-x"></i>
+<i class="fa-solid fa-x"></i>
 </div>
 <div id="extend-navbar">
   <button id="step-three">
@@ -182,6 +182,7 @@
       </div>
     </div>
 
+
     <form action="/changepass" class="page-expand" id="passpage" method="POST">
       <div class="line2">
         <img
@@ -243,10 +244,15 @@
         name="detailtext"
         id="opinion"
       ></textarea>
-      <input type="file" />
+       <div id="drop-zone2">
+        <p>Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
+        <input type="file" id="file-input2" accept="image/*" multiple hidden>
+      </div>
+      <div id="preview-container"></div>
       <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
       <button type="submit">Gửi</button>
     </form>
+
     <form class="page-expand" id="avatarpage" enctype="multipart/form-data">
       <div class="line2">
         <img
@@ -254,20 +260,18 @@
           class="backimg"
           onclick="back(avatarpage)"
         />
-        <h3>Đổi ảnh đại diện</h3>
+        <h3>Đổi ảnh đai diện</h3>
       </div>
       <div id="pic">
-        <div id="drop-zone">
-          <p id="avatarp">Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
-          <input
-            type="file"
+      <div id="drop-zone">
+        <p id="avatarp" >Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
+        <input type="file"
             id="file-input"
             name="avatar"
             accept="image/*"
-            hidden
-          />
-        </div>
-        <img id="preview" style="display: none;" />
+            hidden>
+      </div>
+        <img id="preview" style="display: none;"/>
       </div>
       <button id="upload">Đổi ảnh</button>
     </form>

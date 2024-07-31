@@ -2,8 +2,8 @@
   <div id="main-contai">
     <div id="sidebar">
       <div id="contai-search">
-        <img src="/img/tool_imgs/search2.png" class="searchimg" />
-        <input type="text" placeholder="Tìm kiếm..." id="search-pre" />
+        <img src="/img/tool_imgs/search2.png" class="searchimg" onclick="openpop()" />
+        <input type="text" placeholder="Tìm kiếm..." id="search-in" />
       </div>
       <div id="contai-list-sch">
         <div id="list-sch">
@@ -12,35 +12,35 @@
     </div>
     <div id="mainbar">
       <div id="school-detail">
+        <div id="error-page" class="hide">
+          <div class="content">
+            <h2 class="header" data-text="404">
+              404
+            </h2>
+            <h4>
+              Opps! College not found
+            </h4>
+            <p>
+              Sorry, the college you're looking for doesn't exist. If you think
+              something is broken, report a problem.
+            </p>
+            <div class="btns">
+              <a href="/university" id="restart-search">Restart Search</a>
+            </div>
+          </div>
+        </div>
         <iframe id="iframedetail" src="" frameborder="0"></iframe>
       </div>
     </div>
   </div>
 </div>
-<div id="pop-search">
+
+<div id="pop-search" class="hide">
   <div id="pop-contai-search">
     <img src="/img/tool_imgs/search2.png" class="searchimg" />
-    <input type="text" placeholder="Search" id="search-in" />
   </div>
 </div>
 
-<div id="error-page" class="hide">
-  <div class="content">
-    <h2 class="header" data-text="404">
-      404
-    </h2>
-    <h4>
-      Opps! College not found
-    </h4>
-    <p>
-      Sorry, the college you're looking for doesn't exist. If you think
-      something is broken, report a problem.
-    </p>
-    <div class="btns">
-      <a href="/university" id="restart-search">Restart Search</a>
-    </div>
-  </div>
-</div>
 
 <template id="data-container" data-university="{{universities}}"></template>
 <script src="https://cdn.jsdelivr.net/npm/intro.js@7.2.0/intro.min.js"></script>

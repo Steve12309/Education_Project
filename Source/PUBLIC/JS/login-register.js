@@ -9,7 +9,7 @@ window.addEventListener("load", function () {
         alertMsg.classList.remove("show");
         alertMsg.classList.add("hide");
       });
-    }, 5000);
+    }, 60000);
   }
 });
 

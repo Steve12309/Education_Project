@@ -43,6 +43,7 @@ class LoginController {
           req.session.username = check.name;
           res.locals.username = req.session.username;
           const redirectUrl = req.session.currentPath || "/";
+          req.flash("successlogin", "Đã đăng nhập thành công!");
           res.redirect(redirectUrl);
         } else {
           req.flash("wrongpass", "Hãy kiểm tra lại mật khẩu của bạn");
@@ -109,21 +110,39 @@ class LoginController {
       var username = req.session.username;
 
       var checkpass = await Account.findOne({ name: username });
-      var isPasswordMatch = await bcrypt.compare(oldpass, checkpass.password);
-      if (isPasswordMatch) {
-        var saltRounds = 10;
-        var hashedPassword = await bcrypt.hash(newpass, saltRounds);
-        newpass = hashedPassword;
-        var filter = { name: username };
-        var updateDoc = {
-          $set: {
-            password: newpass,
-          },
-        };
-        await Account.updateOne(filter, updateDoc);
+      var isPasswordMatchOld = await bcrypt.compare(
+        oldpass,
+        checkpass.password
+      );
+      if (isPasswordMatchOld) {
+        var isPasswordMatchNew = await bcrypt.compare(
+          newpass,
+          checkpass.password
+        );
+        if (isPasswordMatchNew) {
+          req.flash(
+            "errorchangepass",
+            "Hãy đổi mật khẩu mới không trùng mật khẩu cũ"
+          );
+          res.redirect("/");
+        } else {
+          var saltRounds = 10;
+          var hashedPassword = await bcrypt.hash(newpass, saltRounds);
+          newpass = hashedPassword;
+          var filter = { name: username };
+          var updateDoc = {
+            $set: {
+              password: newpass,
+            },
+          };
+          await Account.updateOne(filter, updateDoc);
+          req.flash("successchangepass", "Đã đổi mật khẩu thành công!");
+          res.redirect("/");
+        }
+      } else {
+        req.flash("errorsameoldpass", "Hãy nhập đúng mật khẩu cũ");
+        res.redirect("/");
       }
-      req.flash("successchangepass", "Successfully changed password");
-      res.redirect("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -154,8 +173,55 @@ class LoginController {
 
   async createnewpassword(req, res, next) {
     try {
+      const errornewpass = req.flash("errorsamenewpass");
+      const successnewpass = req.flash("successnewpass");
+      if (Object.keys(successnewpass).length === 0) {
+      } else {
+        req.toastr.success(
+          "Chúc một ngày tốt lành!",
+          Object.values(successnewpass)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
+      }
+      if (Object.keys(errornewpass).length === 0) {
+      } else {
+        req.toastr.error("Hãy thử lại nhé!", Object.values(errornewpass)[0], {
+          closeButton: true,
+          debug: true,
+          newestOnTop: false,
+          progressBar: true,
+          positionClass: "toast-top-right",
+          preventDuplicates: true,
+          onclick: null,
+          showDuration: "300",
+          hideDuration: "1000",
+          timeOut: "5000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
+        });
+      }
       res.render("createnewpassword", {
         layout: "extend",
+        toastr_render: req.toastr.render(),
       });
     } catch (error) {
       console.log(error.message);
@@ -166,18 +232,28 @@ class LoginController {
     try {
       var newpass = req.body.newpass;
       const checkuser = await Account.findOne({ email: req.session.email });
-      if (checkuser) {
-        var filter = { email: req.session.email };
-        var saltRounds = 10;
-        var hashedPassword = await bcrypt.hash(newpass, saltRounds);
-        newpass = hashedPassword;
-        var updateDoc = {
-          $set: {
-            password: newpass,
-          },
-        };
-        await Account.updateOne(filter, updateDoc);
-        res.redirect("/createaccount");
+      var isPasswordMatch = await bcrypt.compare(newpass, checkuser.password);
+      if (isPasswordMatch) {
+        req.flash(
+          "errorsamenewpass",
+          "Hãy chọn mật khẩu mới không trùng với mật khẩu cũ"
+        );
+        res.redirect("/createnewpass");
+      } else {
+        if (checkuser) {
+          var filter = { email: req.session.email };
+          var saltRounds = 10;
+          var hashedPassword = await bcrypt.hash(newpass, saltRounds);
+          newpass = hashedPassword;
+          var updateDoc = {
+            $set: {
+              password: newpass,
+            },
+          };
+          await Account.updateOne(filter, updateDoc);
+          req.flash("successnewpass", "Đổi mật khẩu thành công");
+          res.redirect("/createaccount");
+        }
       }
     } catch (error) {
       console.log(error.message);

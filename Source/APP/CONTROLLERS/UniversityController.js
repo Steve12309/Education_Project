@@ -5,6 +5,31 @@ const { mutipleMongooseToObject } = require("../../UTIL/mongoose");
 class UniversityController {
   async university(req, res) {
     try {
+      const successLogin = req.flash("successlogin");
+      if (Object.keys(successLogin).length === 0) {
+      } else {
+        req.toastr.success(
+          "Chúc một ngày tốt lành!",
+          Object.values(successLogin)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
+      }
       const data = await University.find({});
       res.render("university", {
         style: "university-light.css",
@@ -13,6 +38,7 @@ class UniversityController {
         userimg: req.user.img,
         navbar: "navbar.js",
         universities: JSON.stringify(mutipleMongooseToObject(data)),
+        toastr_render: req.toastr.render(),
       });
     } catch (err) {
       res.status(400).json({ error: "FAILED!!!" });

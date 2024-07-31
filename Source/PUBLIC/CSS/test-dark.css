@@ -3,7 +3,6 @@
 body {
   background-color: rgb(260, 260, 260);
   width: 100%;
-  height: 100vh;
   overflow-x: hidden;
   background-color: black;
 }
@@ -28,10 +27,14 @@ h2 {
 }
 
 h4 {
+  line-height: 25px;
   font-size: 20px;
   font-family: hywen;
   font-weight: 100;
   color: white;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 
 #choose h2 {
@@ -224,7 +227,7 @@ h4 {
   font-size: 18px;
   font-weight: 400;
   color: white;
-  padding: 20px;
+  padding: 0 20px;
   border: 3px solid rgb(0, 0, 0);
   background: rgb(50, 50, 50);
   border-radius: 20px;
@@ -318,27 +321,59 @@ h4 {
 /*------------------------------------------------------------------------------hover&focus---------------------------------------------------------------------------*/
 
 .arrowleft img:hover {
-  background-color: rgba(250, 250, 250);
+  background-color: rgba(50, 50, 50);
 }
 
 .arrowright img:hover {
-  background-color: rgba(250, 250, 250);
+  background-color: rgba(50, 50, 50);
 }
 
 /*-----------------------------------------------------------------------------------container-----------------------------------------------------------------------*/
+.processallcontai{
+  width: 100%;
+    display: flex;
+    height: 50px;
+  position: relative;
+  padding: 10px 0 0 0;
+  background-color: rgb(50, 50, 50);
+  bottom: 0px;
+  left: 0px;
+}
+.progress-container {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+.progress-container.change {
+  flex-direction: row-reverse;
+}
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #76c7c0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  border-radius:25px;
+  transition: width 0.5s ease-in-out;
+}
 #choose {
   position: absolute;
   display: block;
   border-radius: 20px;
   text-align: center;
-  transition: 1s ease-out;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 650px;
   height: 350px;
   background: rgba(50, 50, 50, 0.2);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(40px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
@@ -348,7 +383,26 @@ h4 {
   justify-content: space-around;
   padding: 40px;
 }
-
+#slidembti{
+  width: 48%;
+  height: 100%;
+  padding: 10px 10px 30px 10px;
+  margin: 0px auto;
+  border-radius: 20px;
+  background-color: rgba(50, 50, 50);
+  overflow: hidden;
+  position: relative;
+}
+#slidembti p{
+  font-family: 'hywen';
+    font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    white-space: pre-line;
+    text-align: left;
+    margin: 0;
+    color: white;
+}
 .instruction {
   width: 100%;
   height: 85%;
@@ -357,19 +411,117 @@ h4 {
   justify-content: center;
   padding: 10px;
   margin: 0px auto;
-  color: black;
   border-radius: 20px;
   background-color: rgba(50, 50, 50);
+  text-align: left;
+}
+#contaidiagram{
+  width: 48%;
+  height: 100%;
+  padding: 10px;
+  margin: 0px auto;
+  border-radius: 20px;
+  background-color: rgba(250, 250, 250);
+overflow: hidden;
+  position: relative;
+}
+.btnpr{
+  position: absolute;
+  background-color: rgba(130, 130, 130, 0.5);
+  border: none;
+  padding: 2.5px;
+  cursor: pointer;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+  z-index: 10000;
+}
+#btnlt{
+  right: 50px;
+}
+#contaiprocess{
+  display: flex;
+  flex-direction: row;
+  transition: 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  position: relative;
+}
+.process{
+  height: 100%;
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  padding: 10px;
+  flex-direction: column;
+}
+.process img{
+  width: 300px;
+    margin: 20 auto;
+}
+.process label{
+  flex-basis: 60px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: 14px;
+    color: white;
+}
+.contenimgprocess{
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+.comment{
+  width: 48%;
+  height: 100%;
+  padding: 10px;
+  margin: 0px auto;
+  border-radius: 20px;
+  background-color: transparent;
+  text-align: left;
+}
+.comment h3{
+  font-size: 20px;
+  font-family: system-ui;
+  overflow: auto;
+  height: 100%;
+  white-space: pre-line;
+  font-weight: 400;
+}
+.indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
 }
 
+.indicator {
+  width: 5px;
+  height: 5px;
+  background-color: rgba(130, 130, 130, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.indicator.active {
+  background-color: rgba(250, 250, 250);
+}
 #test-container {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
   width: 100000vw;
-  top: 50%;
+  top: 53vh;
   transform: translateY(-50%);
-  transition: ease-in-out 1s;
 }
 
 .sceentest {
@@ -385,8 +537,8 @@ h4 {
   border-radius: 30px;
   text-align: center;
   padding: 8vh;
-  background: rgba(50, 50, 50, 0.2);
-  backdrop-filter: blur(20px);
+  background: rgba(50, 50, 50, 0.3);
+  backdrop-filter: blur(40px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -445,7 +597,6 @@ h4 {
   width: 150px;
   height: 50px;
   display: flex;
-  margin-top: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -468,6 +619,7 @@ h4 {
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
+  opacity: 0.7;
 }
 
 /*---------------------------------------------------------------------------Alert Toast Message CSS Style-------------------------------------------------------------*/
@@ -590,9 +742,6 @@ h4 {
 }
 
 @media only screen and (max-width: 850px) {
-  h4 {
-    font-size: 16px;
-  }
 
   #choose {
     width: 500px;
@@ -607,7 +756,6 @@ h4 {
     display: flex;
     flex-wrap: wrap;
     padding: 5%;
-    height: 600px;
   }
   .quesans2 {
     margin-top: 0px;
@@ -656,15 +804,35 @@ h4 {
     width: 100%;
     height: 46%;
   }
+  .comment{
+    width: 100%;
+    height: 48%;
+  }
+  #contaidiagram{
+    width: 100%;
+    height: 48%;
+  }
+  #slidembti{
+    width: 100%;
+    height: 48%;
+    padding: 10px 10px 20px 10px;;
+  }
+  .process img {
+    padding: 20px;
+    margin: 0;
+  }
+  .contenimgprocess {
+    flex-direction: row;
+    overflow: hidden;
+  }
+  #slidembti p{
+    overflow: auto;
+  }
 }
 
 @media only screen and (max-width: 550px) {
   h2 {
     font-size: 22px;
-  }
-
-  h4 {
-    font-size: 14px;
   }
 
   #choose {
@@ -741,5 +909,8 @@ h4 {
     height: 50%;
     padding: 20px;
   }
-
+  .process img {
+    padding: 10px;
+    width: 120px;
+  }
 }

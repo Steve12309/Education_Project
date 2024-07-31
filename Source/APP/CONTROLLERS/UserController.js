@@ -18,7 +18,9 @@ class UserController {
           "Successfully changed avatar"
         );
         if (message) {
+          req.flash("successschangeavatar", "Successfully changed avatar");
           res.redirect("/");
+          req.flash("successschangeavatar", "Successfully changed avatar");
         }
       } catch (err) {
         console.log(err.message);

@@ -6,9 +6,84 @@ class HomeController {
   async home(req, res) {
     try {
       const data = await Quote.find({});
+      const successLogin = req.flash("successlogin");
       const successFeedback = req.flash("successsendfeed");
+      const errorChangepass = req.flash("errorchangepass");
       const successAvatar = req.flash("successschangeavatar");
+      const errorSameoldpass = req.flash("errorsameoldpass");
       const successPassword = req.flash("successchangepass");
+      if (Object.keys(successLogin).length === 0) {
+      } else {
+        req.toastr.success(
+          "Chúc một ngày tốt lành!",
+          Object.values(successLogin)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
+      }
+      if (Object.keys(errorSameoldpass).length === 0) {
+      } else {
+        req.toastr.error(
+          "Hãy xem kỹ lại nhé!",
+          Object.values(errorSameoldpass)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
+      }
+      if (Object.keys(errorChangepass).length === 0) {
+      } else {
+        req.toastr.error(
+          "Hãy xem kỹ lại nhé!",
+          Object.values(errorChangepass)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
+      }
       if (Object.keys(successAvatar).length === 0) {
       } else {
         req.toastr.success(

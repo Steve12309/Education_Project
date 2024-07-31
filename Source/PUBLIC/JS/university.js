@@ -9,6 +9,9 @@ var errorPage = document.getElementById("error-page");
 var schooldetail = document.getElementById("school-detail");
 var slug = "";
 var iframe = document.getElementById("iframedetail");
+var popsearch = document.getElementById("pop-search");
+var popcontaisearch = document.getElementById("pop-contai-search");
+var contaisearch = document.getElementById("contai-search");
 
 window.addEventListener("load", function () {
   renderCollege(universityData);
@@ -64,24 +67,47 @@ function startIntro() {
 var inputValue = "";
 searchInput.addEventListener("keyup", function (e) {
   inputValue = e.target.value.toLowerCase();
-});
-
-document.body.addEventListener("keyup", function (e) {
-  if (e.keyCode === 13) {
+  setTimeout(function () {
     var filterCollege = universityData.filter((university) => {
       return university.name.toLowerCase().includes(inputValue);
     });
     if (Object.keys(filterCollege).length === 0) {
       renderCollege(filterCollege);
-      collegeContainer.style.height = "500px";
       errorPage.classList.remove("hide");
       iframe.classList.add("hide");
-      schooldetail.appendChild(errorPage);
     } else {
       renderCollege(filterCollege);
+      errorPage.classList.add("hide");
     }
-  }
+  }, 1000);
 });
+function hidesearchin(){
+  if (window.innerWidth <= 850) {
+    contaisearch.removeChild(searchInput);
+  }
+  else{
+    contaisearch.appendChild(searchInput);
+  }
+} 
+window.addEventListener("resize", hidesearchin);
+hidesearchin();
+var c =0;
+function openpop() {
+  c=c+1;
+  if (c%2==0) {
+    popsearch.classList.remove("active");
+    setTimeout(function () {
+    popsearch.classList.add("hide");
+    }, 200);
+  }
+  else{
+    popsearch.classList.remove("hide");
+    setTimeout(function () {
+    popsearch.classList.add("active");
+    popcontaisearch.appendChild(searchInput);
+    }, 1);
+  }
+}
 
 function renderCollege(data) {
   var htmls = data.map(function (college) {
@@ -99,6 +125,7 @@ function renderCollege(data) {
   });
   collegeContainer.innerHTML = htmls.join("");
 }
+
 
 function detail(imgElement) {
   var slug1 = imgElement.getAttribute("data-slug");
