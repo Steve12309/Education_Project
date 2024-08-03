@@ -103,9 +103,46 @@ const handleValidationErrorsChangePass = (req, res, next) => {
   next();
 };
 
+const validateForgotpass = [
+  // Kiểm tra mật khẩu
+  body("newpass")
+    .isLength({ min: 6 })
+    .withMessage("Mật khẩu phải có ít nhất 6 ký tự")
+    .matches(/[A-Z]/)
+    .withMessage("Mật khẩu phải có ít nhất một chữ cái in hoa")
+    .matches(/[!@#$%^&*(),.?":{}|<>]/)
+    .withMessage("Mật khẩu phải có ít nhất một ký tự đặc biệt")
+    .custom(async (value, { req }) => {
+      const user = await Account.findOne({ email: req.session.email });
+      if (user) {
+        var isPasswordMatchOld = await bcrypt.compare(value, user.password);
+        if (isPasswordMatchOld) {
+          throw new Error(
+            "Mật khẩu mới đã nhập trùng với mật khẩu cũ. Vui lòng nhập mật khẩu mới khác."
+          );
+        }
+      }
+      return true;
+    }),
+];
+
+const handleValidationErrorsForgotPass = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg);
+    req.flash("errorForgotPassMessages", errorMessages);
+    req.session.forgotpass = "false";
+  } else {
+    req.session.forgotpass = "true";
+  }
+  next();
+};
+
 module.exports = {
   validateRegistration,
   handleValidationErrors,
   validateChangepass,
   handleValidationErrorsChangePass,
+  validateForgotpass,
+  handleValidationErrorsForgotPass,
 };

@@ -202,8 +202,9 @@ class LoginController {
 
   async createnewpassword(req, res, next) {
     try {
-      const errornewpass = req.flash("errorsamenewpass");
+      const errorForgotPass = req.flash("errorforgotpass");
       const successnewpass = req.flash("successnewpass");
+      const errorForgotPassMsg = req.flash("errorForgotPassMessages");
       if (Object.keys(successnewpass).length === 0) {
       } else {
         req.toastr.success(
@@ -228,30 +229,35 @@ class LoginController {
           }
         );
       }
-      if (Object.keys(errornewpass).length === 0) {
+      if (Object.keys(errorForgotPass).length === 0) {
       } else {
-        req.toastr.error("Hãy thử lại nhé!", Object.values(errornewpass)[0], {
-          closeButton: true,
-          debug: true,
-          newestOnTop: false,
-          progressBar: true,
-          positionClass: "toast-top-right",
-          preventDuplicates: true,
-          onclick: null,
-          showDuration: "300",
-          hideDuration: "1000",
-          timeOut: "5000",
-          extendedTimeOut: "1000",
-          showEasing: "swing",
-          hideEasing: "linear",
-          showMethod: "fadeIn",
-          hideMethod: "fadeOut",
-        });
+        req.toastr.error(
+          "Hãy thử lại nhé!",
+          Object.values(errorForgotPass)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
       }
       res.render("createnewpassword", {
         layout: "extend",
         path: req.path,
         toastr_render: req.toastr.render(),
+        errorForgotPassMsg: errorForgotPassMsg,
       });
     } catch (error) {
       console.log(error.message);
@@ -260,16 +266,8 @@ class LoginController {
 
   async savenewpassword(req, res, next) {
     try {
-      var newpass = req.body.newpass;
-      const checkuser = await Account.findOne({ email: req.session.email });
-      var isPasswordMatch = await bcrypt.compare(newpass, checkuser.password);
-      if (isPasswordMatch) {
-        req.flash(
-          "errorsamenewpass",
-          "Hãy chọn mật khẩu mới không trùng với mật khẩu cũ"
-        );
-        res.redirect(`/createnewpass/${req.session.token}`);
-      } else {
+      if (req.session.forgotpass === "true") {
+        console.log(newpass);
         var filter = { email: req.session.email };
         var saltRounds = 10;
         var hashedPassword = await bcrypt.hash(newpass, saltRounds);
@@ -282,6 +280,12 @@ class LoginController {
         await Account.updateOne(filter, updateDoc);
         req.flash("successnewpass", "Đổi mật khẩu thành công");
         res.redirect("/createaccount");
+      } else {
+        req.flash(
+          "errorforgotpass",
+          "Đổi mật khẩu thất bại. Vui lòng xem lại các trường đã nhập"
+        );
+        res.redirect(`/createnewpass/${req.session.token}`);
       }
     } catch (error) {
       console.log(error.message);

@@ -15,7 +15,12 @@ function route(app) {
     checkRoute.checkRoute,
     loginController.createnewpassword
   );
-  app.post("/createnewpass/:slug", loginController.savenewpassword);
+  app.post(
+    "/createnewpass/:slug",
+    validation.validateForgotpass,
+    validation.handleValidationErrorsForgotPass,
+    loginController.savenewpassword
+  );
   app.post("/uploadavatar", avatar.checkAvatar, userController.avatar);
   app.post("/feedback", loginController.postfeedback);
   app.get("/login/forgetpassword", loginController.forgotpassword);
