@@ -24,11 +24,36 @@ class RegisterController {
   async registerForm(req, res) {
     try {
       const errorPassword = req.flash("wrongpass");
+      const successNewpass = req.flash("successnewpass");
       const errorRegistermsg = req.flash("errorMessages");
       const errorUsername = req.flash("wrongname");
       const errorEmail = req.flash("wrongmail");
       const successSendemail = req.flash("sendmail");
       const errorRegister = req.flash("errorregister");
+      if (Object.keys(successNewpass).length === 0) {
+      } else {
+        req.toastr.success(
+          "Chúc một ngày tốt lành!",
+          Object.values(successNewpass)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
+      }
       if (Object.keys(errorRegister).length === 0) {
       } else {
         req.toastr.error("Xem kỹ lại nhé!", Object.values(errorRegister)[0], {

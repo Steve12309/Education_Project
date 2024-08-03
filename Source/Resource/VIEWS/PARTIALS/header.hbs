@@ -51,7 +51,7 @@
     {{/if}}
   </button>
   <i class="fa-solid fa-equals"></i>
-<i class="fa-solid fa-x"></i>
+  <i class="fa-solid fa-x"></i>
 </div>
 <div id="extend-navbar">
   <button id="step-three">
@@ -182,7 +182,6 @@
       </div>
     </div>
 
-
     <form action="/changepass" class="page-expand" id="passpage" method="POST">
       <div class="line2">
         <img
@@ -194,6 +193,11 @@
       </div>
       <h4>Mật khẩu của bạn phải có tối thiểu 6 ký tự, đồng thời bao gồm cả chữ
         số, chữ cái và ký tự đặc biệt.</h4>
+      {{#each errorMsgChangePass}}
+        <div class="alert show showAlert">
+          <span class="msg">{{this}}</span>
+        </div>
+      {{/each}}
       <input
         type="password"
         placeholder="Mật khẩu hiện tại"
@@ -244,9 +248,9 @@
         name="detailtext"
         id="opinion"
       ></textarea>
-       <div id="drop-zone2">
+      <div id="drop-zone2">
         <p>Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
-        <input type="file" id="file-input2" accept="image/*" multiple hidden>
+        <input type="file" id="file-input2" accept="image/*" multiple hidden />
       </div>
       <div id="preview-container"></div>
       <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
@@ -263,15 +267,17 @@
         <h3>Đổi ảnh đai diện</h3>
       </div>
       <div id="pic">
-      <div id="drop-zone">
-        <p id="avatarp" >Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
-        <input type="file"
+        <div id="drop-zone">
+          <p id="avatarp">Kéo và thả ảnh vào đây hoặc bấm để chọn ảnh</p>
+          <input
+            type="file"
             id="file-input"
             name="avatar"
             accept="image/*"
-            hidden>
-      </div>
-        <img id="preview" style="display: none;"/>
+            hidden
+          />
+        </div>
+        <img id="preview" style="display: none;" />
       </div>
       <button id="upload">Đổi ảnh</button>
     </form>

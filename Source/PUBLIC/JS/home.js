@@ -4,35 +4,35 @@ var quoteBackground = document.getElementById("quotebackground");
 var quoteContainer = document.getElementById("quotecontainer");
 var bodyE = document.querySelector(".body");
 var navbar = document.querySelector(".full-navbar");
-var quoteContent = document.getElementById("quote");
-var dataContainer = document.getElementById("data-container");
-var quoteData = JSON.parse(dataContainer.getAttribute("data-quote"));
+// var quoteContent = document.getElementById("quote");
+// var dataContainer = document.getElementById("data-container");
+// var quoteData = JSON.parse(dataContainer.getAttribute("data-quote"));
 
-function createQuoteContent() {
-  var numerbOfQuote = Math.floor(Math.random() * quoteData.length + 1);
-  quoteContent.innerText = quoteData[numerbOfQuote].quote;
-}
+// function createQuoteContent() {
+//   var numerbOfQuote = Math.floor(Math.random() * quoteData.length + 1);
+//   quoteContent.innerText = quoteData[numerbOfQuote].quote;
+// }
 
-closeQuoteBtn.addEventListener("mouseover", function () {
-  quoteBackground.classList.remove("hidden");
-});
+// closeQuoteBtn.addEventListener("mouseover", function () {
+//   quoteBackground.classList.remove("hidden");
+// });
 
-closeQuoteBtn.addEventListener("mouseout", function () {
-  quoteBackground.classList.add("hidden");
-});
+// closeQuoteBtn.addEventListener("mouseout", function () {
+//   quoteBackground.classList.add("hidden");
+// });
 
-closeQuoteBtn.addEventListener("click", function () {
-  quoteContainer.style.display = "none";
-  bodyE.classList.add("hidden");
-  bg.style.overflowX = "hidden";
-});
+// closeQuoteBtn.addEventListener("click", function () {
+//   quoteContainer.style.display = "none";
+//   bodyE.classList.add("hidden");
+//   bg.style.overflowX = "hidden";
+// });
 
-window.addEventListener("load", function () {
-  createQuoteContent();
-  quoteContainer.style.display = "flex";
-  bodyE.classList.remove("hidden");
-  bg.style.overflow = "hidden";
-});
+// window.addEventListener("load", function () {
+//   createQuoteContent();
+//   quoteContainer.style.display = "flex";
+//   bodyE.classList.remove("hidden");
+//   bg.style.overflow = "hidden";
+// });
 
 function startIntro() {
   const intro = introJs();
@@ -81,3 +81,14 @@ function startIntro() {
   intro.start();
 }
 
+window.addEventListener("load", function () {
+  var alertInfo = document.querySelectorAll(".alert");
+  if (alertInfo) {
+    this.setTimeout(function () {
+      alertInfo.forEach(function (alertMsg) {
+        alertMsg.classList.remove("show");
+        alertMsg.classList.add("hide");
+      });
+    }, 45000);
+  }
+});

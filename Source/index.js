@@ -33,8 +33,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "accountsessionsecret",
-    saveUninitialized: false,
     resave: false,
+    saveUninitialized: true,
   })
 );
 app.use(flash());
@@ -117,7 +117,8 @@ app.use((req, res, next) => {
     req.path !== "/register" &&
     req.path !== "/createaccount" &&
     req.path !== "/createnewpass" &&
-    req.path !== "/login/forgetpassword"
+    req.path !== "/login/forgetpassword" &&
+    req.path !== `/createnewpass/${req.session.token}`
   ) {
     req.session.currentPath = req.path;
   }

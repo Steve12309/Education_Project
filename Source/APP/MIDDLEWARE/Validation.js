@@ -51,4 +51,61 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-module.exports = { validateRegistration, handleValidationErrors };
+const validateChangepass = [
+  // Kiểm tra mật khẩu
+  body("newpassword")
+    .isLength({ min: 6 })
+    .withMessage("Mật khẩu phải có ít nhất 6 ký tự")
+    .matches(/[A-Z]/)
+    .withMessage("Mật khẩu phải có ít nhất một chữ cái in hoa")
+    .matches(/[!@#$%^&*(),.?":{}|<>]/)
+    .withMessage("Mật khẩu phải có ít nhất một ký tự đặc biệt")
+    .custom(async (value, { req }) => {
+      const user = await Account.findOne({ name: req.session.username });
+      if (user) {
+        var isPasswordMatchOld = await bcrypt.compare(value, user.password);
+        if (isPasswordMatchOld) {
+          throw new Error(
+            "Mật khẩu mới đã nhập trùng với mật khẩu cũ. Vui lòng nhập mật khẩu mới khác."
+          );
+        }
+      }
+      return true;
+    }),
+
+  body("oldpassword").custom(async (value, { req }) => {
+    const user = await Account.findOne({ name: req.session.username });
+    if (user) {
+      var isPasswordMatchOld = await bcrypt.compare(value, user.password);
+      if (!isPasswordMatchOld) {
+        throw new Error(
+          "Mật khẩu cũ đã nhập không chính xác. Vui lòng nhập đúng mật khẩu cũ."
+        );
+      }
+    }
+    return true;
+  }),
+];
+
+const handleValidationErrorsChangePass = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg);
+    req.flash("errorChangePassMessages", errorMessages);
+    req.flash(
+      "errorchangepass",
+      "Đổi mật khẩu thất bại. Vui lòng xem lại các trường đã nhập"
+    );
+    req.session.validation = "false";
+  } else {
+    req.session.validation = "true";
+  }
+  next();
+};
+
+module.exports = {
+  validateRegistration,
+  handleValidationErrors,
+  validateChangepass,
+  handleValidationErrorsChangePass,
+};

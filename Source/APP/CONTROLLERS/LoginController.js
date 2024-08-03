@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-express-handlebars");
 const exphbs = require("express-handlebars");
+const crypto = require("crypto");
 
 // Admin to User
 const transporter = nodemailer.createTransport({
@@ -22,7 +23,7 @@ transporter.use(
       extName: ".hbs",
       defaultLayout: false,
     }),
-    viewPath: "F:/Web Course/Education_Project/Source/Resource/VIEWS",
+    viewPath: "Source/Resource/VIEWS",
     extName: ".hbs",
   })
 );
@@ -68,8 +69,35 @@ class LoginController {
 
   async forgotpassword(req, res, next) {
     try {
+      const wrongEmailForgotPass = req.flash("wrongmail");
+      if (Object.keys(wrongEmailForgotPass).length === 0) {
+      } else {
+        req.toastr.error(
+          "Hãy xem kỹ lại nhé!",
+          Object.values(wrongEmailForgotPass)[0],
+          {
+            closeButton: true,
+            debug: true,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: true,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+          }
+        );
+      }
       res.render("forgetpassword", {
+        style: "forgotpass.css",
         layout: "extend",
+        toastr_render: req.toastr.render(),
       });
     } catch (error) {
       console.log(error.message);
@@ -82,12 +110,29 @@ class LoginController {
       req.session.email = email;
       const checkemail = await Account.findOne({ email });
       if (checkemail) {
+        const resetToken = crypto.randomBytes(32).toString("hex");
+        req.session.token = resetToken;
+        const resetLink = `http://localhost:5500/createnewpass/${resetToken}`;
+        const resetpassTemplate = `
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Reset Password</title>
+        </head>
+        <body>
+          <p>Please click
+            <a href="${resetLink}">here</a>
+            to reset your password</p>
+        </body>
+      </html>
+    `;
         async function main() {
           const info = await transporter.sendMail({
             from: '"BeYourself Education Platform"',
             to: email,
             subject: "Reset Password",
-            template: "sendmail",
+            html: resetpassTemplate,
           });
           console.log("Message sent: %s", info.messageId);
         }
@@ -96,51 +141,35 @@ class LoginController {
         res.redirect("/createaccount");
       } else {
         req.flash("wrongmail", "Hãy xem lại tài khoản email của bạn");
-        res.redirect("/createaccount");
+        res.redirect("/login/forgetpassword");
       }
     } catch (error) {
       console.log(error.message);
     }
   }
 
-  async changepassword(req, res, next) {
+  async changepassword(req, res) {
     try {
-      var oldpass = req.body.oldpassword;
-      var newpass = req.body.newpassword;
-      var username = req.session.username;
-
-      var checkpass = await Account.findOne({ name: username });
-      var isPasswordMatchOld = await bcrypt.compare(
-        oldpass,
-        checkpass.password
-      );
-      if (isPasswordMatchOld) {
-        var isPasswordMatchNew = await bcrypt.compare(
-          newpass,
-          checkpass.password
-        );
-        if (isPasswordMatchNew) {
-          req.flash(
-            "errorchangepass",
-            "Hãy đổi mật khẩu mới không trùng mật khẩu cũ"
-          );
-          res.redirect("/");
-        } else {
-          var saltRounds = 10;
-          var hashedPassword = await bcrypt.hash(newpass, saltRounds);
-          newpass = hashedPassword;
-          var filter = { name: username };
-          var updateDoc = {
-            $set: {
-              password: newpass,
-            },
-          };
-          await Account.updateOne(filter, updateDoc);
-          req.flash("successchangepass", "Đã đổi mật khẩu thành công!");
-          res.redirect("/");
-        }
+      if (req.session.validation === "true") {
+        var newpass = req.body.newpassword;
+        var username = req.session.username;
+        var saltRounds = 10;
+        var hashedPassword = await bcrypt.hash(newpass, saltRounds);
+        newpass = hashedPassword;
+        var filter = { name: username };
+        var updateDoc = {
+          $set: {
+            password: newpass,
+          },
+        };
+        await Account.updateOne(filter, updateDoc);
+        req.flash("successchangepass", "Đã đổi mật khẩu thành công!");
+        res.redirect("/");
       } else {
-        req.flash("errorsameoldpass", "Hãy nhập đúng mật khẩu cũ");
+        req.flash(
+          "errorchangepass",
+          "Đổi mật khẩu thất bại. Vui lòng xem lại các trường đã nhập"
+        );
         res.redirect("/");
       }
     } catch (error) {
@@ -221,6 +250,7 @@ class LoginController {
       }
       res.render("createnewpassword", {
         layout: "extend",
+        path: req.path,
         toastr_render: req.toastr.render(),
       });
     } catch (error) {
@@ -238,22 +268,20 @@ class LoginController {
           "errorsamenewpass",
           "Hãy chọn mật khẩu mới không trùng với mật khẩu cũ"
         );
-        res.redirect("/createnewpass");
+        res.redirect(`/createnewpass/${req.session.token}`);
       } else {
-        if (checkuser) {
-          var filter = { email: req.session.email };
-          var saltRounds = 10;
-          var hashedPassword = await bcrypt.hash(newpass, saltRounds);
-          newpass = hashedPassword;
-          var updateDoc = {
-            $set: {
-              password: newpass,
-            },
-          };
-          await Account.updateOne(filter, updateDoc);
-          req.flash("successnewpass", "Đổi mật khẩu thành công");
-          res.redirect("/createaccount");
-        }
+        var filter = { email: req.session.email };
+        var saltRounds = 10;
+        var hashedPassword = await bcrypt.hash(newpass, saltRounds);
+        newpass = hashedPassword;
+        var updateDoc = {
+          $set: {
+            password: newpass,
+          },
+        };
+        await Account.updateOne(filter, updateDoc);
+        req.flash("successnewpass", "Đổi mật khẩu thành công");
+        res.redirect("/createaccount");
       }
     } catch (error) {
       console.log(error.message);
