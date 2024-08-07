@@ -3,6 +3,7 @@ const isLogin = async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
       if (req.user.name) {
+        req.session.type = "vip";
       }
     }
     if (req.session.username) {

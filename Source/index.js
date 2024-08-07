@@ -60,13 +60,12 @@ passport.use(
         if (user) {
           return done(null, user);
         }
-        let pictureUrl = profile.picture;
-
+        console.log(profile.picture);
         const newUser = new accountggdb({
           id: profile._json.sub,
           name: profile._json.name,
           email: profile._json.email,
-          img: pictureUrl,
+          img: profile.picture,
           provider: profile.provider,
         });
         await newUser.save();
