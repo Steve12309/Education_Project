@@ -2,7 +2,7 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: `F:/Web Course/Education_Project/img/useravatar_imgs`,
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + ".png");
+    cb(null, file.fieldname + req.session.username + ".png");
   },
 });
 const upload = multer({ storage: storage });

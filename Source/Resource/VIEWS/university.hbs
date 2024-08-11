@@ -2,7 +2,11 @@
   <div id="main-contai">
     <div id="sidebar">
       <div id="contai-search">
-        <img src="/img/tool_imgs/search2.png" class="searchimg" onclick="openpop()" />
+        <img
+          src="/img/tool_imgs/search2.png"
+          class="searchimg"
+          onclick="openpop()"
+        />
         <input type="text" placeholder="Tìm kiếm..." id="search-in" />
       </div>
       <div id="contai-list-sch">
@@ -41,6 +45,9 @@
   </div>
 </div>
 
-
 <template id="data-container" data-university="{{universities}}"></template>
 <script src="https://cdn.jsdelivr.net/npm/intro.js@7.2.0/intro.min.js"></script>
+{{! <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script type="text/javascript">
+  const socket = io({ path: "http://localhost:5500/university" });
+</script> }}

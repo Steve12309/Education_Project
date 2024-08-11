@@ -12,8 +12,210 @@ const route = require("./ROUTES");
 const db = require("./CONFIG/DB");
 const flash = require("connect-flash");
 const toastr = require("express-toastr");
-const app = express();
 require("dotenv").config();
+const { createServer } = require("node:http");
+const { Server } = require("socket.io");
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  path: "/socket.io",
+});
+const Account = require("../Source/APP/MODELS/Accountbs");
+const Accountgg = require("../Source/APP/MODELS/Accountgg");
+const Accountfb = require("../Source/APP/MODELS/Accountfb");
+const Comment = require("../Source/APP/MODELS/Comment");
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("joinUniversity", (universityId) => {
+    socket.join(universityId);
+    Comment.find({ universityId }).then((comments) => {
+      if (comments.length !== 0) {
+        var commentsUser = comments[0].comment;
+        commentsUser.sort(
+          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+        );
+
+        Promise.all(
+          commentsUser.map((comment) => {
+            return Promise.any([
+              Account.findOne({ name: comment.user }),
+              Accountgg.findOne({ name: comment.user }),
+              Accountfb.findOne({ name: comment.user }),
+            ]).then((user) => {
+              if (user && user.img !== comment.img) {
+                comment.img = user.img;
+              }
+              return comment;
+            });
+          })
+        )
+          .then((updatedComments) => {
+            comments[0].comment = updatedComments;
+            return comments[0].save();
+          })
+          .then(() => {
+            io.emit("loadComments", comments[0].comment);
+          })
+          .catch((error) => {
+            console.log("Error updating comments:", error);
+          });
+      } else {
+        console.log("No comments found");
+      }
+    });
+  });
+
+  socket.on("newComment", (data) => {
+    const { comment, universitySlug } = data;
+    try {
+      if (socket.request.session.username) {
+        Account.findOne({ name: socket.request.session.username }).then(
+          (checkUser) => {
+            if (checkUser) {
+              var user = checkUser.name;
+              var userImg = checkUser.img;
+              Comment.findOne({ universityId: universitySlug }).then((Room) => {
+                if (Room) {
+                  Room.comment.push({
+                    user: user,
+                    img: userImg,
+                    message: comment,
+                    timestamp: new Date(),
+                  });
+                  Room.save();
+                  io.to(universitySlug).emit("comment", {
+                    comment,
+                    user,
+                    timestamp: new Date(),
+                    img: userImg,
+                  });
+                } else {
+                  var newRoom = new Comment({
+                    universityId: universitySlug,
+                    comment: [
+                      {
+                        user: user,
+                        message: comment,
+                        timestamp: new Date(),
+                        img: userImg,
+                      },
+                    ],
+                  });
+                  newRoom.save();
+                  io.to(universitySlug).emit("comment", {
+                    comment,
+                    img: userImg,
+                    user,
+                    timestamp: new Date(),
+                  });
+                }
+              });
+            }
+          }
+        );
+      } else if (socket.request.user.name) {
+        if (socket.request.user.provider === "facebook") {
+          Accountfb.findOne({ name: socket.request.user.name }).then(
+            (checkUser) => {
+              if (checkUser) {
+                var user = checkUser.name;
+                var userImg = checkUser.img;
+                Comment.findOne({ universityId: universitySlug }).then(
+                  (Room) => {
+                    if (Room) {
+                      Room.comment.push({
+                        user: user,
+                        img: userImg,
+                        message: comment,
+                        timestamp: new Date(),
+                      });
+                      Room.save();
+                      io.to(universitySlug).emit("comment", {
+                        comment,
+                        user,
+                        timestamp: new Date(),
+                        img: userImg,
+                      });
+                    } else {
+                      var newRoom = new Comment({
+                        universityId: universitySlug,
+                        comment: [
+                          {
+                            user: user,
+                            message: comment,
+                            timestamp: new Date(),
+                            img: userImg,
+                          },
+                        ],
+                      });
+                      newRoom.save();
+                      io.to(universitySlug).emit("comment", {
+                        comment,
+                        img: userImg,
+                        user,
+                        timestamp: new Date(),
+                      });
+                    }
+                  }
+                );
+              }
+            }
+          );
+        } else if (socket.request.user.provider === "google") {
+          Accountgg.findOne({ name: socket.request.user.name }).then(
+            (checkUser) => {
+              if (checkUser) {
+                var user = checkUser.name;
+                var userImg = checkUser.img;
+                Comment.findOne({ universityId: universitySlug }).then(
+                  (Room) => {
+                    if (Room) {
+                      Room.comment.push({
+                        user: user,
+                        img: userImg,
+                        message: comment,
+                        timestamp: new Date(),
+                      });
+                      Room.save();
+                      io.to(universitySlug).emit("comment", {
+                        comment,
+                        user,
+                        timestamp: new Date(),
+                        img: userImg,
+                      });
+                    } else {
+                      var newRoom = new Comment({
+                        universityId: universitySlug,
+                        comment: [
+                          {
+                            user: user,
+                            message: comment,
+                            timestamp: new Date(),
+                            img: userImg,
+                          },
+                        ],
+                      });
+                      newRoom.save();
+                      io.to(universitySlug).emit("comment", {
+                        comment,
+                        img: userImg,
+                        user,
+                        timestamp: new Date(),
+                      });
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+});
 
 app.engine(
   "hbs",
@@ -30,13 +232,13 @@ app.use(express.static(path.join(__dirname, "PUBLIC/CSS/")));
 app.use(express.static(path.join(__dirname, "PUBLIC/JS/")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  session({
-    secret: "accountsessionsecret",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+const sessionMiddleware = session({
+  secret: "accountsessionsecret",
+  resave: false,
+  saveUninitialized: true,
+});
+app.use(sessionMiddleware);
+io.engine.use(sessionMiddleware);
 app.use(flash());
 app.use(toastr());
 app.use(function (req, res, next) {
@@ -46,6 +248,13 @@ app.use(function (req, res, next) {
 
 app.use(passport.initialize());
 app.use(passport.session());
+io.use((socket, next) => {
+  passport.authenticate("session", { session: false })(
+    socket.request,
+    {},
+    next
+  );
+});
 
 passport.use(
   new passportgg(
@@ -145,7 +354,6 @@ passport.deserializeUser(async ({ name, provider }, done) => {
 db.connect();
 
 route(app);
-
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });

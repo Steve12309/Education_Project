@@ -9,13 +9,13 @@
   font-weight: normal;
   font-style: normal;
 }
-h1{
+h1 {
   font-family: hywen;
   font-weight: 100;
   letter-spacing: 1px;
   font-size: 28px;
 }
-h2{
+h2 {
   font-family: math;
   font-weight: 600;
   margin: 30px 0 0 0;
@@ -51,4 +51,96 @@ p {
 ::-webkit-scrollbar-track-piece {
   background-color: rgba(150, 150, 150);
   border-radius: 15px;
+}
+
+.commentPost-area {
+  width: 99%;
+  height: 60px;
+  position: relative;
+  background-color: #323c4a;
+  font-size: 14px;
+  padding: 16px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.commentMsg {
+  width: 100%;
+  background-color: transparent;
+  color: whitesmoke;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+.commentMsg:focus {
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.commentSubmitBtn {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  width: 160px;
+  height: 32px;
+  color: white;
+  background-color: #0093fc;
+}
+
+.commentSubmitBtn:hover {
+  cursor: pointer;
+}
+
+.comment-area {
+  margin-top: 20px;
+  border-radius: 10px;
+  background-color: rgb(214, 200, 200);
+  padding: 5px;
+}
+
+.userName {
+  color: #0093fc;
+  font-size: 14px;
+  margin: 0;
+}
+
+.time {
+  color: #808b9a;
+  font-size: 13px;
+  margin: 0;
+}
+
+.userContent {
+  color: black;
+  font-size: 16px;
+}
+
+.userComment {
+  background-color: bisque;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.userInfo {
+  display: flex;
+  gap: 10px;
+}
+
+.userInfo img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.userInfo img:hover {
+  cursor: pointer;
 }

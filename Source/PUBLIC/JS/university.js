@@ -81,30 +81,28 @@ searchInput.addEventListener("keyup", function (e) {
     }
   }, 1000);
 });
-function hidesearchin(){
+function hidesearchin() {
   if (window.innerWidth <= 850) {
-    contaisearch.removeChild(searchInput);
-  }
-  else{
+    // contaisearch.removeChild(searchInput);
+  } else {
     contaisearch.appendChild(searchInput);
   }
-} 
+}
 window.addEventListener("resize", hidesearchin);
 hidesearchin();
-var c =0;
+var c = 0;
 function openpop() {
-  c=c+1;
-  if (c%2==0) {
+  c = c + 1;
+  if (c % 2 == 0) {
     popsearch.classList.remove("active");
     setTimeout(function () {
-    popsearch.classList.add("hide");
+      popsearch.classList.add("hide");
     }, 200);
-  }
-  else{
+  } else {
     popsearch.classList.remove("hide");
     setTimeout(function () {
-    popsearch.classList.add("active");
-    popcontaisearch.appendChild(searchInput);
+      popsearch.classList.add("active");
+      popcontaisearch.appendChild(searchInput);
     }, 1);
   }
 }
@@ -126,7 +124,6 @@ function renderCollege(data) {
   collegeContainer.innerHTML = htmls.join("");
 }
 
-
 function detail(imgElement) {
   var slug1 = imgElement.getAttribute("data-slug");
   slug = slug1;
@@ -137,7 +134,10 @@ function detail(imgElement) {
     if (constmodeValue === "light") {
       iframe.contentWindow.postMessage({ action: "light" }, "*");
     } else if (constmodeValue === "dark") {
-      iframe.contentWindow.postMessage({ action: "dark" }, "*");
+      iframe.contentWindow.postMessage(
+        { action: "dark", univerSlug: slug },
+        "*"
+      );
     }
   };
 }
