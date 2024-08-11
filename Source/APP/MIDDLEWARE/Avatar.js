@@ -2,7 +2,16 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: `F:/Web Course/Education_Project/img/useravatar_imgs`,
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + req.session.username + ".png");
+    cb(
+      null,
+      file.fieldname +
+        (req.session && req.session.username
+          ? req.session.username
+          : req.user && req.user.name
+          ? req.user.name.replace(/\s+/g, "")
+          : "defaultName") +
+        ".png"
+    );
   },
 });
 const upload = multer({ storage: storage });

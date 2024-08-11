@@ -132,12 +132,28 @@ class HomeController {
           }
         );
       }
+      let userimg;
+      if (req.user.provider === "facebook") {
+        // Nếu provider là Facebook, ưu tiên dùng avatarUrl từ req.session, nếu không có thì dùng req.user.img
+        if (req.session && req.session.avatarUrl) {
+          userimg = req.session.avatarUrl;
+        } else {
+          userimg = req.user.img;
+        }
+      } else {
+        // Nếu provider không phải là Facebook, ưu tiên dùng avatarUrl từ req.session, nếu không có thì dùng req.user.img
+        if (req.session && req.session.avatarUrl) {
+          userimg = req.session.avatarUrl;
+        } else {
+          userimg = req.user.img;
+        }
+      }
       res.render("home", {
         style: "home-light.css",
         function1: "home.js",
         navbar: "navbar.js",
         username: req.user.name,
-        userimg: req.user.img || req.session.avatarUrl,
+        userimg: userimg,
         quotes: JSON.stringify(mutipleMongooseToObject(data)),
         toastr_render: req.toastr.render(),
         errorMsgChangePass: errorChangePassmsg,

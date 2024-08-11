@@ -13,7 +13,15 @@ class UserController {
           img: avatarUrl,
         },
       };
-      await Account.updateOne(filter, updateDoc);
+      if (req.session.type === "vip") {
+        if (req.user.provider === "facebook") {
+          await Accountfb.updateOne({ name: req.user.name }, updateDoc);
+        } else {
+          await Accountgg.updateOne({ name: req.user.name }, updateDoc);
+        }
+      } else {
+        await Account.updateOne(filter, updateDoc);
+      }
       try {
         const message = req.flash(
           "successschangeavatar",

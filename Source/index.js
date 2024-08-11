@@ -305,7 +305,13 @@ passport.use(
           id: profile._json.id,
           name: profile._json.name,
           email: profile._json.email,
-          img: profile.photos[0].value,
+          img:
+            "https://graph.facebook.com/" +
+            profile.id +
+            "/picture" +
+            "?width=200&height=200" +
+            "&access_token=" +
+            accessToken,
           provider: profile.provider,
         });
         await newUser.save();
