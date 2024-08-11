@@ -33,7 +33,8 @@ io.on("connection", (socket) => {
       if (comments.length !== 0) {
         var commentsUser = comments[0].comment;
         commentsUser.sort(
-          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+          (firstComment, secondComment) =>
+            new Date(secondComment.timestamp) - new Date(firstComment.timestamp)
         );
 
         Promise.all(
