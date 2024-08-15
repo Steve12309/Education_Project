@@ -43,14 +43,19 @@ const isLogOut = async (req, res, next) => {
 
 const isLoginComment = async (req, res, next) => {
   try {
-    if (req.session.username || req.user.name) {
-    } else {
-      res.send("Đăng nhập để có thể xem chi tiết và comment");
+    if (req.isAuthenticated()) {
+      if (req.user.name) {
+        next();
+      }
     }
-  } catch (error) {
-    console.log(error.message);
+    if (req.session.username) {
+      next();
+    } else {
+      res.send("Đăng nhập để có thể truy cập vào trang");
+    }
+  } catch (err) {
+    console.log(err.message);
   }
-  next();
 };
 
 module.exports = { isLogin, isLogOut, isLoginComment };

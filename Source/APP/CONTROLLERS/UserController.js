@@ -1,6 +1,8 @@
 const Account = require("../MODELS/Accountbs");
 const Accountgg = require("../MODELS/Accountgg");
 const Accountfb = require("../MODELS/Accountfb");
+const University = require("../MODELS/University");
+const { mutipleMongooseToObject } = require("../../UTIL/mongoose");
 
 class UserController {
   async avatar(req, res) {
@@ -124,7 +126,18 @@ class UserController {
             );
           }
         } else if (req.body.type === "Mbti") {
-          const { note, type, Anote, Bnote, Cnote, Dnote } = req.body;
+          const {
+            note,
+            type,
+            Anote,
+            Bnote,
+            Cnote,
+            Dnote,
+            noteA,
+            noteB,
+            noteC,
+            noteD,
+          } = req.body;
           var checkUser = await Account.findOne({
             name: req.session.username,
           });
@@ -135,7 +148,16 @@ class UserController {
                 $set: {
                   testType2: type,
                   Mbti: note,
-                  Mbti_Score: { A: Anote, B: Bnote, C: Cnote, D: Dnote },
+                  Mbti_Score: {
+                    A: Anote,
+                    B: Bnote,
+                    C: Cnote,
+                    D: Dnote,
+                    a: noteA,
+                    b: noteB,
+                    c: noteC,
+                    d: noteD,
+                  },
                 },
               },
               { new: true }
@@ -146,6 +168,95 @@ class UserController {
     } catch (err) {
       console.log(err.messsage);
     }
+  }
+
+  async saveUni(req, res, next) {
+    var { university } = req.body;
+    if (req.session) {
+      const checkUser = await Account.findOne({ name: req.session.username });
+      if (checkUser) {
+        const checkUni = await Account.findOne({
+          universities: {
+            $elemMatch: { name: university },
+          },
+        });
+        if (checkUni) {
+        } else {
+          const getCollegeData = await University.findOne({ name: university });
+          var name = getCollegeData.name;
+          var address = getCollegeData.address;
+          var img = getCollegeData.img;
+          var slug = getCollegeData.slug;
+          var facility = getCollegeData.facility;
+          var history = getCollegeData.history;
+          if (getCollegeData) {
+            const newUniversity = {
+              name: name,
+              address: address,
+              img: img,
+              slug: slug,
+              history: history,
+              facility: facility,
+            };
+            checkUser.universities.push(newUniversity);
+            await checkUser.save();
+          }
+        }
+      }
+    }
+  }
+
+  async viewHistoryCollege(req, res, next) {
+    var collegeData = await Account.find(
+      { "universities.0": { $exists: true } },
+      { "universities.name": 1, "universities.slug": 1, _id: 0 }
+    );
+    res.send(JSON.stringify(mutipleMongooseToObject(collegeData)));
+  }
+
+  async viewHistoryTest(req, res, next) {
+    const data = await Account.findOne();
+    if (data) {
+      const { testType1, Holland, Mbti, testType2, Holland_Score, Mbti_Score } =
+        data;
+      var testsData = [
+        {
+          testType1,
+          Holland,
+          Holland_Score,
+        },
+        {
+          testType2,
+          Mbti,
+          Mbti_Score,
+        },
+      ];
+    }
+    let userimg;
+    if (req.user.provider === "facebook") {
+      // Nếu provider là Facebook, ưu tiên dùng avatarUrl từ req.session, nếu không có thì dùng req.user.img
+      if (req.session && req.session.avatarUrl) {
+        userimg = req.session.avatarUrl;
+      } else {
+        userimg = req.user.img;
+      }
+    } else {
+      // Nếu provider không phải là Facebook, ưu tiên dùng avatarUrl từ req.session, nếu không có thì dùng req.user.img
+      if (req.session && req.session.avatarUrl) {
+        userimg = req.session.avatarUrl;
+      } else {
+        userimg = req.user.img;
+      }
+    }
+    res.render("history", {
+      layout: "main",
+      style: "history-light.css",
+      function1: "history.js",
+      navbar: "navbar.js",
+      username: req.user.name,
+      userimg: userimg,
+      tests: JSON.stringify(testsData),
+    });
   }
 }
 

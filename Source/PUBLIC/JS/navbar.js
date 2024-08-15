@@ -6,6 +6,8 @@ var logoutimg = document.getElementById("logoutimg");
 var themeimg = document.getElementById("themeimg");
 var autoimg = document.getElementById("autoimg");
 var turtoimg = document.getElementById("turtoimg");
+var savedimg = document.getElementById("savedimg");
+var resultimg = document.getElementById("resultimg");
 var mode = document.getElementById("mode-link");
 var theme = document.querySelector("#theme-link");
 var header = document.getElementById("header-link");
@@ -136,6 +138,19 @@ function changeTheme() {
     mode.href = "/mode-light.css";
     modeValue = "light";
   }
+
+  //History Page
+  if (theme.getAttribute("href") === "/history-light.css") {
+    theme.href = "/history-dark.css";
+    header.href = "/header-dark.css";
+    mode.href = "/mode-dark.css";
+    modeValue = "dark";
+  } else if (theme.getAttribute("href") === "/history-dark.css") {
+    theme.href = "/history-light.css";
+    header.href = "/header-light.css";
+    mode.href = "/mode-light.css";
+    modeValue = "light";
+  }
   //detail uni page
   if (iframe === null) {
   } else {
@@ -166,6 +181,8 @@ function changeMode(modeValue) {
     story.forEach((e) => {
       e.src = "/img/navbar_imgs/black_imgs/story_black.png";
     });
+    resultimg.src = "/img/tool_imgs/resultset2.png";
+    savedimg.src = "/img/tool_imgs/saved2.png";
     logoutimg.src = "/img/tool_imgs/logout2.png";
     themeimg.src = "/img/tool_imgs/theme2.png";
     autoimg.src = "/img/tool_imgs/auto2.png";
@@ -197,6 +214,8 @@ function changeMode(modeValue) {
     story.forEach((e) => {
       e.src = "/img/navbar_imgs/white_imgs/story_white.png";
     });
+    resultimg.src = "/img/tool_imgs/resultset1.png";
+    savedimg.src = "/img/tool_imgs/saved1.png";
     logoutimg.src = "/img/tool_imgs/logout1.png";
     themeimg.src = "/img/tool_imgs/theme1.png";
     autoimg.src = "/img/tool_imgs/auto1.png";
@@ -242,6 +261,8 @@ var movesetting = 0;
 var move = 0;
 var contaiexpand = document.getElementById("contai-page-expand");
 var pageexpand = document.querySelectorAll(".page-expand");
+var savdepage = document.getElementById("savedpage");
+var resultspages = document.getElementById("resultspage");
 pageexpand.forEach((e) => {
   e.style.display = "none";
 });
@@ -270,6 +291,32 @@ function openset() {
   }, 10);
 }
 
+//saved
+function opensaved() {
+  getCollegeData();
+  savdepage.style.display = "block";
+  movesetting = movesetting - 100;
+  moveset();
+}
+
+async function getCollegeData() {
+  fetch("/history/university")
+    .then((res) => res.json())
+    .then((data) => showCollegeData(data))
+    .catch((err) => console.log(err.message));
+}
+
+function showCollegeData(data) {
+  var universityData = data;
+  var universitiesObj = universityData[0];
+  var universitiesArr = universitiesObj.universities;
+  universitiesArr.forEach((university) => {
+    var aElement = document.createElement("a");
+    aElement.textContent = university.name;
+    aElement.href = `http://localhost:5500/university?slug=${university.slug}`;
+    document.getElementById("savedpage").appendChild(aElement);
+  });
+}
 //change password
 function passclick() {
   passpage.style.display = "block";
@@ -317,6 +364,8 @@ function clicklay() {
   deletes(passpage);
   deletes(feedpage);
   deletes(avatarpage);
+  deletes(savdepage);
+  deletes(resultspages);
 }
 
 // picavatar

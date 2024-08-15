@@ -141,3 +141,16 @@ function detail(imgElement) {
     }
   };
 }
+
+window.addEventListener("load", function () {
+  var urlParams = new URLSearchParams(window.location.search);
+  var slugSave = urlParams.get("slug");
+  if (slugSave) {
+    var UniverContainer = document.querySelector(
+      `.sch[data-slug="${slugSave}"]`
+    );
+    detail(UniverContainer);
+    const urlWithoutSlug = window.location.origin + window.location.pathname;
+    history.replaceState(null, "", urlWithoutSlug);
+  }
+});

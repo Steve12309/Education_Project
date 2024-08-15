@@ -26,7 +26,6 @@ const Accountfb = require("../Source/APP/MODELS/Accountfb");
 const Comment = require("../Source/APP/MODELS/Comment");
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
   socket.on("joinUniversity", (universityId) => {
     socket.join(universityId);
     Comment.find({ universityId }).then((comments) => {

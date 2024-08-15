@@ -3,6 +3,9 @@ var postComment = document.querySelector(".commentSubmitBtn");
 var newComment = document.getElementById("Comment");
 var commentArea = document.querySelector(".comment-area");
 var universitySlug = "";
+var saveUniBtn = document.querySelector(".saveUni");
+var infoCollege = document.querySelector(".info-container");
+var CollegeName = document.querySelector("h1").innerText;
 moment.updateLocale("vi", {
   relativeTime: {
     future: "trong %s",
@@ -21,6 +24,25 @@ moment.updateLocale("vi", {
     yy: "%d năm",
   },
 });
+
+saveUniBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  saveUni(CollegeName);
+});
+function saveUni(university) {
+  fetch("/save", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ university }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
+}
 
 postComment.addEventListener("click", function (e) {
   e.preventDefault();
@@ -85,6 +107,7 @@ socket.on("loadComments", (comments) => {
 });
 
 window.addEventListener("message", function (event) {
+  console.log(event.data);
   var message = event.data;
   universitySlug = message.univerSlug;
   var themeLink = document.getElementById("theme-link");
