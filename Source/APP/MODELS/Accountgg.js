@@ -26,6 +26,10 @@ const AccountGG = new Schema(
       B: { type: String },
       C: { type: String },
       D: { type: String },
+      a: { type: String },
+      b: { type: String },
+      c: { type: String },
+      d: { type: String },
     },
   },
   {

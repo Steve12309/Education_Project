@@ -78,7 +78,18 @@ class UserController {
             );
           }
         } else if (req.body.type === "Mbti") {
-          const { note, type, Anote, Bnote, Cnote, Dnote } = req.body;
+          const {
+            note,
+            type,
+            Anote,
+            Bnote,
+            Cnote,
+            Dnote,
+            noteA,
+            noteB,
+            noteC,
+            noteD,
+          } = req.body;
           var checkUser = await Accountgg.findOne({
             name: req.user.name,
           });
@@ -89,7 +100,16 @@ class UserController {
                 $set: {
                   testType2: type,
                   Mbti: note,
-                  Mbti_Score: { A: Anote, B: Bnote, C: Cnote, D: Dnote },
+                  Mbti_Score: {
+                    A: Anote,
+                    B: Bnote,
+                    C: Cnote,
+                    D: Dnote,
+                    a: noteA,
+                    b: noteB,
+                    c: noteC,
+                    d: noteD,
+                  },
                 },
               },
               { new: true }
@@ -101,7 +121,16 @@ class UserController {
                 $set: {
                   testType2: type,
                   Mbti: note,
-                  Mbti_Score: { A: Anote, B: Bnote, C: Cnote, D: Dnote },
+                  Mbti_Score: {
+                    A: Anote,
+                    B: Bnote,
+                    C: Cnote,
+                    D: Dnote,
+                    a: noteA,
+                    b: noteB,
+                    c: noteC,
+                    d: noteD,
+                  },
                 },
               },
               { new: true }
