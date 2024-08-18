@@ -43,16 +43,14 @@ const isLogOut = async (req, res, next) => {
 
 const isLoginComment = async (req, res, next) => {
   try {
-    if (req.isAuthenticated()) {
-      if (req.user.name) {
-        next();
+    if (!req.isAuthenticated()) {
+      if (!req.session.username) {
+        res.send("Đăng nhập để có thể truy cập vào trang");
+      } else {
       }
-    }
-    if (req.session.username) {
-      next();
     } else {
-      res.send("Đăng nhập để có thể truy cập vào trang");
     }
+    next();
   } catch (err) {
     console.log(err.message);
   }

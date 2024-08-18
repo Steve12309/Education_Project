@@ -768,7 +768,7 @@ function fourprocess(z, kq) {
       break;
     }
     case "E": {
-      imgprocess.src = "img/mbti/extraverted.svg";
+      imgprocess.src = "/img/mbti/extraverted.svg";
       contentprocess.innerHTML = `Những người có xu hướng Hướng Ngoại (E) thường:
 
 - Tập trung vào thế giới bên ngoài

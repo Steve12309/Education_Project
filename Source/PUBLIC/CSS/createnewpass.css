@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: hywen;
+  font-weight: 50;
+}
+
+body {
+  background-color: #c9d6ff;
+  background: linear-gradient(to right, #e2e2e2, #e8d9cd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+@font-face {
+  font-family: hywen;
+  src: url("/img/zhcn.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+form {
+  margin-block-end: 0;
+}
+
+#container {
+  background-color: white;
+  border-radius: 30px;
+  padding: 30px;
+  width: 500px;
+}
+
+#line {
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+}
+
+h1 {
+  margin: 0 0 20px 0;
+  font-size: 22px;
+}
+
+input {
+  background-color: rgb(240, 240, 240);
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+button {
+  background-color: #bba58f;
+  color: #fff;
+  font-size: 12px;
+  width: 100px;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin: 0 0 0 10px;
+}
+
+@media only screen and (max-width: 550px) {
+  #container {
+    width: 370px;
+  }
+
+  h1 {
+    font-size: 16px;
+  }
+  #line {
+    height: 35px;
+  }
+  button {
+    margin: 0 0 0 5px;
+    width: 70px;
+    font-size: 10px;
+  }
+  input {
+    font-size: 14px;
+  }
+}
+
+.alert {
+  text-align: center;
+  margin-bottom: 5px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.alert.showAlert {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alert.show {
+  animation: show_slide 1s ease forwards;
+}
+
+.alert .fa-exclamation-circle {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+}
+
+.alert .msg {
+  font-size: 16px;
+  color: #ff0000;
+}
+
+.alert.hide {
+  animation: hide_slide 1s ease forwards;
+}
+
+@keyframes hide_slide {
+  0% {
+    opacity: 0.75;
+  }
+
+  40% {
+    opacity: 0.5;
+  }
+
+  80% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes show_slide {
+  0% {
+    display: block;
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.5;
+  }
+
+  80% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

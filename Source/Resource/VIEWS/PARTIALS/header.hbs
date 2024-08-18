@@ -190,6 +190,11 @@
       </div>
       <h4>Mật khẩu của bạn phải có tối thiểu 6 ký tự, đồng thời bao gồm cả chữ
         số, chữ cái và ký tự đặc biệt.</h4>
+    {{#each errorMsgChangePass}}
+        <div class="alert show showAlert">
+        <span class="msg">{{this}}</span>
+        </div>
+    {{/each}}
       <input type="password" placeholder="Mật khẩu hiện tại" name="oldpassword" id="oldpass" />
       <input type="password" placeholder="Mật khẩu mới" name="newpassword" id="newpass" />
       <button>Đổi mật khẩu</button>

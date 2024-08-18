@@ -201,7 +201,7 @@ class UserController {
 
   async saveUni(req, res, next) {
     var { university } = req.body;
-    if (req.session) {
+    if (req.session.username) {
       const checkUser = await Account.findOne({ name: req.session.username });
       if (checkUser) {
         const checkUni = await Account.findOne({
@@ -232,14 +232,120 @@ class UserController {
           }
         }
       }
+    } else if (req.user) {
+      if (req.user.provider !== "facebook") {
+        if (req.user.provider !== "google") {
+        } else {
+          const checkUser = await Accountgg.findOne({
+            name: req.user.name,
+          });
+          if (checkUser) {
+            const checkUni = await Accountgg.findOne({
+              universities: {
+                $elemMatch: { name: university },
+              },
+            });
+            if (checkUni) {
+            } else {
+              const getCollegeData = await University.findOne({
+                name: university,
+              });
+              var name = getCollegeData.name;
+              var address = getCollegeData.address;
+              var img = getCollegeData.img;
+              var slug = getCollegeData.slug;
+              var facility = getCollegeData.facility;
+              var history = getCollegeData.history;
+              if (getCollegeData) {
+                const newUniversity = {
+                  name: name,
+                  address: address,
+                  img: img,
+                  slug: slug,
+                  history: history,
+                  facility: facility,
+                };
+                checkUser.universities.push(newUniversity);
+                await checkUser.save();
+              }
+            }
+          }
+        }
+      } else {
+        const checkUser = await Accountfb.findOne({ name: req.user.name });
+        if (checkUser) {
+          const checkUni = await Accountfb.findOne({
+            universities: {
+              $elemMatch: { name: university },
+            },
+          });
+          if (checkUni) {
+          } else {
+            const getCollegeData = await University.findOne({
+              name: university,
+            });
+            var name = getCollegeData.name;
+            var address = getCollegeData.address;
+            var img = getCollegeData.img;
+            var slug = getCollegeData.slug;
+            var facility = getCollegeData.facility;
+            var history = getCollegeData.history;
+            if (getCollegeData) {
+              const newUniversity = {
+                name: name,
+                address: address,
+                img: img,
+                slug: slug,
+                history: history,
+                facility: facility,
+              };
+              checkUser.universities.push(newUniversity);
+              await checkUser.save();
+            }
+          }
+        }
+      }
     }
   }
 
   async viewHistoryCollege(req, res, next) {
-    var collegeData = await Account.find(
-      { "universities.0": { $exists: true } },
-      { "universities.name": 1, "universities.slug": 1, _id: 0 }
-    );
+    var collegeData;
+    if (req.session.username) {
+      collegeData = await Account.find(
+        { "universities.0": { $exists: true } },
+        {
+          "universities.name": 1,
+          "universities.slug": 1,
+          "universities.img": 1,
+          _id: 0,
+        }
+      );
+    } else if (req.user) {
+      if (req.user.provider !== "facebook") {
+        if (req.user.provider !== "google") {
+        } else {
+          collegeData = await Accountgg.find(
+            { "universities.0": { $exists: true } },
+            {
+              "universities.name": 1,
+              "universities.slug": 1,
+              "universities.img": 1,
+              _id: 0,
+            }
+          );
+        }
+      } else {
+        collegeData = await Accountfb.find(
+          { "universities.0": { $exists: true } },
+          {
+            "universities.name": 1,
+            "universities.slug": 1,
+            "universities.img": 1,
+            _id: 0,
+          }
+        );
+      }
+    }
     res.send(JSON.stringify(mutipleMongooseToObject(collegeData)));
   }
 

@@ -6,6 +6,7 @@ var universitySlug = "";
 var saveUniBtn = document.querySelector(".saveUni");
 var infoCollege = document.querySelector(".info-container");
 var CollegeName = document.querySelector("h1").innerText;
+var slugsArr = [];
 moment.updateLocale("vi", {
   relativeTime: {
     future: "trong %s",
@@ -27,6 +28,9 @@ moment.updateLocale("vi", {
 
 saveUniBtn.addEventListener("click", function (e) {
   e.preventDefault();
+  saveUniBtn.innerHTML = `
+  <i class="fa-solid fa-bookmark icon-save"></i>
+  `;
   saveUni(CollegeName);
 });
 function saveUni(university) {
@@ -56,7 +60,6 @@ function updateTimeAgo(element, timestamp) {
 }
 
 socket.on("comment", (comment) => {
-  console.log(comment);
   const timeAgo = moment(comment.timestamp).fromNow();
   var userComment = document.createElement("div");
   userComment.classList.add("userComment");
@@ -72,7 +75,7 @@ socket.on("comment", (comment) => {
   timeElement.textContent = timeAgo;
   userComment.innerHTML = commentContent;
   userComment.appendChild(timeElement);
-  commentArea.appendChild(userComment);
+  commentArea.insertBefore(userComment, commentArea.firstChild);
   updateTimeAgo(timeElement, comment.timestamp);
   setInterval(() => {
     updateTimeAgo(timeElement, comment.timestamp);
@@ -80,9 +83,7 @@ socket.on("comment", (comment) => {
 });
 
 socket.on("loadComments", (comments) => {
-  console.log(comments);
   comments.forEach((comment) => {
-    console.log(comment);
     const timeAgo = moment(comment.timestamp).fromNow();
     var userComment = document.createElement("div");
     userComment.classList.add("userComment");
@@ -106,8 +107,7 @@ socket.on("loadComments", (comments) => {
   });
 });
 
-window.addEventListener("message", function (event) {
-  console.log(event.data);
+window.addEventListener("message", async function (event) {
   var message = event.data;
   universitySlug = message.univerSlug;
   var themeLink = document.getElementById("theme-link");
@@ -116,5 +116,37 @@ window.addEventListener("message", function (event) {
   } else if ((message.action = "dark")) {
     themeLink.href = "/universitydetail-dark.css";
   }
+  await getCollegeData(universitySlug);
   socket.emit("joinUniversity", message.univerSlug);
 });
+
+async function getCollegeData(slug) {
+  fetch("/history/university")
+    .then((res) => res.json())
+    .then((data) => showCollegeData(data, slug))
+    .catch((err) => console.log(err.message));
+}
+
+function showCollegeData(data, slug) {
+  var universityData = data;
+  var universitiesObj = universityData[0];
+  var universitiesArr = universitiesObj.universities;
+  universitiesArr.forEach((university) => {
+    slugsArr.push(university.slug);
+  });
+  checkSaveUni(slugsArr, slug);
+}
+
+function checkSaveUni(arr, slugData) {
+  console.log(arr[1], typeof arr[1], arr);
+  console.log(typeof slugData);
+  var checkState = slugsArr.find((slug) => {
+    return slug === slugData;
+  });
+  if (checkState) {
+    saveUniBtn.innerHTML = `
+  <i class="fa-solid fa-bookmark icon-save"></i>
+  `;
+  } else {
+  }
+}

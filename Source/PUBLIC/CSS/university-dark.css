@@ -28,7 +28,6 @@ a {
   box-shadow: none !important;
 }
 
-
 #sidebar {
   display: flex;
   flex-direction: column;
@@ -44,7 +43,7 @@ a {
   width: 100%;
   padding-left: 10px;
 }
-#search-page{
+#search-page {
   width: 100%;
   height: 100%;
   position: relative;
@@ -54,9 +53,9 @@ a {
   height: 94vh;
   display: flex;
   position: absolute;
-  top: 6vh;
+  top: 40px;
   flex-direction: row;
-  padding:0px 10px 10px 10px;
+  padding: 0px 10px 10px 10px;
 }
 
 #school-detail {
@@ -68,7 +67,7 @@ a {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
-#iframedetail{
+#iframedetail {
   width: 100%;
   height: 100%;
 }
@@ -78,7 +77,7 @@ a {
   background-color: white;
   width: 85%;
   background-color: rgba(100, 100, 100);
-  height:40px;
+  height: 40px;
   display: flex;
   border-radius: 25px;
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -234,12 +233,14 @@ select:focus {
   overflow-y: scroll;
   overflow-x: hidden;
   border-radius: 15px;
+  perspective: 100px;
 }
 
 .sch {
   color: white;
   display: flex;
   flex-direction: row;
+  border: 2px solid transparent;
   background-color: rgba(50, 50, 50);
   border-radius: 15px;
   width: 97.5%;
@@ -248,15 +249,13 @@ select:focus {
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  animation: scroll linear;
+
   cursor: pointer;
-
-  animation-timeline: view();
-
 }
 .sch:hover {
-
+  border: 2px solid rgb(130, 130, 130);
 }
+
 @keyframes scroll {
   0% {
     scale: 0.85;
@@ -287,7 +286,6 @@ select:focus {
   padding: 0 5px 5px 0;
 }
 
-
 .sch-contai-img {
   padding: 10px;
   height: 100%;
@@ -317,7 +315,7 @@ select:focus {
   font-size: 12px;
   font-family: monospace;
   font-weight: 1;
-  background-color: rgba(80, 80,80);
+  background-color: rgba(80, 80, 80);
   color: white;
   padding: 3px 6px;
   border-radius: 10px;
@@ -363,16 +361,18 @@ select:focus {
   top: 0;
   left: 0;
   right: 0;
-  background: -webkit-repeating-linear-gradient(-45deg,
-      #71b7e6,
-      #69a6ce,
-      #b98acc,
-      #ee8176,
-      #b98acc,
-      #69a6ce,
-      #9b59b6);
+  background: -webkit-repeating-linear-gradient(
+    -45deg,
+    #71b7e6,
+    #69a6ce,
+    #b98acc,
+    #ee8176,
+    #b98acc,
+    #69a6ce,
+    #9b59b6
+  );
   background-size: 400%;
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
   animation: animate 10s ease-in-out infinite;
@@ -443,7 +443,6 @@ select:focus {
   #main-pic {
     width: 140vw;
   }
-
 }
 
 @media only screen and (max-width: 850px) {
@@ -528,7 +527,7 @@ select:focus {
     font-size: 12px;
   }
 
-  #pop-search{
+  #pop-search {
     width: 525px;
   }
 }
@@ -538,7 +537,7 @@ select:focus {
     width: 250vw;
   }
 
-  #pop-search{
+  #pop-search {
     width: 90%;
   }
 }

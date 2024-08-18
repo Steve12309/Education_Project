@@ -83,7 +83,7 @@ searchInput.addEventListener("keyup", function (e) {
 });
 function hidesearchin() {
   if (window.innerWidth <= 850) {
-    // contaisearch.removeChild(searchInput);
+    contaisearch.removeChild(searchInput);
   } else {
     contaisearch.appendChild(searchInput);
   }
@@ -132,7 +132,10 @@ function detail(imgElement) {
   iframe.onload = function () {
     var constmodeValue = localStorage.getItem("mode");
     if (constmodeValue === "light") {
-      iframe.contentWindow.postMessage({ action: "light" }, "*");
+      iframe.contentWindow.postMessage(
+        { action: "light", univerSlug: slug },
+        "*"
+      );
     } else if (constmodeValue === "dark") {
       iframe.contentWindow.postMessage(
         { action: "dark", univerSlug: slug },

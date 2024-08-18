@@ -112,6 +112,7 @@ class LoginController {
       if (checkemail) {
         const resetToken = crypto.randomBytes(32).toString("hex");
         req.session.token = resetToken;
+        console.log(req.session.token);
         const resetLink = `http://localhost:5500/createnewpass/${resetToken}`;
         const resetpassTemplate = `
       <html lang="en">
@@ -254,6 +255,8 @@ class LoginController {
         );
       }
       res.render("createnewpassword", {
+        style: "createnewpass.css",
+        function1: "createnewpass.js",
         layout: "extend",
         path: req.path,
         toastr_render: req.toastr.render(),
@@ -267,7 +270,7 @@ class LoginController {
   async savenewpassword(req, res, next) {
     try {
       if (req.session.forgotpass === "true") {
-        console.log(newpass);
+        var newpass = req.body.newpass;
         var filter = { email: req.session.email };
         var saltRounds = 10;
         var hashedPassword = await bcrypt.hash(newpass, saltRounds);

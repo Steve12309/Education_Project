@@ -31,6 +31,16 @@ const AccountFB = new Schema(
       c: { type: String },
       d: { type: String },
     },
+    universities: [
+      {
+        name: { type: String },
+        address: { type: String },
+        img: { type: String },
+        slug: { type: String },
+        history: { type: String },
+        facility: { type: String },
+      },
+    ],
   },
   {
     collection: "accountsfb",

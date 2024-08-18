@@ -306,16 +306,30 @@ async function getCollegeData() {
     .catch((err) => console.log(err.message));
 }
 
+var saveUniContainer = document.createElement("div");
+saveUniContainer.classList.add("saveUniContainer");
 function showCollegeData(data) {
   var universityData = data;
   var universitiesObj = universityData[0];
   var universitiesArr = universitiesObj.universities;
+  saveUniContainer.innerHTML = "";
   universitiesArr.forEach((university) => {
+    var uniContainer = document.createElement("div");
+    uniContainer.classList.add("uniContainer");
+    var iElement = document.createElement("img");
+    iElement.src = university.img;
+    iElement.classList.add("uniImg");
     var aElement = document.createElement("a");
-    aElement.textContent = university.name;
+    var pElement = document.createElement("p");
+    pElement.textContent = university.name;
     aElement.href = `http://localhost:5500/university?slug=${university.slug}`;
-    document.getElementById("savedpage").appendChild(aElement);
+    pElement.classList.add("uniName");
+    uniContainer.appendChild(iElement);
+    uniContainer.appendChild(pElement);
+    aElement.appendChild(uniContainer);
+    saveUniContainer.appendChild(aElement);
   });
+  document.getElementById("savedpage").appendChild(saveUniContainer);
 }
 //change password
 function passclick() {
@@ -400,6 +414,18 @@ fileInput.addEventListener("change", () => {
   const files = fileInput.files;
   if (files.length) {
     handleFiles(files);
+  }
+});
+
+window.addEventListener("load", function () {
+  var alertInfo = document.querySelectorAll(".alert");
+  if (alertInfo) {
+    this.setTimeout(function () {
+      alertInfo.forEach(function (alertMsg) {
+        alertMsg.classList.remove("show");
+        alertMsg.classList.add("hide");
+      });
+    }, 30000);
   }
 });
 

@@ -1166,3 +1166,67 @@ iframe#chatbotContainer {
     opacity: 1;
   }
 }
+
+.saveUniContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+  font-size: 16px;
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 30%;
+}
+
+.uniContainer {
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  gap: 10px;
+  padding: 6px;
+  background-color: rgba(250, 250, 250);
+  border-radius: 15px;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  animation: scroll linear;
+}
+
+.uniContainer:hover {
+  outline: 2px solid rgb(130, 130, 130);
+}
+
+.uniName {
+  height: auto;
+  color: black;
+  font-size: 25px;
+  font-weight: 900px;
+}
+
+.uniImg {
+  margin-top: 21px;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes scroll {
+  0% {
+    scale: 0.85;
+    opacity: 0;
+  }
+
+  10% {
+    scale: 1;
+    opacity: 1;
+  }
+
+  90% {
+    scale: 1;
+    opacity: 1;
+  }
+
+  100% {
+    scale: 0.85;
+    opacity: 0;
+  }
+}
