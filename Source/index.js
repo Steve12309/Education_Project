@@ -25,8 +25,9 @@ const Accountgg = require("../Source/APP/MODELS/Accountgg");
 const Accountfb = require("../Source/APP/MODELS/Accountfb");
 const Comment = require("../Source/APP/MODELS/Comment");
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   socket.on("joinUniversity", (universityId) => {
+    console.log(universityId);
     socket.join(universityId);
     Comment.find({ universityId }).then((comments) => {
       if (comments.length !== 0) {

@@ -393,6 +393,15 @@ class UserController {
       tests: JSON.stringify(testsData),
     });
   }
+
+  async deleteUni(req, res, next) {
+    const checkUni = await Account.findOne({}, { universities: 1 });
+    const updatedUniversities = checkUni.universities.filter(
+      (university) => university.name !== req.body.university
+    );
+    checkUni.universities = updatedUniversities;
+    await checkUni.save();
+  }
 }
 
 module.exports = new UserController();

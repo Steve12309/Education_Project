@@ -12,6 +12,7 @@ var iframe = document.getElementById("iframedetail");
 var popsearch = document.getElementById("pop-search");
 var popcontaisearch = document.getElementById("pop-contai-search");
 var contaisearch = document.getElementById("contai-search");
+const socket = io("http://localhost:5500", { path: "/socket.io" });
 
 window.addEventListener("load", function () {
   renderCollege(universityData);
@@ -129,20 +130,22 @@ function detail(imgElement) {
   slug = slug1;
   iframe.classList.remove("hide");
   iframe.src = `http://localhost:5500/university/${slug}`;
-  iframe.onload = function () {
-    var constmodeValue = localStorage.getItem("mode");
-    if (constmodeValue === "light") {
+  var constmodeValue = localStorage.getItem("mode");
+  if (constmodeValue === "light") {
+    setTimeout(function () {
       iframe.contentWindow.postMessage(
         { action: "light", univerSlug: slug },
         "*"
       );
-    } else if (constmodeValue === "dark") {
+    }, 1000);
+  } else if (constmodeValue === "dark") {
+    setTimeout(function () {
       iframe.contentWindow.postMessage(
         { action: "dark", univerSlug: slug },
         "*"
       );
-    }
-  };
+    }, 1000);
+  }
 }
 
 window.addEventListener("load", function () {

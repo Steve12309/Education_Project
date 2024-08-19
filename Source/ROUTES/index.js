@@ -10,6 +10,7 @@ const checkRoute = require("../APP/MIDDLEWARE/Route");
 const validation = require("../APP/MIDDLEWARE/Validation");
 const passport = require("passport");
 function route(app) {
+  app.post("/delete", account.isLogin, userController.deleteUni);
   app.get("/history/:slug", account.isLogin, checkRoute.getCollege);
   app.post("/save", account.isLogin, userController.saveUni);
   app.post("/result/holland", account.isLogin, userController.testResult);

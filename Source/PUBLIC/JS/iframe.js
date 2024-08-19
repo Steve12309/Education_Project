@@ -28,11 +28,45 @@ moment.updateLocale("vi", {
 
 saveUniBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  saveUniBtn.innerHTML = `
+  changeUniState();
+});
+
+function changeUniState() {
+  if (
+    saveUniBtn.innerHTML ===
+    `
+  <i class="fa-solid fa-bookmark icon-save"></i>
+  `
+  ) {
+    deleteUni(CollegeName);
+    saveUniBtn.innerHTML = `
+    <i
+    class="fa-regular fa-bookmark icon-save"
+  ></i>
+    `;
+  } else {
+    saveUni(CollegeName);
+    saveUniBtn.innerHTML = `
   <i class="fa-solid fa-bookmark icon-save"></i>
   `;
-  saveUni(CollegeName);
-});
+  }
+}
+
+function deleteUni(university) {
+  fetch("/delete", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ university }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
+}
+
 function saveUni(university) {
   fetch("/save", {
     method: "POST",
@@ -109,14 +143,13 @@ socket.on("loadComments", (comments) => {
 
 window.addEventListener("message", async function (event) {
   var message = event.data;
-  universitySlug = message.univerSlug;
   var themeLink = document.getElementById("theme-link");
   if (message.action === "light") {
     themeLink.href = "/universitydetail-light.css";
-  } else if ((message.action = "dark")) {
+  } else if (message.action === "dark") {
     themeLink.href = "/universitydetail-dark.css";
   }
-  await getCollegeData(universitySlug);
+  await getCollegeData(message.univerSlug);
   socket.emit("joinUniversity", message.univerSlug);
 });
 
@@ -133,14 +166,13 @@ function showCollegeData(data, slug) {
   var universitiesArr = universitiesObj.universities;
   universitiesArr.forEach((university) => {
     slugsArr.push(university.slug);
+    slugsArr.sort();
   });
   checkSaveUni(slugsArr, slug);
 }
 
 function checkSaveUni(arr, slugData) {
-  console.log(arr[1], typeof arr[1], arr);
-  console.log(typeof slugData);
-  var checkState = slugsArr.find((slug) => {
+  var checkState = arr.find((slug) => {
     return slug === slugData;
   });
   if (checkState) {
