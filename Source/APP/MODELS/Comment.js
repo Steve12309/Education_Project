@@ -13,6 +13,7 @@ const Comment = new Schema(
       },
     ],
   },
+  { versionKey: false },
   {
     collection: "comments",
   }

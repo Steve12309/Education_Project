@@ -7,6 +7,7 @@ var saveUniBtn = document.querySelector(".saveUni");
 var infoCollege = document.querySelector(".info-container");
 var CollegeName = document.querySelector("h1").innerText;
 var slugsArr = [];
+var containComment = false;
 moment.updateLocale("vi", {
   relativeTime: {
     future: "trong %s",
@@ -114,9 +115,13 @@ socket.on("comment", (comment) => {
   setInterval(() => {
     updateTimeAgo(timeElement, comment.timestamp);
   }, 1000);
+  containComment = true;
+  checkComments(containComment, userComment);
 });
 
 socket.on("loadComments", (comments) => {
+  commentArea.innerHTML = "";
+  var demo;
   comments.forEach((comment) => {
     const timeAgo = moment(comment.timestamp).fromNow();
     var userComment = document.createElement("div");
@@ -133,17 +138,49 @@ socket.on("loadComments", (comments) => {
     timeElement.textContent = timeAgo;
     userComment.innerHTML = commentContent;
     userComment.appendChild(timeElement);
-    commentArea.appendChild(userComment);
+    demo = userComment;
     updateTimeAgo(timeElement, comment.timestamp);
     setInterval(() => {
       updateTimeAgo(timeElement, comment.timestamp);
     }, 1000);
   });
+  if (comments.length !== 0) {
+    console.log(comments.length);
+    containComment = true;
+    checkComments(containComment, demo);
+  } else {
+    console.log(comments.length);
+    containComment = false;
+    checkComments(containComment, null);
+  }
 });
+
+function checkComments(state, userComment) {
+  console.log(state);
+  if (state === false && userComment === null) {
+    commentArea.style.height = "400px";
+    commentArea.innerHTML = `
+     <div class="noCommentContainer">
+      <img src="../../../img/others_imgs/noComment.png" alt="" class="noCommentImg">
+      <p>Chưa có bình luận nào. Hãy là người đầu tiên bình luận</p>
+     </div>
+    `;
+  } else if (state === true && userComment !== null) {
+    commentArea.style.height = "auto";
+    commentArea.innerHTML = "";
+    if (commentArea.innerHTML === "") {
+      commentArea.appendChild(userComment);
+    } else {
+      commentArea.innerHTML = "";
+      commentArea.appendChild(userComment);
+    }
+  }
+}
 
 window.addEventListener("message", async function (event) {
   var message = event.data;
   var themeLink = document.getElementById("theme-link");
+  universitySlug = message.univerSlug;
   if (message.action === "light") {
     themeLink.href = "/universitydetail-light.css";
   } else if (message.action === "dark") {

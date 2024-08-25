@@ -40,6 +40,7 @@ const Account = new Schema(
         facility: { type: String },
       },
     ],
+    Pomoimg: { type: String },
   },
   {
     collection: "accounts",

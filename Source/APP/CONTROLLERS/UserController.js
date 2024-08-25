@@ -402,6 +402,29 @@ class UserController {
     checkUni.universities = updatedUniversities;
     await checkUni.save();
   }
+
+  async savePomoBg(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    if (checkUser) {
+      await Account.findOneAndUpdate(
+        { name: req.session.username },
+        {
+          $set: {
+            Pomoimg: req.body.fileUrl,
+          },
+        },
+        { new: true }
+      );
+    }
+  }
+
+  async getPomoBg(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    if (checkUser) {
+      var { Pomoimg } = checkUser;
+      res.send(JSON.stringify(Pomoimg));
+    }
+  }
 }
 
 module.exports = new UserController();

@@ -27,7 +27,6 @@ const Comment = require("../Source/APP/MODELS/Comment");
 
 io.on("connection", async (socket) => {
   socket.on("joinUniversity", (universityId) => {
-    console.log(universityId);
     socket.join(universityId);
     Comment.find({ universityId }).then((comments) => {
       if (comments.length !== 0) {
@@ -62,6 +61,7 @@ io.on("connection", async (socket) => {
             console.log("Error updating comments:", error);
           });
       } else {
+        io.emit("loadComments", []);
         console.log("No comments found");
       }
     });
@@ -231,8 +231,8 @@ app.set("views", path.join(__dirname, "Resource/VIEWS"));
 app.use("/img", express.static("img"));
 app.use(express.static(path.join(__dirname, "PUBLIC/CSS/")));
 app.use(express.static(path.join(__dirname, "PUBLIC/JS/")));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "1000mb" }));
+app.use(express.urlencoded({ limit: "1000mb", extended: true }));
 const sessionMiddleware = session({
   secret: "accountsessionsecret",
   resave: false,

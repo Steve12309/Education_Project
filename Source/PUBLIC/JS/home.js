@@ -93,18 +93,58 @@ function handleFile(file) {
 }
 dropArea.addEventListener("click", () => backgroundImageInput.click());
 
-backgroundImageInput.addEventListener("change", (event) => {
-  const file = event.target.files[0];
-  if (file) {
+backgroundImageInput.addEventListener("change", function (e) {
+  file = e.target.files[0];
+  renderPomoBg(file);
+});
+
+function renderPomoBg(file, data) {
+  if (!file || file === null || data) {
+    playerContainer.style.backgroundImage = data;
+    const urlbg = data;
+    bgforpip(urlbg);
+  } else {
     const reader = new FileReader();
     reader.onload = function (e) {
       playerContainer.style.backgroundImage = `url(${e.target.result})`;
       const urlbg = `url(${e.target.result})`;
       bgforpip(urlbg);
+      savePomoBg(urlbg);
     };
     reader.readAsDataURL(file);
   }
+}
+
+function savePomoBg(fileUrl) {
+  fetch("/save/pomodoroBackground", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ fileUrl }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
+}
+
+window.addEventListener("load", function () {
+  getPomoBg();
 });
+
+function getPomoBg() {
+  fetch("/save/pomodoroBackground")
+    .then((res) => res.json())
+    .then((data) => checkPomoBg(data))
+    .catch((err) => console.log(err.message));
+}
+
+function checkPomoBg(data) {
+  renderPomoBg(null, data);
+}
+
 function handleDrop(e) {
   e.preventDefault();
   e.stopPropagation();

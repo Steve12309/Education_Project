@@ -3,46 +3,60 @@
   ></i></button>
 <div class="info-container">
   {{#with college}}
-    <h1>{{name}}</h1>
+    <div class="introduction">
+      <div class="imgContainer">
+        <img src="{{img}}" alt="" class="uniLogo" />
+      </div>
+      <h1>{{name}}</h1>
+    </div>
     {{#if history}}
-      <h2>Lịch sử hình thành và phát triển</h2>
+      <h2 class="heading">Lịch sử hình thành và phát triển</h2>
       <p>{{history}}</p>
     {{else}}
     {{/if}}
     {{#if facility}}
-      <h2>Cơ sở vật chất</h2>
+      <h2 class="heading">Cơ sở vật chất</h2>
       <p>{{facility}}</p>
     {{else}}
     {{/if}}
+    <h2 class="heading">Ngành đào tạo</h2>
+    <div class="table-container">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Ngành đào tạo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each subject}}
+            <tr>
+              <td>{{this}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <h2 class="heading">Địa chỉ</h2>
+    <div class="location">
+      <i class="fa-solid fa-location-dot"></i>
+      <p class="address">{{address}}</p>
+    </div>
   {{/with}}
-  <h2>Ngành đào tạo</h2>
-  <table border="1">
-    <tr>
-      <th>Ngành đào tạo</th>
-    </tr>
-    {{#each college.subject}}
-      <tr>
-        <td>{{this}}</td>
-      </tr>
-    {{/each}}
-  </table>
 </div>
 
 <div class="commentPost-area">
   <form action="">
-    <input
-      type="text"
+    <textarea
       name="comment"
       id="Comment"
-      class="commentMsg"
       placeholder="Nhập bình luận mới của bạn"
-    />
+      class="commentMsg"
+    ></textarea>
     <button type="submit" class="btn-hover color-9 commentSubmitBtn">Tạo bình
       luận</button>
   </form>
 </div>
 
-<div class="comment-area">
-</div>
+<div class="comment-area"></div>
 
 <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>

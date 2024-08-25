@@ -9,6 +9,7 @@ const University = new Schema(
     slug: { type: String },
     history: { type: String },
     facility: { type: String },
+    subject: [{ type: String }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },

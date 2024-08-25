@@ -13,6 +13,16 @@ function route(app) {
   app.post("/delete", account.isLogin, userController.deleteUni);
   app.get("/history/:slug", account.isLogin, checkRoute.getCollege);
   app.post("/save", account.isLogin, userController.saveUni);
+  app.post(
+    "/save/pomodoroBackground",
+    account.isLogin,
+    userController.savePomoBg
+  );
+  app.get(
+    "/save/pomodoroBackground",
+    account.isLogin,
+    userController.getPomoBg
+  );
   app.post("/result/holland", account.isLogin, userController.testResult);
   app.post("/result/mbti", account.isLogin, userController.testResult);
   app.get(
