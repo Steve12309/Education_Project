@@ -150,7 +150,7 @@ function getTodolist() {
 }
 
 function checkTodolist(data) {
-  addTask(data);
+  addTaskServer(data);
 }
 
 function checkPomoBg(data) {
@@ -332,24 +332,14 @@ const tilemagic = document.getElementById("titlemagic");
 const listask = document.getElementById("list");
 let currentEditingTask = null;
 
-function addTask(data) {
-  tilemagic.style.top = "-35px";
-  const taskcontent = document.getElementById("inputTask").value;
-  if (taskcontent.length > 0) {
-    if (currentEditingTask) {
-      // Nếu đang trong chế độ chỉnh sửa
-      const taskText = currentEditingTask.querySelector(".task-text");
-      taskText.textContent = taskcontent;
-      resetInput();
-    } else {
-      const taskcontai = document.createElement("div");
+function addTaskServer(data) {
+  var tasks = data;
+  if (tasks) {
+    tasks.forEach((task) => {
+      var taskcontai = document.createElement("div");
       taskcontai.classList.add("taskcontai");
-      if (Array.isArray(data) && data.length > 0) {
-        console.log(data);
-        data.forEach((ele) => {
-          console.log(ele);
-          taskcontai.innerHTML = `
-                <span class="task-text">${ele}</span>
+      taskcontai.innerHTML = `
+                <span class="task-text">${task}</span>
                 <div class="options">
                     <button class="btnedit" onclick="edittask(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
                     <button class="btndelete" onclick="deletetask(this)"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
@@ -359,12 +349,25 @@ function addTask(data) {
                 </label>
             </div>
                 </div>`;
-          listask.appendChild(taskcontai);
-        });
-        resetInput();
-      } else {
-        // Nếu là thêm mới
-        taskcontai.innerHTML = `
+      listask.appendChild(taskcontai);
+    });
+  }
+}
+
+function addTask() {
+  tilemagic.style.top = "-35px";
+  const taskcontent = document.getElementById("inputTask").value;
+  if (taskcontent.length !== 0) {
+    if (currentEditingTask) {
+      // Nếu đang trong chế độ chỉnh sửa
+      const taskText = currentEditingTask.querySelector(".task-text");
+      taskText.textContent = taskcontent;
+      resetInput();
+    } else {
+      const taskcontai = document.createElement("div");
+      taskcontai.classList.add("taskcontai");
+      // Nếu là thêm mới
+      taskcontai.innerHTML = `
                 <span class="task-text">${taskcontent}</span>
                 <div class="options">
                     <button class="btnedit" onclick="edittask(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
@@ -375,9 +378,8 @@ function addTask(data) {
                 </label>
             </div>
                 </div>`;
-        listask.appendChild(taskcontai);
-        resetInput();
-      }
+      listask.appendChild(taskcontai);
+      resetInput();
     }
   } else {
     document.getElementById(
