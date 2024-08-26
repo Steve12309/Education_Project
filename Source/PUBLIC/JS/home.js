@@ -132,6 +132,7 @@ function savePomoBg(fileUrl) {
 
 window.addEventListener("load", function () {
   getPomoBg();
+  getTodolist();
 });
 
 function getPomoBg() {
@@ -139,6 +140,17 @@ function getPomoBg() {
     .then((res) => res.json())
     .then((data) => checkPomoBg(data))
     .catch((err) => console.log(err.message));
+}
+
+function getTodolist() {
+  fetch("/save/todolist")
+    .then((res) => res.json())
+    .then((data) => checkTodolist(data))
+    .catch((err) => console.log(err.message));
+}
+
+function checkTodolist(data) {
+  addTask(data);
 }
 
 function checkPomoBg(data) {
@@ -320,7 +332,7 @@ const tilemagic = document.getElementById("titlemagic");
 const listask = document.getElementById("list");
 let currentEditingTask = null;
 
-function addTask() {
+function addTask(data) {
   tilemagic.style.top = "-35px";
   const taskcontent = document.getElementById("inputTask").value;
   if (taskcontent.length > 0) {
@@ -330,10 +342,29 @@ function addTask() {
       taskText.textContent = taskcontent;
       resetInput();
     } else {
-      // Nếu là thêm mới
       const taskcontai = document.createElement("div");
       taskcontai.classList.add("taskcontai");
-      taskcontai.innerHTML = `
+      if (Array.isArray(data) && data.length > 0) {
+        console.log(data);
+        data.forEach((ele) => {
+          console.log(ele);
+          taskcontai.innerHTML = `
+                <span class="task-text">${ele}</span>
+                <div class="options">
+                    <button class="btnedit" onclick="edittask(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
+                    <button class="btndelete" onclick="deletetask(this)"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
+                <label class="custom-checkbox">
+                <input type="checkbox" onclick="toggleComplete(this)">
+                <div class="checkmark"></div>
+                </label>
+            </div>
+                </div>`;
+          listask.appendChild(taskcontai);
+        });
+        resetInput();
+      } else {
+        // Nếu là thêm mới
+        taskcontai.innerHTML = `
                 <span class="task-text">${taskcontent}</span>
                 <div class="options">
                     <button class="btnedit" onclick="edittask(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
@@ -344,8 +375,9 @@ function addTask() {
                 </label>
             </div>
                 </div>`;
-      listask.appendChild(taskcontai);
-      resetInput();
+        listask.appendChild(taskcontai);
+        resetInput();
+      }
     }
   } else {
     document.getElementById(
@@ -385,12 +417,34 @@ function toggleComplete(checkbox) {
 }
 
 function resetInput() {
+  var taskTestsArr = [];
+  var taskTests = document.querySelectorAll(".task-text");
+  taskTests.forEach((taskTest) => {
+    taskTestsArr.push(taskTest.textContent);
+  });
+  saveTodolist(taskTestsArr);
   currentEditingTask = null;
   document.getElementById("inputTask").value = "";
   document.getElementById(
     "btn-addtask"
   ).innerHTML = `<img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%">`;
   tilemagic.style.top = "0px";
+}
+
+function saveTodolist(arr) {
+  console.log(Array.isArray(arr), arr);
+  fetch("/save/todolist", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(arr),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
 }
 
 //calender code

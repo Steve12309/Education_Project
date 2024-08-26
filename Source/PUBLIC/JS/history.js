@@ -4,21 +4,25 @@ var tescontai = document.getElementById("test-container");
 var dataContainer = document.getElementById("data-container");
 var testData = JSON.parse(dataContainer.getAttribute("data-test"));
 
-testHBtn.addEventListener("click", function () {
+testHBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   tescontai.innerHTML = "";
   var findTestH = testData.find((obj) => obj.testType1 === "Holland");
   renderHResult(JSON.stringify(findTestH));
 });
 
-testMBtn.addEventListener("click", function () {
+testMBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   tescontai.innerHTML = "";
   var findTestM = testData.find((obj) => obj.testType2 === "Mbti");
+  console.log(findTestM, testData);
   renderMResult(JSON.stringify(findTestM));
 });
 
 function renderMResult(obj) {
   var testObject = JSON.parse(obj);
   var { A, B, C, D, a, b, c, d } = testObject.Mbti_Score;
+  console.log(A, B, C, D);
   createFinalPageM(testObject.Mbti, A, B, C, D, a, b, c, d);
 }
 
@@ -120,7 +124,6 @@ function createFinalPage(result, A, B, C, D, E, F) {
 }
 
 function createSpiderChart(A, B, C, D, E, F) {
-  console.log(A, B, C, D, E, F);
   Highcharts.chart("contaidiagram", {
     chart: {
       polar: true,
@@ -728,10 +731,6 @@ Giáo dục và Đào tạo: ENTJ thường thích làm việc với kiến th�
   buttonleft.onclick = function prevSlide() {
     showSlide(currentSlide - 1);
   };
-  console.log(noteA);
-  console.log(noteB);
-  console.log(noteC);
-  console.log(noteD);
   fourprocess(A, noteA);
   fourprocess(B, noteB);
   fourprocess(C, noteC);

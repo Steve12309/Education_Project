@@ -310,26 +310,30 @@ var saveUniContainer = document.createElement("div");
 saveUniContainer.classList.add("saveUniContainer");
 function showCollegeData(data) {
   var universityData = data;
-  var universitiesObj = universityData[0];
-  var universitiesArr = universitiesObj.universities;
-  saveUniContainer.innerHTML = "";
-  universitiesArr.forEach((university) => {
-    var uniContainer = document.createElement("div");
-    uniContainer.classList.add("uniContainer");
-    var iElement = document.createElement("img");
-    iElement.src = university.img;
-    iElement.classList.add("uniImg");
-    var aElement = document.createElement("a");
-    var pElement = document.createElement("p");
-    pElement.textContent = university.name;
-    aElement.href = `http://localhost:5500/university?slug=${university.slug}`;
-    pElement.classList.add("uniName");
-    uniContainer.appendChild(iElement);
-    uniContainer.appendChild(pElement);
-    aElement.appendChild(uniContainer);
-    saveUniContainer.appendChild(aElement);
-  });
-  document.getElementById("savedpage").appendChild(saveUniContainer);
+  if (universityData.length !== 0) {
+    var universitiesObj = universityData[0];
+    var universitiesArr = universitiesObj.universities;
+    saveUniContainer.innerHTML = "";
+    universitiesArr.forEach((university) => {
+      var uniContainer = document.createElement("div");
+      uniContainer.classList.add("uniContainer");
+      var iElement = document.createElement("img");
+      iElement.src = university.img;
+      iElement.classList.add("uniImg");
+      var aElement = document.createElement("a");
+      var pElement = document.createElement("p");
+      pElement.textContent = university.name;
+      aElement.href = `http://localhost:5500/university?slug=${university.slug}`;
+      pElement.classList.add("uniName");
+      uniContainer.appendChild(iElement);
+      uniContainer.appendChild(pElement);
+      aElement.appendChild(uniContainer);
+      saveUniContainer.appendChild(aElement);
+    });
+    document.getElementById("savedpage").appendChild(saveUniContainer);
+  } else {
+    saveUniContainer.innerHTML = "";
+  }
 }
 //change password
 function passclick() {

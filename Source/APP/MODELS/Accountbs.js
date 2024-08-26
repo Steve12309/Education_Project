@@ -41,6 +41,7 @@ const Account = new Schema(
       },
     ],
     Pomoimg: { type: String },
+    Todolist: [{ type: String }],
   },
   {
     collection: "accounts",

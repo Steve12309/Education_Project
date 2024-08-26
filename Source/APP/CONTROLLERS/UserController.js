@@ -350,11 +350,27 @@ class UserController {
   }
 
   async viewHistoryTest(req, res, next) {
-    const data = await Account.findOne();
+    var data;
+    var testsData;
+
+    if (req.session.username) {
+      data = await Account.findOne();
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          data = await Accountgg.findOne();
+          break;
+        case "facebook":
+          data = await Accountfb.findOne();
+          break;
+      }
+    }
+
     if (data) {
       const { testType1, Holland, Mbti, testType2, Holland_Score, Mbti_Score } =
         data;
-      var testsData = [
+
+      testsData = [
         {
           testType1,
           Holland,
@@ -367,6 +383,7 @@ class UserController {
         },
       ];
     }
+
     let userimg;
     if (req.user.provider === "facebook") {
       // Nếu provider là Facebook, ưu tiên dùng avatarUrl từ req.session, nếu không có thì dùng req.user.img
@@ -395,12 +412,29 @@ class UserController {
   }
 
   async deleteUni(req, res, next) {
-    const checkUni = await Account.findOne({}, { universities: 1 });
-    const updatedUniversities = checkUni.universities.filter(
-      (university) => university.name !== req.body.university
-    );
-    checkUni.universities = updatedUniversities;
-    await checkUni.save();
+    var checkUni;
+    var updatedUniversities;
+
+    if (req.session.username) {
+      checkUni = await Account.findOne({}, { universities: 1 });
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          checkUni = await Accountgg.findOne({}, { universities: 1 });
+          break;
+        case "facebook":
+          checkUni = await Accountfb.findOne({}, { universities: 1 });
+          break;
+      }
+    }
+
+    if (checkUni) {
+      updatedUniversities = checkUni.universities.filter(
+        (university) => university.name !== req.body.university
+      );
+      checkUni.universities = updatedUniversities;
+      await checkUni.save();
+    }
   }
 
   async savePomoBg(req, res, next) {
@@ -423,6 +457,35 @@ class UserController {
     if (checkUser) {
       var { Pomoimg } = checkUser;
       res.send(JSON.stringify(Pomoimg));
+    }
+  }
+
+  async saveTodo(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    var datas = req.body;
+    if (checkUser) {
+      var tasks = [];
+      datas.forEach((data) => {
+        tasks.push(data);
+      });
+      await Account.findOneAndUpdate(
+        { name: req.session.username },
+        { $set: { Todolist: [] } }
+      );
+      await Account.findOneAndUpdate(
+        { name: req.session.username },
+        {
+          $push: { Todolist: { $each: tasks } },
+        }
+      );
+    }
+  }
+
+  async getTodo(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    if (checkUser) {
+      var { Todolist } = checkUser;
+      res.send(JSON.stringify(Todolist));
     }
   }
 }
