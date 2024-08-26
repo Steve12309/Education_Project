@@ -120,8 +120,7 @@ socket.on("comment", (comment) => {
 });
 
 socket.on("loadComments", (comments) => {
-  commentArea.innerHTML = "";
-  var demo;
+  var demo = [];
   comments.forEach((comment) => {
     const timeAgo = moment(comment.timestamp).fromNow();
     var userComment = document.createElement("div");
@@ -138,25 +137,22 @@ socket.on("loadComments", (comments) => {
     timeElement.textContent = timeAgo;
     userComment.innerHTML = commentContent;
     userComment.appendChild(timeElement);
-    demo = userComment;
+    demo.push(userComment);
     updateTimeAgo(timeElement, comment.timestamp);
     setInterval(() => {
       updateTimeAgo(timeElement, comment.timestamp);
     }, 1000);
   });
   if (comments.length !== 0) {
-    console.log(comments.length);
     containComment = true;
     checkComments(containComment, demo);
   } else {
-    console.log(comments.length);
     containComment = false;
     checkComments(containComment, null);
   }
 });
 
 function checkComments(state, userComment) {
-  console.log(state);
   if (state === false && userComment === null) {
     commentArea.style.height = "400px";
     commentArea.innerHTML = `
@@ -167,12 +163,16 @@ function checkComments(state, userComment) {
     `;
   } else if (state === true && userComment !== null) {
     commentArea.style.height = "auto";
-    commentArea.innerHTML = "";
     if (commentArea.innerHTML === "") {
-      commentArea.appendChild(userComment);
+      commentArea.innerHTML = "";
+      userComment.forEach((usercomment) => {
+        commentArea.appendChild(usercomment);
+      });
     } else {
       commentArea.innerHTML = "";
-      commentArea.appendChild(userComment);
+      userComment.forEach((usercomment) => {
+        commentArea.appendChild(usercomment);
+      });
     }
   }
 }
