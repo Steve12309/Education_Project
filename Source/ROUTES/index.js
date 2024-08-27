@@ -10,6 +10,10 @@ const checkRoute = require("../APP/MIDDLEWARE/Route");
 const validation = require("../APP/MIDDLEWARE/Validation");
 const passport = require("passport");
 function route(app) {
+  app.get("/save/pomotime", account.isLogin, userController.getPomoTime);
+  app.post("/save/pomotime", account.isLogin, userController.savePomoTime);
+  app.get("/save/eventlist", account.isLogin, userController.getEvent);
+  app.post("/save/eventlist", account.isLogin, userController.saveEvent);
   app.get("/save/todolist", account.isLogin, userController.getTodo);
   app.post("/save/todolist", account.isLogin, userController.saveTodo);
   app.post("/delete", account.isLogin, userController.deleteUni);

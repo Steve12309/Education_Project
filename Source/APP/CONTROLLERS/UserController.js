@@ -438,8 +438,7 @@ class UserController {
   }
 
   async savePomoBg(req, res, next) {
-    const checkUser = await Account.findOne({ name: req.session.username });
-    if (checkUser) {
+    if (req.session.username) {
       await Account.findOneAndUpdate(
         { name: req.session.username },
         {
@@ -449,11 +448,50 @@ class UserController {
         },
         { new: true }
       );
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          await Accountgg.findOneAndUpdate(
+            { name: req.user.name },
+            {
+              $set: {
+                Pomoimg: req.body.fileUrl,
+              },
+            },
+            { new: true }
+          );
+          break;
+        case "facebook":
+          await Accountfb.findOneAndUpdate(
+            { name: req.user.name },
+            {
+              $set: {
+                Pomoimg: req.body.fileUrl,
+              },
+            },
+            { new: true }
+          );
+          break;
+      }
     }
   }
 
   async getPomoBg(req, res, next) {
-    const checkUser = await Account.findOne({ name: req.session.username });
+    var checkUser;
+
+    if (req.session.username) {
+      checkUser = await Account.findOne({ name: req.session.username });
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({ name: req.user.name });
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({ name: req.user.name });
+          break;
+      }
+    }
+
     if (checkUser) {
       var { Pomoimg } = checkUser;
       res.send(JSON.stringify(Pomoimg));
@@ -461,23 +499,68 @@ class UserController {
   }
 
   async saveTodo(req, res, next) {
-    const checkUser = await Account.findOne({ name: req.session.username });
+    var checkUser;
     var datas = req.body;
-    if (checkUser) {
-      var tasks = [];
-      datas.forEach((data) => {
-        tasks.push(data);
-      });
-      await Account.findOneAndUpdate(
-        { name: req.session.username },
-        { $set: { Todolist: [] } }
-      );
-      await Account.findOneAndUpdate(
-        { name: req.session.username },
-        {
-          $push: { Todolist: { $each: tasks } },
-        }
-      );
+    var tasks = [];
+
+    if (req.session.username) {
+      checkUser = await Account.findOne({ name: req.session.username });
+      if (checkUser) {
+        datas.forEach((data) => {
+          tasks.push(data);
+        });
+        await Account.findOneAndUpdate(
+          { name: req.session.username },
+          { $set: { Todolist: [] } }
+        );
+        await Account.findOneAndUpdate(
+          { name: req.session.username },
+          {
+            $push: { Todolist: { $each: tasks } },
+          }
+        );
+      }
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({ name: req.user.name });
+          if (checkUser) {
+            datas.forEach((data) => {
+              tasks.push(data);
+            });
+            await Accountgg.findOneAndUpdate(
+              { name: req.user.name },
+              { $set: { Todolist: [] } }
+            );
+            await Accountgg.findOneAndUpdate(
+              { name: req.user.name },
+              {
+                $push: { Todolist: { $each: tasks } },
+              }
+            );
+          }
+
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({ name: req.user.name });
+          if (checkUser) {
+            datas.forEach((data) => {
+              tasks.push(data);
+            });
+            await Accountfb.findOneAndUpdate(
+              { name: req.user.name },
+              { $set: { Todolist: [] } }
+            );
+            await Accountfb.findOneAndUpdate(
+              { name: req.user.name },
+              {
+                $push: { Todolist: { $each: tasks } },
+              }
+            );
+          }
+
+          break;
+      }
     }
   }
 
@@ -486,6 +569,64 @@ class UserController {
     if (checkUser) {
       var { Todolist } = checkUser;
       res.send(JSON.stringify(Todolist));
+    }
+  }
+
+  async saveEvent(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    var datas = req.body;
+    if (checkUser) {
+      var events = [];
+      datas.forEach((data) => {
+        events.push(data);
+      });
+      await Account.findOneAndUpdate(
+        { name: req.session.username },
+        { $set: { Eventlist: [] } }
+      );
+      await Account.findOneAndUpdate(
+        { name: req.session.username },
+        {
+          $push: { Eventlist: { $each: events } },
+        }
+      );
+    }
+  }
+
+  async getEvent(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    if (checkUser) {
+      var { Eventlist } = checkUser;
+      res.send(JSON.stringify(Eventlist));
+    }
+  }
+
+  async savePomoTime(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    var datas = req.body;
+    if (checkUser) {
+      var timers = [];
+      datas.forEach((data) => {
+        timers.push(data);
+      });
+      await Account.findOneAndUpdate(
+        { name: req.session.username },
+        { $set: { Pomotime: [] } }
+      );
+      await Account.findOneAndUpdate(
+        { name: req.session.username },
+        {
+          $push: { Pomotime: { $each: timers } },
+        }
+      );
+    }
+  }
+
+  async getPomoTime(req, res, next) {
+    const checkUser = await Account.findOne({ name: req.session.username });
+    if (checkUser) {
+      var { Pomotime } = checkUser;
+      res.send(JSON.stringify(Pomotime));
     }
   }
 }

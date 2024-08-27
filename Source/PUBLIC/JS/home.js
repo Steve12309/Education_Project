@@ -133,6 +133,8 @@ function savePomoBg(fileUrl) {
 window.addEventListener("load", function () {
   getPomoBg();
   getTodolist();
+  getEventlist();
+  getPomoTime();
 });
 
 function getPomoBg() {
@@ -142,11 +144,33 @@ function getPomoBg() {
     .catch((err) => console.log(err.message));
 }
 
+function getPomoTime() {
+  fetch("/save/pomotime")
+    .then((res) => res.json())
+    .then((data) => checkPomoTime(data))
+    .catch((err) => console.log(err.message));
+}
+
 function getTodolist() {
   fetch("/save/todolist")
     .then((res) => res.json())
     .then((data) => checkTodolist(data))
     .catch((err) => console.log(err.message));
+}
+
+function getEventlist() {
+  fetch("/save/eventlist")
+    .then((res) => res.json())
+    .then((data) => checkEventlist(data))
+    .catch((err) => console.log(err.message));
+}
+
+function checkEventlist(data) {
+  addEventServer(data);
+}
+
+function checkPomoTime(data) {
+  addPomoTimeServer(data);
 }
 
 function checkTodolist(data) {
@@ -179,6 +203,7 @@ function handleDragLeave() {
 }
 
 function saveSettings() {
+  var PomoTime = [];
   timers.pomodoro = pomodoroInput.value * 60;
   timers.shortBreak = shortBreakInput.value * 60;
   timers.longBreak = longBreakInput.value * 60;
@@ -195,6 +220,44 @@ function saveSettings() {
 
   updateDisplay();
   closeSettings();
+  PomoTime.push(timers);
+  savePomoTime(PomoTime);
+}
+
+function addPomoTimeServer(data) {
+  var dataTime = data[0];
+  timers.pomodoro = dataTime.pomodoro;
+  timers.shortBreak = dataTime.shortBreak;
+  timers.longBreak = dataTime.longBreak;
+  pomodoroInput.value = dataTime.pomodoro / 60;
+  shortBreakInput.value = dataTime.shortBreak / 60;
+  longBreakInput.value = dataTime.longBreak / 60;
+  if (currentTimer === "pomodoro") {
+    timeLeft = timers.pomodoro;
+  } else if (currentTimer === "shortBreak") {
+    timeLeft = timers.shortBreak;
+  } else if (currentTimer === "longBreak") {
+    timeLeft = timers.longBreak;
+  }
+  if (backgroundFile) {
+    handleFile(backgroundFile);
+  }
+  updateDisplay();
+}
+
+function savePomoTime(Pomotime) {
+  fetch("/save/pomotime", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(Pomotime),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
 }
 
 modeButtons.forEach((button) => {
@@ -399,8 +462,15 @@ function edittask(button) {
 }
 
 function deletetask(button) {
+  var taskTestsArr = [];
   const taskcontai = button.closest(".taskcontai");
   taskcontai.remove();
+  var taskTests = document.querySelectorAll(".task-text");
+  taskTests.forEach((taskTest) => {
+    taskTestsArr.push(taskTest.textContent);
+  });
+  saveTodolist(taskTestsArr);
+  console.log(document.querySelectorAll(".task-text"));
   currentEditingTask = null;
   document.getElementById("inputTask").value = "";
   document.getElementById(
@@ -434,7 +504,6 @@ function resetInput() {
 }
 
 function saveTodolist(arr) {
-  console.log(Array.isArray(arr), arr);
   fetch("/save/todolist", {
     method: "POST",
     headers: {
@@ -854,6 +923,7 @@ document
       // Kiểm tra xem có sự kiện nào đang được chỉnh sửa không
       const editingEvent = document.querySelector(".editing");
       if (editingEvent) {
+        var eventsEditingArr = [];
         // Cập nhật sự kiện hiện tại với giá trị mới
         editingEvent.innerHTML = `<h1>${subjectInput}</h1><h2>${formattedDate}</h2><h2>${daysLeft} ngày nữa</h2><div class="event-controls">
                   <button class="edit-btn"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
@@ -863,9 +933,20 @@ document
         // Xóa lớp "editing" sau khi chỉnh sửa
         editingEvent.classList.remove("editing");
 
+        var eventsEditingState = document.querySelectorAll(".event-item");
+        eventsEditingState.forEach((event) => {
+          eventsEditingArr.push({
+            Subject: event.querySelector("h1").textContent,
+            Calendar: event.querySelector("h2:first-of-type").textContent,
+            Dateleft: event.querySelector("h2:nth-of-type(2)").textContent,
+          });
+        });
+        saveEventLists(eventsEditingArr);
+
         // Thêm lại sự kiện cho nút Xóa và Chỉnh sửa
         addEventControlListeners(editingEvent);
       } else {
+        var eventsNewArr = [];
         // Tạo một sự kiện mới nếu không có sự kiện nào đang được chỉnh sửa
         const newEvent = document.createElement("li");
         newEvent.classList.add("event-item");
@@ -876,6 +957,15 @@ document
 
         // Thêm sự kiện vào danh sách
         eventsList.appendChild(newEvent);
+        var eventsNewState = document.querySelectorAll(".event-item");
+        eventsNewState.forEach((event) => {
+          eventsNewArr.push({
+            Subject: event.querySelector("h1").textContent,
+            Calendar: event.querySelector("h2:first-of-type").textContent,
+            Dateleft: event.querySelector("h2:nth-of-type(2)").textContent,
+          });
+        });
+        saveEventLists(eventsNewArr);
 
         // Thêm sự kiện khi click vào nút Xóa và Chỉnh sửa
         addEventControlListeners(newEvent);
@@ -895,7 +985,17 @@ function addEventControlListeners(eventElement) {
   eventElement
     .querySelector(".delete-btn")
     .addEventListener("click", function () {
+      var eventsDeleteArr = [];
       eventElement.remove();
+      var eventsNewState = document.querySelectorAll(".event-item");
+      eventsNewState.forEach((event) => {
+        eventsDeleteArr.push({
+          Subject: event.querySelector("h1").textContent,
+          Calendar: event.querySelector("h2:first-of-type").textContent,
+          Dateleft: event.querySelector("h2:nth-of-type(2)").textContent,
+        });
+      });
+      saveEventLists(eventsDeleteArr);
     });
 
   // Thêm sự kiện khi click vào nút Chỉnh sửa
@@ -910,6 +1010,36 @@ function addEventControlListeners(eventElement) {
       eventElement.classList.add("editing");
       toggleremind();
     });
+}
+
+function saveEventLists(arr) {
+  fetch("/save/eventlist", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(arr),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
+}
+
+function addEventServer(data) {
+  const eventsList = document.querySelector(".remind-list");
+  data.forEach((event) => {
+    const newEvent = document.createElement("li");
+    newEvent.classList.add("event-item");
+    newEvent.innerHTML = `<h1>${event.Subject}</h1><h2>${event.Calendar}</h2><h2>${event.Dateleft} </h2><div class="event-controls">
+                  <button class="edit-btn"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
+                  <button class="delete-btn"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
+              </div>`;
+    eventsList.appendChild(newEvent);
+    addEventControlListeners(newEvent);
+  });
+  sortEvents(eventsList);
 }
 
 function calculateDaysLeft(year, month, day) {

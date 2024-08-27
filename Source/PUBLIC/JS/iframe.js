@@ -110,7 +110,6 @@ socket.on("comment", (comment) => {
   timeElement.textContent = timeAgo;
   userComment.innerHTML = commentContent;
   userComment.appendChild(timeElement);
-  commentArea.insertBefore(userComment, commentArea.firstChild);
   updateTimeAgo(timeElement, comment.timestamp);
   setInterval(() => {
     updateTimeAgo(timeElement, comment.timestamp);
@@ -121,6 +120,7 @@ socket.on("comment", (comment) => {
 
 socket.on("loadComments", (comments) => {
   var demo = [];
+  commentArea.innerHTML = "";
   comments.forEach((comment) => {
     const timeAgo = moment(comment.timestamp).fromNow();
     var userComment = document.createElement("div");
@@ -163,16 +163,22 @@ function checkComments(state, userComment) {
     `;
   } else if (state === true && userComment !== null) {
     commentArea.style.height = "auto";
-    if (commentArea.innerHTML === "") {
-      commentArea.innerHTML = "";
-      userComment.forEach((usercomment) => {
-        commentArea.appendChild(usercomment);
-      });
+    if (Array.isArray(userComment) === true) {
+      element = document.querySelector(".noCommentContainer");
+      if (element) {
+        element.parentNode.removeChild(element);
+        if (commentArea.innerHTML === "") {
+          userComment.forEach((usercomment) => {
+            commentArea.appendChild(usercomment);
+          });
+        } else {
+          userComment.forEach((usercomment) => {
+            commentArea.appendChild(usercomment);
+          });
+        }
+      }
     } else {
-      commentArea.innerHTML = "";
-      userComment.forEach((usercomment) => {
-        commentArea.appendChild(usercomment);
-      });
+      commentArea.insertBefore(userComment, commentArea.firstChild);
     }
   }
 }
