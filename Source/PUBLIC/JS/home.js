@@ -135,12 +135,21 @@ window.addEventListener("load", function () {
   getTodolist();
   getEventlist();
   getPomoTime();
+  getTimetable();
+  getNotesData();
 });
 
 function getPomoBg() {
   fetch("/save/pomodoroBackground")
     .then((res) => res.json())
     .then((data) => checkPomoBg(data))
+    .catch((err) => console.log(err.message));
+}
+
+function getTimetable() {
+  fetch("/save/timetable")
+    .then((res) => res.json())
+    .then((data) => checkTimetable(data))
     .catch((err) => console.log(err.message));
 }
 
@@ -165,8 +174,23 @@ function getEventlist() {
     .catch((err) => console.log(err.message));
 }
 
+function getNotesData() {
+  fetch("/save/notesdata")
+    .then((res) => res.json())
+    .then((data) => checkNotesData(data))
+    .catch((err) => console.log(err.message));
+}
+
 function checkEventlist(data) {
   addEventServer(data);
+}
+
+function checkNotesData(data) {
+  addNotesDataServer(data);
+}
+
+function checkTimetable(data) {
+  addTimetableServer(data);
 }
 
 function checkPomoTime(data) {
@@ -470,7 +494,6 @@ function deletetask(button) {
     taskTestsArr.push(taskTest.textContent);
   });
   saveTodolist(taskTestsArr);
-  console.log(document.querySelectorAll(".task-text"));
   currentEditingTask = null;
   document.getElementById("inputTask").value = "";
   document.getElementById(
@@ -603,9 +626,23 @@ document.getElementById("saveTimetable").addEventListener("click", () => {
   currentWeekOffset = 0;
   updateMainCalendar();
   movecalendar();
-  console.log(timetable);
-  console.log(notesData);
+  saveTimetable(timetable);
 });
+
+function saveTimetable(timetable) {
+  fetch("/save/timetable", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(timetable),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
+}
 
 document.getElementById("prevWeek").addEventListener("click", () => {
   currentWeekOffset--;
@@ -635,6 +672,163 @@ function getWeekDates(offset) {
       isToday: date.toDateString() === today.toDateString(), // Kiểm tra ngày hôm nay
     };
   });
+}
+function addNotesDataServer(data) {
+  notesData = data[0];
+  getTimetable();
+}
+
+function addTimetableServer(data) {
+  const mainCalendar = document.getElementById("calendarContent");
+  mainCalendar.innerHTML = "";
+
+  const dates = getWeekDates(currentWeekOffset);
+  const calendarTitle = document.getElementById("calendarTitle");
+  calendarTitle.textContent = `Week of ${dates[0].date} - ${dates[6].date}`;
+
+  const table = document.createElement("table");
+  const headerRow = document.createElement("tr");
+  headerRow.innerHTML = `
+      <th>Thời gian</th>
+      ${dates
+        .map(
+          (d) =>
+            `<th${d.isToday ? ' class="current-day"' : ""}>${d.dayName} (${
+              d.date
+            })</th>`
+        )
+        .join("")}
+  `;
+  table.appendChild(headerRow);
+
+  data.forEach((slot) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+          <td>${slot.time}</td>
+          ${slot.events
+            .map((event, index) => {
+              const dateKey = `${dates[index].date}_${slot.time}`;
+              const noteText = notesData[dateKey]?.noteText || "";
+              const isCompleted = notesData[`${dateKey}_completed`] || false;
+
+              return `
+              <td>
+              <div class="contai-event-content">
+                  <div class="event-content">${event}
+                  </div><button class="notes-btn"><img src="/img/tool_imgs/edit2.png" style="width: 100%; height:100%"></button>
+                  </div>
+                  ${
+                    noteText
+                      ? `
+                      <div class="event-note ${
+                        isCompleted ? "completed-note" : ""
+                      }">
+                      <label class="custom-checkbox" id="custom-checkbox2">
+                          <input type="checkbox" class="complete-note-checkbox" ${
+                            isCompleted ? "checked" : ""
+                          } data-note-key="${dateKey}">
+                      <div class="checkmark"></div>
+                      </label>
+                          ${noteText}
+                      </div>
+                  `
+                      : ""
+                  }
+                  <div class="notes-input-container" style="display:none;">
+                      <input type="text" class="notes-input" placeholder="Bài tập..." value="${noteText}">
+                      <button class="save-note-btn"><img src="/img/tool_imgs/plus2.png" style="width: 100%; height:100%"></button>
+                  </div>
+              </td>`;
+            })
+            .join("")}
+      `;
+    table.appendChild(row);
+  });
+
+  mainCalendar.appendChild(table);
+
+  document.querySelectorAll(".notes-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const container = this.parentElement;
+      const tdcontainer = container.parentElement;
+      const notesinputcontainer = tdcontainer.querySelector(
+        ".notes-input-container"
+      );
+      notesinputcontainer.style.display = "flex";
+      this.style.display = "none";
+    });
+  });
+
+  document.querySelectorAll(".save-note-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const container = this.parentElement;
+      const noteInput = container.querySelector(".notes-input");
+      const eventCell = this.closest("td");
+      const noteText = noteInput.value.trim();
+      const timeSlot = eventCell.closest("tr").children[0].textContent;
+      const dayIndex =
+        Array.from(eventCell.parentElement.children).indexOf(eventCell) - 1;
+      const dateKey = `${dates[dayIndex].date}_${timeSlot}`;
+
+      if (noteText === "") {
+        delete notesData[dateKey];
+        delete notesData[`${dateKey}_completed`];
+
+        const noteDiv = eventCell.querySelector(".event-note");
+        if (noteDiv) {
+          noteDiv.remove();
+        }
+
+        const notesBtn = eventCell.querySelector(".notes-btn");
+        notesBtn.innerHTML =
+          '<img src="/img/tool_imgs/edit2.png" style="width: 100%; height:100%">';
+
+        container.style.display = "none";
+        notesBtn.style.display = "inline";
+
+        updateIncompleteNotesCountServer(dates, data);
+        return;
+      }
+
+      notesData[dateKey] = {
+        noteText: noteText,
+        dayName: dates[dayIndex].dayName,
+      };
+      notesData[`${dateKey}_completed`] = false;
+
+      let noteDiv = eventCell.querySelector(".event-note");
+      if (noteDiv) {
+        noteDiv.innerHTML = `<label class="custom-checkbox" id="custom-checkbox2">
+              <input type="checkbox" class="complete-note-checkbox" data-note-key="${dateKey}">
+              <div class="checkmark"></div>
+              </label>
+              ${noteText}`;
+      } else {
+        noteDiv = document.createElement("div");
+        noteDiv.className = "event-note";
+        noteDiv.innerHTML = `<label class="custom-checkbox" id="custom-checkbox2">
+              <input type="checkbox" class="complete-note-checkbox" data-note-key="${dateKey}">
+              <div class="checkmark"></div>
+              </label>
+              ${noteText}`;
+        eventCell.appendChild(noteDiv);
+      }
+
+      const notesBtn = eventCell.querySelector(".notes-btn");
+      notesBtn.innerHTML =
+        '<img src="/img/tool_imgs/edit2.png" style="width: 100%; height:100%">';
+
+      container.style.display = "none";
+      notesBtn.style.display = "inline";
+
+      addCompleteNoteListenerServer(data);
+      updateIncompleteNotesCountServer(dates, data);
+      saveNotesData(notesData);
+    });
+  });
+
+  addCompleteNoteListenerServer(data);
+  updateIncompleteNotesCountServer(dates, data);
 }
 
 function updateMainCalendar() {
@@ -782,6 +976,7 @@ function updateMainCalendar() {
 
       addCompleteNoteListener();
       updateIncompleteNotesCount(dates);
+      saveNotesData(notesData);
     });
   });
 
@@ -794,8 +989,123 @@ function addCompleteNoteListener() {
     checkbox.addEventListener("change", function () {
       const noteKey = this.dataset.noteKey;
       notesData[`${noteKey}_completed`] = this.checked;
-      updateIncompleteNotesCount(getWeekDates(currentWeekOffset)); // Cập nhật phần thống kê
+      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset)); // Cập nhật phần thống kê
     });
+  });
+}
+
+function addCompleteNoteListenerServer(data) {
+  document.querySelectorAll(".complete-note-checkbox").forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+      const noteKey = this.dataset.noteKey;
+      notesData[`${noteKey}_completed`] = this.checked;
+      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset), data);
+      saveNotesData(notesData); // Cập nhật phần thống kê
+    });
+  });
+}
+
+function updateIncompleteNotesCountServer(dates, data) {
+  if (!dates || !Array.isArray(dates)) {
+    console.error(
+      "dates is undefined or not an array. Please check the source of the issue."
+    );
+    return;
+  }
+
+  let incompleteCount = 0;
+  const incompleteNotesList = [];
+
+  for (let key in notesData) {
+    console.log(notesData);
+    if (key.endsWith("_completed") && notesData[key] === false) {
+      const noteKey = key.replace("_completed", "");
+      const [date, time] = noteKey.split("_");
+      const noteData = notesData[noteKey];
+
+      incompleteCount++;
+      const dayIndex = dates.findIndex((d) => d.date === date);
+      const eventName =
+        data.find((slot) => slot.time === time)?.events?.[dayIndex] || "";
+      incompleteNotesList.push({
+        key: noteKey,
+        date,
+        time,
+        note: noteData.noteText,
+        dayName: noteData.dayName || dates[dayIndex].dayName,
+        eventName,
+      });
+    }
+  }
+
+  incompleteNotesList.sort((a, b) => {
+    const dateComparison =
+      new Date(a.date.split("/").reverse().join("-")) -
+      new Date(b.date.split("/").reverse().join("-"));
+    return dateComparison === 0 ? a.time.localeCompare(b.time) : dateComparison;
+  });
+
+  document.getElementById("incompleteCount").textContent = incompleteCount;
+
+  const incompleteNotesContainer = document.getElementById(
+    "incompleteNotesContainer"
+  );
+  incompleteNotesContainer.innerHTML = "";
+
+  let currentDay = "";
+  incompleteNotesList.forEach((item) => {
+    if (item.date !== currentDay) {
+      currentDay = item.date;
+      const dayDiv = document.createElement("div");
+      dayDiv.className = "day-note-group";
+      const dayTitle = document.createElement("h4");
+      dayTitle.textContent = `${item.dayName} (${item.date})`;
+      dayDiv.appendChild(dayTitle);
+      incompleteNotesContainer.appendChild(dayDiv);
+    }
+
+    const noteElement = document.createElement("div");
+    noteElement.className = "incomplete-note-item";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "incomplete-note-checkbox";
+    checkbox.checked = false;
+    checkbox.dataset.noteKey = item.key;
+    checkbox.addEventListener("change", function () {
+      const noteKey = this.dataset.noteKey;
+      notesData[`${noteKey}_completed`] = this.checked;
+      updateIncompleteNotesCountServer(dates, data);
+      addTimetableServer(data);
+      saveNotesData(notesData);
+    });
+
+    const noteText = document.createElement("span");
+    noteText.innerHTML = `<div class="titlenotesincom"><h1>${item.eventName}</h1> <h3> - ${item.time}</h3></div> <h2>${item.note}</h2>`;
+
+    const labelcheckbox = document.createElement("label");
+    labelcheckbox.className = "custom-checkbox";
+    const checkmark = document.createElement("div");
+    checkmark.className = "checkmark";
+    labelcheckbox.append(checkmark);
+    labelcheckbox.append(checkbox);
+
+    noteElement.appendChild(noteText);
+    noteElement.appendChild(labelcheckbox);
+
+    const lastDayDiv = incompleteNotesContainer.lastElementChild;
+    lastDayDiv.appendChild(noteElement);
+  });
+
+  // Liên kết checkbox trong phần thống kê với lịch chính
+  document.querySelectorAll(".incomplete-note-checkbox").forEach((checkbox) => {
+    const noteKey = checkbox.dataset.noteKey;
+    const correspondingCheckbox = document.querySelector(
+      `.complete-note-checkbox[data-note-key="${noteKey}"]`
+    );
+    if (correspondingCheckbox) {
+      checkbox.checked = correspondingCheckbox.checked;
+    }
   });
 }
 
@@ -891,6 +1201,7 @@ function updateIncompleteNotesCount(dates) {
 
   // Liên kết checkbox trong phần thống kê với lịch chính
   document.querySelectorAll(".incomplete-note-checkbox").forEach((checkbox) => {
+    console.log("Done Tasks", incompleteNotesList);
     const noteKey = checkbox.dataset.noteKey;
     const correspondingCheckbox = document.querySelector(
       `.complete-note-checkbox[data-note-key="${noteKey}"]`
@@ -899,6 +1210,21 @@ function updateIncompleteNotesCount(dates) {
       checkbox.checked = correspondingCheckbox.checked;
     }
   });
+}
+
+function saveNotesData(notesData) {
+  fetch("/save/notesdata", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(notesData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((err) => console.log(err.message));
 }
 
 window.onload = updateMainCalendar;
@@ -1056,17 +1382,20 @@ function sortEvents(eventsList) {
   const events = Array.from(eventsList.children);
 
   events.sort((a, b) => {
-    const [dayA, monthA, yearA] = a.textContent.split(" - ")[0].split("/");
-    const [dayB, monthB, yearB] = b.textContent.split(" - ")[0].split("/");
-
-    const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
-    const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+    const dateA = extractDateFromEvent(a);
+    const dateB = extractDateFromEvent(b);
 
     return dateA - dateB;
   });
 
   eventsList.innerHTML = "";
   events.forEach((event) => eventsList.appendChild(event));
+}
+
+function extractDateFromEvent(eventElement) {
+  const dateText = eventElement.querySelector("h2").textContent.split(" ")[0];
+  const [day, month, year] = dateText.split("/");
+  return new Date(`${year}-${month}-${day}`);
 }
 
 document.getElementById("move-remind").style.top = "-100%";

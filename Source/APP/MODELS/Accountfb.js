@@ -57,6 +57,13 @@ const AccountFB = new Schema(
         longBreak: { type: Number },
       },
     ],
+    Timetable: [
+      {
+        time: { type: String },
+        events: [{ type: String }],
+      },
+    ],
+    Notesdata: [{ type: Object }],
   },
   {
     collection: "accountsfb",

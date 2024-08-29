@@ -761,6 +761,94 @@ class UserController {
       res.send(JSON.stringify(Pomotime));
     }
   }
+
+  async saveTimetable(req, res, next) {
+    var checkUser;
+    var datas = req.body;
+    if (req.session.username) {
+      checkUser = await Account.findOne({ name: req.session.username });
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({ name: req.user.name });
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({ name: req.user.name });
+          break;
+      }
+    }
+    if (checkUser) {
+      checkUser.Timetable = [];
+      await checkUser.save();
+      datas.forEach((data) => {
+        checkUser.Timetable.push(data);
+      });
+      await checkUser.save();
+    }
+  }
+
+  async getTimetable(req, res, next) {
+    var checkUser;
+    if (req.session.username) {
+      checkUser = await Account.findOne({ name: req.session.username });
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({ name: req.user.name });
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({ name: req.user.name });
+          break;
+      }
+    }
+    if (checkUser) {
+      var { Timetable } = checkUser;
+      res.send(JSON.stringify(Timetable));
+    }
+  }
+
+  async saveNotesData(req, res, next) {
+    var checkUser;
+    var datas = req.body;
+    if (req.session.username) {
+      checkUser = await Account.findOne({ name: req.session.username });
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({ name: req.user.name });
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({ name: req.user.name });
+          break;
+      }
+    }
+    if (checkUser) {
+      checkUser.Notesdata = [];
+      await checkUser.save();
+      checkUser.Notesdata.push(datas);
+      await checkUser.save();
+    }
+  }
+
+  async getNotesData(req, res, next) {
+    var checkUser;
+    if (req.session.username) {
+      checkUser = await Account.findOne({ name: req.session.username });
+    } else if (req.user) {
+      switch (req.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({ name: req.user.name });
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({ name: req.user.name });
+          break;
+      }
+    }
+    if (checkUser) {
+      var { Notesdata } = checkUser;
+      res.send(JSON.stringify(Notesdata));
+    }
+  }
 }
 
 module.exports = new UserController();

@@ -10,6 +10,10 @@ const checkRoute = require("../APP/MIDDLEWARE/Route");
 const validation = require("../APP/MIDDLEWARE/Validation");
 const passport = require("passport");
 function route(app) {
+  app.get("/save/notesdata", account.isLogin, userController.getNotesData);
+  app.post("/save/notesdata", account.isLogin, userController.saveNotesData);
+  app.get("/save/timetable", account.isLogin, userController.getTimetable);
+  app.post("/save/timetable", account.isLogin, userController.saveTimetable);
   app.get("/save/pomotime", account.isLogin, userController.getPomoTime);
   app.post("/save/pomotime", account.isLogin, userController.savePomoTime);
   app.get("/save/eventlist", account.isLogin, userController.getEvent);
@@ -55,12 +59,12 @@ function route(app) {
     validation.handleValidationErrors,
     registerController.register
   );
-  app.get("/university", account.isLogin, universityController.university);
-  app.get(
-    "/university/:slug",
-    account.isLoginComment,
-    universityController.show
-  );
+  // app.get("/university", account.isLogin, universityController.university);
+  // app.get(
+  //   "/university/:slug",
+  //   account.isLoginComment,
+  //   universityController.show
+  // );
   app.get("/test", account.isLogin, testRouter);
   app.get("/story", account.isLogin, homeRouter);
   app.post(
