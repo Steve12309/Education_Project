@@ -1,5 +1,10 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 .info-container {
-  padding: 10px;
+  padding: 20px;
   color: white;
 }
 
@@ -54,18 +59,13 @@ p {
 }
 
 .commentPost-area {
-  height: 150px;
   position: relative;
-  background-color: #eef4fcde;
+  background-color: rgb(150, 150, 150);
   font-size: 14px;
-  padding: 16px;
-  border-radius: 10px;
-  margin-bottom: 50px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgb(130, 130, 130);
 }
 
 .commentMsg {
@@ -78,19 +78,7 @@ p {
   border: none;
   outline: none;
   resize: none;
-}
-
-.comment-area {
-  position: relative;
-  margin-top: 20px;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(20px);
-  height: auto;
-  padding: 15px;
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .btn-hover {
@@ -107,7 +95,6 @@ p {
   text-align: center;
   border: none;
   background-size: 300% 100%;
-
   border-radius: 50px;
   moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
@@ -151,18 +138,15 @@ p {
 }
 
 .userContent {
-  color: black;
+  color: white;
   font-size: 16px;
 }
 
 .userComment {
-  background-color: #505050;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  background-color: #fafafa;
+  padding: 15px;
+  border-bottom: 1px solid rgb(130, 130, 130);
+  position: relative;
 }
 
 .userInfo {
@@ -179,76 +163,139 @@ p {
 .userInfo img:hover {
   cursor: pointer;
 }
-
-.glow-on-hover {
-  width: 60px;
-  height: 45px;
+.dropdowncommentimg {
+  height: 28px;
+  transition-duration: 0.5s;
+}
+.editextarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgb(150, 150, 150);
+  color: white;
   border: none;
+  font-size: 16px;
   outline: none;
-  color: #fff;
-  background: #111;
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
-  border-radius: 10px;
-  position: fixed;
-  right: 10px;
-  top: 10px;
-  z-index: 999;
 }
-
-.glow-on-hover:before {
-  content: "";
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
+.controlcomment {
+  display: flex;
+  flex-direction: row-reverse;
 }
-
-.glow-on-hover:active {
-  color: #000;
-}
-
-.glow-on-hover:active:after {
-  background: transparent;
-}
-
-.glow-on-hover:hover:before {
-  opacity: 1;
-}
-
-.glow-on-hover:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
+.controlcomment img {
   width: 100%;
   height: 100%;
-  background: #111;
-  left: 0;
-  top: 0;
+}
+.btn-savecomment {
+  padding: 8px;
   border-radius: 10px;
+  border: 2px solid green;
+  margin: 5px 5px 0 5px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: transparent;
+}
+.btn-canceledit {
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid red;
+  margin: 5px 5px 0 5px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: transparent;
+}
+.comment-area .userComment:nth-child(even) {
+  background-color: rgb(70, 70, 70);
+}
+.comment-area .userComment:nth-child(odd) {
+  background-color: rgb(60, 60, 60);
+}
+.commenttile {
+  justify-content: space-between;
+  display: flex;
+  background-color: rgb(50, 50, 50);
+  color: white;
+  border: 1px solid rgb(130, 130, 130);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  cursor: pointer;
+}
+.total-contai-comment {
+  position: relative;
+  overflow: hidden;
+  height: fit-content;
+  border-radius: 10px;
+  padding: 0 20px 40px 20px;
+}
+.commentcontai {
+  height: fit-content;
+  position: relative;
+  width: 100%;
+  top: -10px;
+  padding: 0 10px;
+}
+.commentlist {
+  width: 100%;
+  height: 100%;
+  padding: 10px 0 0 0;
+  border: 1px solid rgb(130, 130, 130);
+  border-top: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.comment-area div:last-child {
+  border-bottom: none;
+}
+.options {
+  display: none;
+  /* Hide options by default */
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 7.9px 2.9px 7.9px 7.9px;
+  border-bottom-left-radius: 10px;
+  gap: 7.9px;
+  background-color: rgb(0, 0, 0, 0.5);
+  height: 40px;
 }
 
+.userComment:hover .options {
+  display: flex;
+  /* Show options on hover */
+}
+
+.btnedit {
+  background-color: transparent;
+  border: 1px solid rgb(260, 260, 260);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+  color: rgb(130, 130, 130);
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin: auto 0;
+}
+
+.btndelete {
+  background-color: transparent;
+  border: 1px solid rgb(260, 260, 260);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+  color: rgb(130, 130, 130);
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin: auto 0;
+}
 @keyframes glowing {
   0% {
     background-position: 0 0;
@@ -262,23 +309,22 @@ p {
 }
 
 .icon-save {
-  font-size: 1.5rem;
+  font-size: 35px;
 }
 
 table {
-  margin-top: 15px;
-  margin-bottom: 50px;
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
   height: auto;
-  text-align: center;
   border: none;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-
+table tr:last-child td {
+  border: none;
+}
 thead {
   width: 100%;
   height: auto;
@@ -290,16 +336,11 @@ th {
   border: none;
   outline: none;
   font-size: 25px;
-  color: whitesmoke;
+  color: white;
   font-weight: 900px;
   padding: 10px;
-  border-bottom: 3px solid orangered;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.644);
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgb(130, 130, 130);
+  background-color: rgb(50, 50, 50);
 }
 
 tbody {
@@ -311,20 +352,23 @@ td {
   padding: 10px;
   font-weight: 800px;
   font-size: 20px;
-  color: whitesmoke;
+  color: white;
   border: none;
   outline: none;
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgb(130, 130, 130);
 }
-
+.table-container {
+  margin: 30px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgb(130, 130, 130);
+}
 tbody tr:nth-child(odd) {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(70, 70, 70);
 }
 
 tbody tr:nth-child(even) {
-  background-color: rgba(151, 151, 151, 0.5);
+  background-color: rgba(60, 60, 60);
 }
 
 tr:last-child > td {
@@ -334,71 +378,70 @@ tr:last-child > td {
 
 .introduction {
   display: flex;
-  gap: 50px;
+  justify-content: space-between;
 }
-
+.introduction h1 {
+  margin: 0;
+}
 .uniLogo {
-  position: absolute;
-  width: 45px;
-  height: 45px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .imgContainer {
-  position: relative;
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
   background-color: #505050;
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  padding-top: 20px;
-  padding-bottom: 15px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 10px;
   margin: 0;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .heading {
   margin-bottom: 20px;
-  background-color: #505050;
+  background-color: rgb(50, 50, 50);
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   padding: 10px;
   border-radius: 10px;
   text-align: center;
+  color: white;
 }
-
+.introduction-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.introduction-content {
+  display: flex;
+  gap: 30px;
+}
 .location {
   display: flex;
   gap: 8px;
 }
 
 .location > p {
-  margin-top: 0;
-  margin-bottom: 50px;
-  color: whitesmoke;
+  margin: 0;
+  color: white;
 }
 
 .location > i {
-  margin-top: 3px;
+  margin-top: 5px;
 }
 
 .noCommentContainer {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
 }
 
@@ -411,4 +454,15 @@ tr:last-child > td {
 .noCommentImg {
   width: 300px;
   height: 300px;
+}
+.saveUni {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.edittedState {
+  color: rgb(150, 150, 150);
+  font-size: 13px;
+  margin-top: 5px;
 }

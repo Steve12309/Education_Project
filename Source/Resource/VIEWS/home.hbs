@@ -1,192 +1,225 @@
 <div id="home">
-    <div id="move-home">
-        <div class="main-contai">
-            <div id="contai-timer">
-                <div id="move-contai">
-                    <div class="child-move-contai">
-                        <div class="modes">
-                            <button id="pomodoro">pomodoro</button>
-                            <button id="shortBreak">short break</button>
-                            <button id="longBreak">long break</button>
-                        </div>
-                        <div class="timer">
-                            <span id="minutes">25</span>:<span id="seconds">00</span>
-                        </div>
-                        <div class="controls">
-                            <button id="startStop"><img src="/img/tool_imgs/play.png"></button>
-                            <button id="reset"><img src="/img/tool_imgs/rotate.png"></button>
-                            <button id="settings"><img src="/img/tool_imgs/settings.png"></button>
-                        </div>
-                    </div>
-                    <div class="child-move-contai" id="settingpage">
-                        <span id="close"><img id="imgclose" src="/img/tool_imgs/back1.png">
-                            <div id="inclose">Tuỳ chỉnh</div>
-                        </span>
-                        <div id="changepomo-contai">
-                            <div class="changepomo">
-                                <label for="pomodoroTime">Pomodoro</label>
-                                <input type="number" id="pomodoroTime" min="1" value="25">
-                                <p>minutes</p>
-                            </div>
-                            <div class="changepomo">
-                                <label for="shortBreakTime">Short Break</label>
-                                <input type="number" id="shortBreakTime" min="1" value="5">
-                                <p>minutes</p>
-                            </div>
-                            <div class="changepomo">
-                                <label for="longBreakTime">Long Break</label>
-                                <input type="number" id="longBreakTime" min="1" value="15">
-                                <p>minutes</p>
-                            </div>
-                        </div>
-                        <div id="changebg">
-                            <label for="backgroundImage">Background Image:</label>
-                            <input type="file" id="backgroundImage" accept="image/*" hidden>
-                            <div id="dropArea" class="drop-area">
-                                <p>Drag & Drop image here</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div id="move-home">
+    <div class="main-contai">
+      <div id="contai-timer">
+        <div id="move-contai">
+          <div class="child-move-contai">
+            <div class="modes">
+              <button id="pomodoro">pomodoro</button>
+              <button id="shortBreak">short break</button>
+              <button id="longBreak">long break</button>
             </div>
-
-            <div id="controlbar">
-                <button onclick="movehome()"><img src="/img/tool_imgs/app.png"></button>
-                <button id="fullsceenbtn"><img src="/img/tool_imgs/fullscreen.png"></button>
+            <div class="timer">
+              <span id="minutes">25</span>:<span id="seconds">00</span>
             </div>
+            <div class="controls">
+              <button id="startStop"><img
+                  src="/img/tool_imgs/play.png"
+                /></button>
+              <button id="reset"><img
+                  src="/img/tool_imgs/rotate.png"
+                /></button>
+              <button id="settings"><img
+                  src="/img/tool_imgs/settings.png"
+                /></button>
+            </div>
+          </div>
+          <div class="child-move-contai" id="settingpage">
+            <span id="close"><img
+                id="imgclose"
+                src="/img/tool_imgs/back1.png"
+              />
+              <div id="inclose">Tuỳ chỉnh</div>
+            </span>
+            <div id="changepomo-contai">
+              <div class="changepomo">
+                <label for="pomodoroTime">Pomodoro</label>
+                <input type="number" id="pomodoroTime" min="1" value="25" />
+                <p>minutes</p>
+              </div>
+              <div class="changepomo">
+                <label for="shortBreakTime">Short Break</label>
+                <input type="number" id="shortBreakTime" min="1" value="5" />
+                <p>minutes</p>
+              </div>
+              <div class="changepomo">
+                <label for="longBreakTime">Long Break</label>
+                <input type="number" id="longBreakTime" min="1" value="15" />
+                <p>minutes</p>
+              </div>
+            </div>
+            <div id="changebg">
+              <label for="backgroundImage">Background Image:</label>
+              <input type="file" id="backgroundImage" accept="image/*" hidden />
+              <div id="dropArea" class="drop-area">
+                <p>Drag & Drop image here</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div id="appcontai">
-            <div id="contaibacktotimer">
-                <button onclick="movehome()"><img src="/img/tool_imgs/up.png" style="width: 100%; height:100%"></button>
-            </div>
-            <div id="contai">
-                <div class="child i1">
-                    <div id="input-wrapper">
-                        <div id="title">
-                            <div id="titlemagic">
-                                <h2>To-do list</h2>
-                                <div id="contai-inputTask">
-                                    <input id="inputTask" type="text" placeholder="Add a task" />
-                                    <button id="backTask" onclick="resetInput()"><img src="/img/tool_imgs/turn-back.png"
-                                            style="width: 100%; height:100%"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <button id="btn-addtask" onclick="addTask()"><img src="/img/tool_imgs/edit.png"
-                                style="width: 100%; height:100%"></button>
-                    </div>
-                    <div id="contai-list-todo">
-                        <div id="list"></div>
-                    </div>
-                </div>
-                <div class="child i2">
-                    <div id="titleremind">
-                        <h2>Lịch Kiểm Tra</h2>
-                        <button onclick="toggleremind()" id="toggleremind"><img src="/img/tool_imgs/edit.png"
-                                style="width: 100%; height:100%"></button>
-                    </div>
-                    <div id="remind-contai">
-                        <div id="move-remind">
-                            <form id="eventForm">
-                                <div>
-                                    <label for="eventDate">Ngày:</label>
-                                    <input type="date" id="eventDate" required>
-                                </div>
-                                <div>
-                                    <label for="subject">Môn:</label>
-                                    <select id="subject" class="subject">
-                                        <option value=""></option>
-                                        <option value="Toán">Toán</option>
-                                        <option value="Vật Lý">Vật Lý</option>
-                                        <option value="Hoá Học">Hoá Học</option>
-                                        <option value="Sinh Học">Sinh Học</option>
-                                        <option value="Tin Học">Tin Học</option>
-                                        <option value="Ngữ Văn">Ngữ Văn</option>
-                                        <option value="Lịch Sử">Lịch Sử</option>
-                                        <option value="Địa Lí">Địa Lí</option>
-                                        <option value="Tiếng Anh">Tiếng Anh</option>
-                                        <option value="Công Nghệ">Công Nghệ</option>
-                                        <option value="GDTC">GDTC</option>
-                                        <option value="GDĐP">GDĐP</option>
-                                        <option value="GDQP-AN">GDQP-AN</option>
-                                        <option value="HĐTN">HĐTN</option>
-                                    </select>
-                                </div>
-                                <button id="btn-addremind" type="submit">Thêm nhắc nhở</button>
-                            </form>
-                            <div id="contai-remind-list">
-                                <ul class="remind-list"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="child i3">
-                    <div id="incompleteNotesCount">
-                        <div id="incompleteNotesCountDiv">
-                            <h2>Bài tập sắp tới: </h2> <span id="incompleteCount">0</span>
-                        </div>
-                        <div id="contai-incompleteNotesContainer">
-                            <div id="incompleteNotesContainer"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="child i4">
-                    <div id="total-contai-calendar">
-                        <div id="timetableForm">
-                            <div id="control-timetable">
-                                <h2>Thời khoá biểu</h2>
-                                <div>
-                                    <button id="saveTimetable"><img src="/img/tool_imgs/check.png"
-                                            style="width: 100%; height:100%"></button>
-                                    <button id="backfromcalendarform"><img src="/img/tool_imgs/turn-back.png"
-                                            style="width: 100%; height:100%"></button>
-                                </div>
-                            </div>
-                            <div id="timetable-contai">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Thời gian</th>
-                                            <th>Chủ nhật</th>
-                                            <th>Thứ hai</th>
-                                            <th>Thứ ba</th>
-                                            <th>Thứ tư</th>
-                                            <th>Thứ năm</th>
-                                            <th>Thứ sáu</th>
-                                            <th>Thứ bảy</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="timetableBody">
-                                        <!-- Timetable rows will be generated here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="mainCalendar">
-                            <div id="control-calendar">
-                                <div>
-                                    <button id="prevWeek"><img src="/img/tool_imgs/back1.png"
-                                            style="width: 100%; height:100%"></button>
-                                    <button id="nextWeek"><img src="/img/tool_imgs/lauch1.png"
-                                            style="width: 100%; height:100%"></button>
-                                </div>
-                                <h2 id="calendarTitle"></h2>
-                                <div>
-                                    <button id="showTimetableForm"><img src="/img/tool_imgs/plus.png"
-                                            style="width: 100%; height:100%"></button>
-                                </div>
-                            </div>
-                            <div id="calendarContent">
-                                <!-- Calendar will be generated here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div id="controlbar">
+        <button onclick="movehome()"><img
+            src="/img/tool_imgs/app.png"
+          /></button>
+        <button id="fullsceenbtn"><img
+            src="/img/tool_imgs/fullscreen.png"
+          /></button>
+      </div>
     </div>
+
+    <div id="appcontai">
+      <div id="contaibacktotimer">
+        <button onclick="movehome()"><img
+            src="/img/tool_imgs/up.png"
+            style="width: 100%; height:100%"
+          /></button>
+      </div>
+      <div id="contai">
+        <div class="child i1">
+          <div id="input-wrapper">
+            <div id="title">
+              <div id="titlemagic">
+                <h2>To-do list</h2>
+                <div id="contai-inputTask">
+                  <input id="inputTask" type="text" placeholder="Add a task" />
+                  <button id="backTask" onclick="resetInput()"><img
+                      src="/img/tool_imgs/turn-back.png"
+                      style="width: 100%; height:100%"
+                    /></button>
+                </div>
+              </div>
+            </div>
+            <button id="btn-addtask" onclick="addTask()"><img
+                src="/img/tool_imgs/edit.png"
+                style="width: 100%; height:100%"
+              /></button>
+          </div>
+          <div id="contai-list-todo">
+            <div id="list"></div>
+          </div>
+        </div>
+        <div class="child i2">
+          <div id="titleremind">
+            <h2>Lịch Kiểm Tra</h2>
+            <button onclick="toggleremind()" id="toggleremind"><img
+                src="/img/tool_imgs/edit.png"
+                style="width: 100%; height:100%"
+              /></button>
+          </div>
+          <div id="remind-contai">
+            <div id="move-remind">
+              <form id="eventForm">
+                <div>
+                  <label for="eventDate">Ngày:</label>
+                  <input type="date" id="eventDate" required />
+                </div>
+                <div>
+                  <label for="subject">Môn:</label>
+                  <select id="subject" class="subject">
+                    <option value=""></option>
+                    <option value="Toán">Toán</option>
+                    <option value="Vật Lý">Vật Lý</option>
+                    <option value="Hoá Học">Hoá Học</option>
+                    <option value="Sinh Học">Sinh Học</option>
+                    <option value="Tin Học">Tin Học</option>
+                    <option value="Ngữ Văn">Ngữ Văn</option>
+                    <option value="Lịch Sử">Lịch Sử</option>
+                    <option value="Địa Lí">Địa Lí</option>
+                    <option value="Tiếng Anh">Tiếng Anh</option>
+                    <option value="Công Nghệ">Công Nghệ</option>
+                    <option value="GDTC">GDTC</option>
+                    <option value="GDĐP">GDĐP</option>
+                    <option value="GDQP-AN">GDQP-AN</option>
+                    <option value="HĐTN">HĐTN</option>
+                  </select>
+                </div>
+                <button id="btn-addremind" type="submit">Thêm nhắc nhở</button>
+              </form>
+              <div id="contai-remind-list">
+                <ul class="remind-list"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="child i3">
+          <div id="incompleteNotesCount">
+            <div id="incompleteNotesCountDiv">
+              <h2>Bài tập sắp tới: </h2>
+              <span id="incompleteCount">0</span>
+            </div>
+            <div id="contai-incompleteNotesContainer">
+              <div id="incompleteNotesContainer"></div>
+            </div>
+          </div>
+        </div>
+        <div class="child i4">
+          <div id="total-contai-calendar">
+            <div id="timetableForm">
+              <div id="control-timetable">
+                <h2>Thời khoá biểu</h2>
+                <div>
+                  <button id="saveTimetable"><img
+                      src="/img/tool_imgs/check.png"
+                      style="width: 100%; height:100%"
+                    /></button>
+                  <button id="backfromcalendarform"><img
+                      src="/img/tool_imgs/turn-back.png"
+                      style="width: 100%; height:100%"
+                    /></button>
+                </div>
+              </div>
+              <div id="timetable-contai">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Thời gian</th>
+                      <th>Chủ nhật</th>
+                      <th>Thứ hai</th>
+                      <th>Thứ ba</th>
+                      <th>Thứ tư</th>
+                      <th>Thứ năm</th>
+                      <th>Thứ sáu</th>
+                      <th>Thứ bảy</th>
+                    </tr>
+                  </thead>
+                  <tbody id="timetableBody">
+                    <!-- Timetable rows will be generated here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="mainCalendar">
+              <div id="control-calendar">
+                <div>
+                  <button id="prevWeek"><img
+                      src="/img/tool_imgs/back1.png"
+                      style="width: 100%; height:100%"
+                    /></button>
+                  <button id="nextWeek"><img
+                      src="/img/tool_imgs/lauch1.png"
+                      style="width: 100%; height:100%"
+                    /></button>
+                </div>
+                <h2 id="calendarTitle"></h2>
+                <div>
+                  <button id="showTimetableForm"><img
+                      src="/img/tool_imgs/plus.png"
+                      style="width: 100%; height:100%"
+                    /></button>
+                </div>
+              </div>
+              <div id="calendarContent">
+                <!-- Calendar will be generated here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/intro.js@7.2.0/intro.min.js"></script>
 <template id="data-container" data-quote="{{quotes}}"></template>

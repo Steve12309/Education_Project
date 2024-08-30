@@ -26,6 +26,53 @@ const Accountfb = require("../Source/APP/MODELS/Accountfb");
 const Comment = require("../Source/APP/MODELS/Comment");
 
 io.on("connection", async (socket) => {
+  socket.on("editComment", async (data) => {
+    const { editvalue, currentvalue, universitySlug } = data;
+    let checkUser;
+    if (socket.request.session.username) {
+      checkUser = await Account.findOne({
+        name: socket.request.session.username,
+      });
+    } else if (socket.request.user.name) {
+      switch (socket.request.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({
+            name: socket.request.user.name,
+          });
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({
+            name: socket.request.user.name,
+          });
+          break;
+      }
+    }
+
+    if (checkUser) {
+      const checkComment = await Comment.findOne({
+        universityId: universitySlug,
+      });
+
+      if (checkComment) {
+        for (let comment of checkComment.comment) {
+          if (
+            comment.user === checkUser.name &&
+            currentvalue === comment.message
+          ) {
+            comment.message = editvalue;
+            comment.state = "Đã chỉnh sửa";
+            await checkComment.save();
+            io.to(universitySlug).emit("edittedcomment", {
+              editvalue,
+              Status: comment.state,
+            });
+            break;
+          }
+        }
+      }
+    }
+  });
+
   socket.on("joinUniversity", (universityId) => {
     socket.join(universityId);
     Comment.find({ universityId }).then((comments) => {

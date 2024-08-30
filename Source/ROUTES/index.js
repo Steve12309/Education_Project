@@ -59,12 +59,12 @@ function route(app) {
     validation.handleValidationErrors,
     registerController.register
   );
-  // app.get("/university", account.isLogin, universityController.university);
-  // app.get(
-  //   "/university/:slug",
-  //   account.isLoginComment,
-  //   universityController.show
-  // );
+  app.get("/university", account.isLogin, universityController.university);
+  app.get(
+    "/university/:slug",
+    account.isLoginComment,
+    universityController.show
+  );
   app.get("/test", account.isLogin, testRouter);
   app.get("/story", account.isLogin, homeRouter);
   app.post(

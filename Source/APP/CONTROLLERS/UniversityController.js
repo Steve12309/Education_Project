@@ -32,6 +32,7 @@ class UniversityController {
       }
       const data = await University.find({});
       res.render("university", {
+        layout: "main",
         style: "university-light.css",
         function1: "university.js",
         username: req.user.name,

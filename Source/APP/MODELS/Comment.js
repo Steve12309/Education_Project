@@ -10,6 +10,7 @@ const Comment = new Schema(
         img: { type: String },
         message: { type: String },
         timestamp: { type: Date, default: Date.now },
+        state: { type: String },
       },
     ],
   },
