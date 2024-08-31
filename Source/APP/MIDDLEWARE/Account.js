@@ -12,6 +12,7 @@ const isLogin = async (req, res, next) => {
         name: req.session.username,
         img: checkUser.img,
       };
+      req.session.userId = checkUser._id;
     }
     if (req.user === undefined) {
       req.user = {

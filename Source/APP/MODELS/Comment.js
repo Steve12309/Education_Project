@@ -11,6 +11,7 @@ const Comment = new Schema(
         message: { type: String },
         timestamp: { type: Date, default: Date.now },
         state: { type: String },
+        userId: { type: String },
       },
     ],
   },

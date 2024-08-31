@@ -53,6 +53,7 @@ class UniversityController {
           layout: "extend",
           style: "universitydetail-light.css",
           function1: "iframe.js",
+          userId: req.session.userId || req.user._id,
           college: mongooseToObject(college),
         });
       })

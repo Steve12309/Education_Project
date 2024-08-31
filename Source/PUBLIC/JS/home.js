@@ -473,7 +473,7 @@ function addTask() {
   } else {
     document.getElementById(
       "btn-addtask"
-    ).innerHTML = `<img src="/img/tool_imgs/plus2.png" style="width: 100%; height:100%">`;
+    ).innerHTML = `<img src="/img/tool_imgs/plus.png" style="width: 100%; height:100%">`;
   }
 }
 
@@ -991,7 +991,7 @@ function addCompleteNoteListener() {
     checkbox.addEventListener("change", function () {
       const noteKey = this.dataset.noteKey;
       notesData[`${noteKey}_completed`] = this.checked;
-      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset)); // Cập nhật phần thống kê
+      updateIncompleteNotesCount(getWeekDates(currentWeekOffset)); // Cập nhật phần thống kê
     });
   });
 }
@@ -1001,8 +1001,8 @@ function addCompleteNoteListenerServer(data) {
     checkbox.addEventListener("change", function () {
       const noteKey = this.dataset.noteKey;
       notesData[`${noteKey}_completed`] = this.checked;
-      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset), data);
-      saveNotesData(notesData); // Cập nhật phần thống kê
+      saveNotesData(notesData);
+      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset), data); // Cập nhật phần thống kê
     });
   });
 }
@@ -1019,7 +1019,6 @@ function updateIncompleteNotesCountServer(dates, data) {
   const incompleteNotesList = [];
 
   for (let key in notesData) {
-    console.log(notesData);
     if (key.endsWith("_completed") && notesData[key] === false) {
       const noteKey = key.replace("_completed", "");
       const [date, time] = noteKey.split("_");

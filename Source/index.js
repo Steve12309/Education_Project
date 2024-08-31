@@ -114,153 +114,72 @@ io.on("connection", async (socket) => {
     });
   });
 
-  socket.on("newComment", (data) => {
+  socket.on("newComment", async (data) => {
     const { comment, universitySlug } = data;
+
     try {
+      let checkUser;
+
       if (socket.request.session.username) {
-        Account.findOne({ name: socket.request.session.username }).then(
-          (checkUser) => {
-            if (checkUser) {
-              var user = checkUser.name;
-              var userImg = checkUser.img;
-              Comment.findOne({ universityId: universitySlug }).then((Room) => {
-                if (Room) {
-                  Room.comment.push({
-                    user: user,
-                    img: userImg,
-                    message: comment,
-                    timestamp: new Date(),
-                  });
-                  Room.save();
-                  io.to(universitySlug).emit("comment", {
-                    comment,
-                    user,
-                    timestamp: new Date(),
-                    img: userImg,
-                  });
-                } else {
-                  var newRoom = new Comment({
-                    universityId: universitySlug,
-                    comment: [
-                      {
-                        user: user,
-                        message: comment,
-                        timestamp: new Date(),
-                        img: userImg,
-                      },
-                    ],
-                  });
-                  newRoom.save();
-                  io.to(universitySlug).emit("comment", {
-                    comment,
-                    img: userImg,
-                    user,
-                    timestamp: new Date(),
-                  });
-                }
-              });
-            }
-          }
-        );
-      } else if (socket.request.user.name) {
-        if (socket.request.user.provider === "facebook") {
-          Accountfb.findOne({ name: socket.request.user.name }).then(
-            (checkUser) => {
-              if (checkUser) {
-                var user = checkUser.name;
-                var userImg = checkUser.img;
-                Comment.findOne({ universityId: universitySlug }).then(
-                  (Room) => {
-                    if (Room) {
-                      Room.comment.push({
-                        user: user,
-                        img: userImg,
-                        message: comment,
-                        timestamp: new Date(),
-                      });
-                      Room.save();
-                      io.to(universitySlug).emit("comment", {
-                        comment,
-                        user,
-                        timestamp: new Date(),
-                        img: userImg,
-                      });
-                    } else {
-                      var newRoom = new Comment({
-                        universityId: universitySlug,
-                        comment: [
-                          {
-                            user: user,
-                            message: comment,
-                            timestamp: new Date(),
-                            img: userImg,
-                          },
-                        ],
-                      });
-                      newRoom.save();
-                      io.to(universitySlug).emit("comment", {
-                        comment,
-                        img: userImg,
-                        user,
-                        timestamp: new Date(),
-                      });
-                    }
-                  }
-                );
-              }
-            }
-          );
-        } else if (socket.request.user.provider === "google") {
-          Accountgg.findOne({ name: socket.request.user.name }).then(
-            (checkUser) => {
-              if (checkUser) {
-                var user = checkUser.name;
-                var userImg = checkUser.img;
-                Comment.findOne({ universityId: universitySlug }).then(
-                  (Room) => {
-                    if (Room) {
-                      Room.comment.push({
-                        user: user,
-                        img: userImg,
-                        message: comment,
-                        timestamp: new Date(),
-                      });
-                      Room.save();
-                      io.to(universitySlug).emit("comment", {
-                        comment,
-                        user,
-                        timestamp: new Date(),
-                        img: userImg,
-                      });
-                    } else {
-                      var newRoom = new Comment({
-                        universityId: universitySlug,
-                        comment: [
-                          {
-                            user: user,
-                            message: comment,
-                            timestamp: new Date(),
-                            img: userImg,
-                          },
-                        ],
-                      });
-                      newRoom.save();
-                      io.to(universitySlug).emit("comment", {
-                        comment,
-                        img: userImg,
-                        user,
-                        timestamp: new Date(),
-                      });
-                    }
-                  }
-                );
-              }
-            }
-          );
+        checkUser = await Account.findOne({
+          name: socket.request.session.username,
+        });
+      } else if (socket.request.user && socket.request.user.name) {
+        switch (socket.request.user.provider) {
+          case "google":
+            checkUser = await Accountgg.findOne({
+              name: socket.request.user.name,
+            });
+            break;
+          case "facebook":
+            checkUser = await Accountfb.findOne({
+              name: socket.request.user.name,
+            });
+            break;
         }
       }
-    } catch (err) {
-      console.log(err.message);
+
+      if (checkUser) {
+        const user = checkUser.name;
+        const userImg = checkUser.img;
+
+        const room = await Comment.findOne({ universityId: universitySlug });
+
+        if (room) {
+          room.comment.push({
+            user: user,
+            img: userImg,
+            message: comment,
+            timestamp: new Date(),
+            userId: checkUser._id,
+          });
+          await room.save();
+        } else {
+          const newRoom = new Comment({
+            universityId: universitySlug,
+            comment: [
+              {
+                user: user,
+                message: comment,
+                timestamp: new Date(),
+                img: userImg,
+                userId: checkUser._id,
+              },
+            ],
+          });
+          await newRoom.save();
+        }
+
+        io.to(universitySlug).emit("comment", {
+          comment,
+          user,
+          timestamp: new Date(),
+          img: userImg,
+          userId: checkUser._id,
+        });
+      }
+    } catch (error) {
+      console.error("Error handling new comment:", error);
     }
   });
 });

@@ -10,6 +10,37 @@ var slugsArr = [];
 var containComment = false;
 let currenteditcomment = null;
 var elementEditing = [];
+
+function userComments(userComments) {
+  userComments.forEach((userComment) => {
+    userComment.addEventListener("mouseover", (e) =>
+      showOptions(e.currentTarget)
+    );
+    userComment.addEventListener("mouseout", (e) =>
+      hideOptions(e.currentTarget)
+    );
+  });
+}
+
+function showOptions(userComment) {
+  var dataContainer = document.getElementById("data-container");
+  var userIdData = dataContainer.getAttribute("data-userId");
+  var userCommentId = userComment.getAttribute("data-user-id");
+  var option = userComment.querySelector(".options");
+  if (option) {
+    if (userCommentId === userIdData) {
+      option.style.display = "flex";
+    }
+  }
+}
+
+function hideOptions(userComment) {
+  var option = userComment.querySelector(".options");
+  if (option) {
+    option.style.display = "none";
+  }
+}
+
 moment.updateLocale("vi", {
   relativeTime: {
     future: "trong %s",
@@ -100,6 +131,7 @@ socket.on("comment", (comment) => {
   const timeAgo = moment(comment.timestamp).fromNow();
   var userComment = document.createElement("div");
   userComment.classList.add("userComment");
+  userComment.dataset.userId = comment.userId;
   var commentContent = `
      <div class="userInfo">
       <img src="${comment.img}" alt="User Img" />
@@ -125,8 +157,7 @@ socket.on("comment", (comment) => {
   containComment = true;
   checkComments(containComment, demo, "post");
 });
-
-socket.on("edittedcomment", (data) => {
+socket.on("edittedcomment", async (data) => {
   const { editvalue, Status } = data;
   var currenteditcomment = elementEditing[0];
   const editdiv = currenteditcomment.querySelector(".editdiv");
@@ -134,10 +165,14 @@ socket.on("edittedcomment", (data) => {
   currenteditcomment.removeChild(editdiv);
   currenteditcomment.querySelector(".userContent").innerHTML = editvalue;
   var userInfo = currenteditcomment.querySelector(".userInfo");
-  var iEle = document.createElement("i");
-  iEle.classList.add("edittedState");
-  iEle.textContent = Status;
-  userInfo.appendChild(iEle);
+  var checkIEle = currenteditcomment.querySelector(".edittedState");
+  if (checkIEle) {
+  } else {
+    var iEle = document.createElement("i");
+    iEle.classList.add("edittedState");
+    iEle.textContent = Status;
+    userInfo.appendChild(iEle);
+  }
   elementEditing = [];
 });
 
@@ -148,6 +183,7 @@ socket.on("loadComments", (comments) => {
     const timeAgo = moment(comment.timestamp).fromNow();
     var userComment = document.createElement("div");
     userComment.classList.add("userComment");
+    userComment.dataset.userId = comment.userId;
     var commentContent = `
     <div class="userInfo">
       <img src="${comment.img}" alt="User Img" />
@@ -239,7 +275,6 @@ function checkComments(state, userComment, content) {
   } else if (state === true && userComment !== null && content === "post") {
     commentArea.style.height = "auto";
     var nocommentUser = commentArea.querySelector(".noCommentContainer");
-    console.log(nocommentUser);
     if (nocommentUser) {
       commentArea.innerHTML = "";
       userComment.forEach((usercomment) => {
@@ -253,6 +288,7 @@ function checkComments(state, userComment, content) {
       }
     }
   }
+  userComments(document.querySelectorAll(".userComment"));
 }
 
 window.addEventListener("message", async function (event) {
