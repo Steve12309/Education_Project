@@ -423,7 +423,6 @@ let currentEditingTask = null;
 
 function debounce(func, delay) {
   let timeout;
-  console.log(timeout);
   return function (...args) {
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(this, args), delay);
