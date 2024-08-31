@@ -131,9 +131,9 @@ function savePomoBg(fileUrl) {
 }
 
 window.addEventListener("load", function () {
-  getPomoBg();
-  getPomoTime();
   setTimeout(() => {
+    getPomoBg();
+    getPomoTime();
     getTodolist();
     getEventlist();
     getTimetable();
