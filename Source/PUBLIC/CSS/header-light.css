@@ -524,6 +524,12 @@ a {
 
 /*Media CSS Style*/
 
+.extra-info {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
 #footer {
   position: absolute;
   background-image: url("/img/others_imgs/footer.png");
