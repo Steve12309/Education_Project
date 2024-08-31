@@ -14,8 +14,8 @@
             <form action="/register" method="POST">
                 <h1>Tạo Tài Khoản</h1>
                 <div class="social-icons">
-                    <a href="/login/gg" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="/login/fb" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="/login/gg" class="icon" title="Đăng kí bằng Google"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="/login/fb" class="icon" title="Đăng kí bằng Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                 </div>
                 <span>Tạo tài khoản với email</span>
                 <input type="text" placeholder="Tên tài khoản" id="name" name="username" required>
@@ -28,13 +28,13 @@
             <form action="/login" method="POST">
                 <h1>Đăng Nhập</h1>
                 <div class="social-icons">
-                    <a href="/login/gg" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="/login/fb" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="/login/gg" class="icon" title="Đăng nhập bằng Google"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="/login/fb" class="icon" title="Đăng nhập bằng Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                 </div>
                 <span>Đăng nhập bằng email</span>
                 <input type="text" placeholder="Tên tài khoản" id="name" name="username" required value="admin">
                 <input type="password" placeholder="Mật khẩu" id="pass" name="password" required value="#Steve12309">
-                <a id="forgot" href="/login/forgetpassword">Quên mật khẩu?</a>
+                <a id="forgot" href="/login/forgetpassword" title="Quên mật khẩu">Quên mật khẩu?</a>
 
                 <button>Đăng Nhập</button>
             </form>

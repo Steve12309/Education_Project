@@ -421,14 +421,39 @@ const tilemagic = document.getElementById("titlemagic");
 const listask = document.getElementById("list");
 let currentEditingTask = null;
 
+function debounce(func, delay) {
+  let timeout;
+  console.log(timeout);
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+const saveTodolistDebounced = debounce(saveTodolist, 3000);
+
 function addTaskServer(data) {
   var tasks = data;
   if (tasks) {
     tasks.forEach((task) => {
       var taskcontai = document.createElement("div");
       taskcontai.classList.add("taskcontai");
-      taskcontai.innerHTML = `
-                <span class="task-text">${task}</span>
+
+      if (task.status === true) {
+        taskcontai.innerHTML = `
+                <span class="task-text" style="text-decoration:line-through">${task.task}</span>
+                <div class="options">
+                    <button class="btnedit" onclick="edittask(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
+                    <button class="btndelete" onclick="deletetask(this)"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
+                <label class="custom-checkbox">
+                <input type="checkbox" onclick="toggleComplete(this)" checked>
+                <div class="checkmark"></div>
+                </label>
+            </div>
+                </div>`;
+      } else {
+        taskcontai.innerHTML = `
+                <span class="task-text">${task.task}</span>
                 <div class="options">
                     <button class="btnedit" onclick="edittask(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
                     <button class="btndelete" onclick="deletetask(this)"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
@@ -438,6 +463,7 @@ function addTaskServer(data) {
                 </label>
             </div>
                 </div>`;
+      }
       listask.appendChild(taskcontai);
     });
   }
@@ -488,38 +514,40 @@ function edittask(button) {
 }
 
 function deletetask(button) {
-  var taskTestsArr = [];
   const taskcontai = button.closest(".taskcontai");
   taskcontai.remove();
-  var taskTests = document.querySelectorAll(".task-text");
-  taskTests.forEach((taskTest) => {
-    taskTestsArr.push(taskTest.textContent);
-  });
-  saveTodolist(taskTestsArr);
-  currentEditingTask = null;
-  document.getElementById("inputTask").value = "";
-  document.getElementById(
-    "btn-addtask"
-  ).innerHTML = `<img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%">`; // Đảm bảo khi xóa một nhiệm vụ, các nút và input trở về trạng thái ban đầu
+  resetInput();
 }
 
 function toggleComplete(checkbox) {
-  const taskcontai = checkbox.closest(".taskcontai");
-  const taskText = taskcontai.querySelector(".task-text");
+  var taskcontai = checkbox.closest(".taskcontai");
+  var taskText = taskcontai.querySelector(".task-text");
   if (checkbox.checked) {
     taskText.style.textDecoration = "line-through";
   } else {
     taskText.style.textDecoration = "none";
   }
+  saveTasksDebounced();
 }
 
 function resetInput() {
   var taskTestsArr = [];
   var taskTests = document.querySelectorAll(".task-text");
   taskTests.forEach((taskTest) => {
-    taskTestsArr.push(taskTest.textContent);
+    const style = window.getComputedStyle(taskTest);
+    if (style.textDecoration === "line-through solid rgb(255, 255, 255)") {
+      taskTestsArr.push({
+        task: taskTest.textContent,
+        status: true,
+      });
+    } else {
+      taskTestsArr.push({
+        task: taskTest.textContent,
+        status: false,
+      });
+    }
   });
-  saveTodolist(taskTestsArr);
+  saveTasksDebounced();
   currentEditingTask = null;
   document.getElementById("inputTask").value = "";
   document.getElementById(
@@ -528,13 +556,33 @@ function resetInput() {
   tilemagic.style.top = "0px";
 }
 
-function saveTodolist(arr) {
+const saveTasksDebounced = debounce(() => {
+  var taskTestsArr = [];
+  var taskTests = document.querySelectorAll(".task-text");
+  taskTests.forEach((taskTest) => {
+    const style = window.getComputedStyle(taskTest);
+    if (style.textDecoration === "line-through solid rgb(255, 255, 255)") {
+      taskTestsArr.push({
+        task: taskTest.textContent,
+        status: true,
+      });
+    } else {
+      taskTestsArr.push({
+        task: taskTest.textContent,
+        status: false,
+      });
+    }
+  });
+  saveTodolistDebounced(taskTestsArr);
+}, 1000);
+
+function saveTodolist(tasks) {
   fetch("/save/todolist", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(arr),
+    body: JSON.stringify(tasks),
   })
     .then((res) => res.json())
     .then((data) => {
@@ -991,7 +1039,8 @@ function addCompleteNoteListener() {
     checkbox.addEventListener("change", function () {
       const noteKey = this.dataset.noteKey;
       notesData[`${noteKey}_completed`] = this.checked;
-      updateIncompleteNotesCount(getWeekDates(currentWeekOffset)); // Cập nhật phần thống kê
+      saveNotesData(notesData);
+      updateIncompleteNotesCount(getWeekDates(currentWeekOffset));
     });
   });
 }
@@ -1002,7 +1051,7 @@ function addCompleteNoteListenerServer(data) {
       const noteKey = this.dataset.noteKey;
       notesData[`${noteKey}_completed`] = this.checked;
       saveNotesData(notesData);
-      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset), data); // Cập nhật phần thống kê
+      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset), data);
     });
   });
 }
@@ -1181,6 +1230,7 @@ function updateIncompleteNotesCount(dates) {
       notesData[`${noteKey}_completed`] = this.checked;
       updateIncompleteNotesCount(dates);
       updateMainCalendar();
+      saveNotesData(notesData);
     });
 
     const noteText = document.createElement("span");

@@ -65,6 +65,7 @@ const AccountFB = new Schema(
     ],
     Notesdata: [{ type: Object }],
   },
+  { versionKey: false },
   {
     collection: "accountsfb",
   }

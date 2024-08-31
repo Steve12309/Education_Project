@@ -1228,3 +1228,7 @@ a {
     opacity: 0;
   }
 }
+
+iframe#chatbotContainer {
+  width: auto !important;
+}

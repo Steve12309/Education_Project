@@ -132,6 +132,7 @@ socket.on("comment", (comment) => {
   var userComment = document.createElement("div");
   userComment.classList.add("userComment");
   userComment.dataset.userId = comment.userId;
+  userComment.dataset.commentId = comment.commentId;
   var commentContent = `
      <div class="userInfo">
       <img src="${comment.img}" alt="User Img" />
@@ -157,6 +158,24 @@ socket.on("comment", (comment) => {
   containComment = true;
   checkComments(containComment, demo, "post");
 });
+
+socket.on("deletedcomment", async (data) => {
+  const { commentId, userId, userComment } = data;
+  var userComments = document.querySelectorAll(".userComment");
+  userComments.forEach((usercomment) => {
+    var userCommentId = usercomment.getAttribute("data-comment-id");
+    var userIdClient = usercomment.getAttribute("data-user-id");
+    var userCommentMsg = usercomment.querySelector(".userContent").textContent;
+    if (
+      userCommentId === commentId &&
+      userIdClient === userId &&
+      userCommentMsg === userComment
+    ) {
+      usercomment.remove();
+    }
+  });
+});
+
 socket.on("edittedcomment", async (data) => {
   const { editvalue, Status } = data;
   var currenteditcomment = elementEditing[0];
@@ -184,6 +203,7 @@ socket.on("loadComments", (comments) => {
     var userComment = document.createElement("div");
     userComment.classList.add("userComment");
     userComment.dataset.userId = comment.userId;
+    userComment.dataset.commentId = comment._id;
     var commentContent = `
     <div class="userInfo">
       <img src="${comment.img}" alt="User Img" />
@@ -252,6 +272,20 @@ function editcomment(buttonedit) {
         currenteditcomment.querySelector(".userContent").textContent;
       socket.emit("editComment", { editvalue, currentvalue, universitySlug });
     });
+  });
+}
+
+function deletecomment(buttondelete) {
+  var currentdeletecomment = buttondelete.parentElement.parentElement;
+  var commentId = currentdeletecomment.getAttribute("data-comment-id");
+  var userId = currentdeletecomment.getAttribute("data-user-id");
+  var userComment =
+    currentdeletecomment.querySelector(".userContent").textContent;
+  socket.emit("deleteComment", {
+    commentId,
+    userId,
+    userComment,
+    universitySlug,
   });
 }
 

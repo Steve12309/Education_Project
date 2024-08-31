@@ -41,7 +41,7 @@ const Account = new Schema(
       },
     ],
     Pomoimg: { type: String },
-    Todolist: [{ type: String }],
+    Todolist: [{ task: { type: String }, status: { type: Boolean } }],
     Eventlist: [
       {
         Calendar: { type: String },
@@ -64,6 +64,7 @@ const Account = new Schema(
     ],
     Notesdata: [{ type: Object }],
   },
+  { versionKey: false },
   {
     collection: "accounts",
   }

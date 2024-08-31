@@ -13,6 +13,7 @@ const University = new Schema(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
+  { versionKey: false },
   {
     collection: "universities",
   }

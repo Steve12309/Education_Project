@@ -65,6 +65,7 @@ const AccountGG = new Schema(
     ],
     Notesdata: [{ type: Object }],
   },
+  { versionKey: false },
   {
     collection: "accountsgg",
   }

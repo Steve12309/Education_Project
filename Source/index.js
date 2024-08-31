@@ -26,6 +26,53 @@ const Accountfb = require("../Source/APP/MODELS/Accountfb");
 const Comment = require("../Source/APP/MODELS/Comment");
 
 io.on("connection", async (socket) => {
+  socket.on("deleteComment", async (data) => {
+    const { commentId, userId, userComment, universitySlug } = data;
+
+    let checkUser;
+    if (socket.request.session.username) {
+      checkUser = await Account.findOne({
+        name: socket.request.session.username,
+      });
+    } else if (socket.request.user.name) {
+      switch (socket.request.user.provider) {
+        case "google":
+          checkUser = await Accountgg.findOne({
+            name: socket.request.user.name,
+          });
+          break;
+        case "facebook":
+          checkUser = await Accountfb.findOne({
+            name: socket.request.user.name,
+          });
+          break;
+      }
+    }
+
+    if (checkUser) {
+      const checkComment = await Comment.findOne({
+        universityId: universitySlug,
+      });
+
+      if (checkComment) {
+        var newCheckComment = checkComment.comment.filter((comment) => {
+          return !(
+            comment.userId.toString() === userId &&
+            comment._id.toString() === commentId &&
+            comment.message === userComment
+          );
+        });
+        checkComment.comment = newCheckComment;
+        await checkComment.save();
+        io.to(universitySlug).emit("deletedcomment", {
+          commentId,
+          userId,
+          userComment,
+        });
+      }
+    }
+  });
+
   socket.on("editComment", async (data) => {
     const { editvalue, currentvalue, universitySlug } = data;
     let checkUser;
@@ -119,7 +166,6 @@ io.on("connection", async (socket) => {
 
     try {
       let checkUser;
-
       if (socket.request.session.username) {
         checkUser = await Account.findOne({
           name: socket.request.session.username,
@@ -143,39 +189,37 @@ io.on("connection", async (socket) => {
         const user = checkUser.name;
         const userImg = checkUser.img;
 
+        const newComment = {
+          user: user,
+          img: userImg,
+          message: comment,
+          timestamp: new Date(),
+          userId: checkUser._id,
+        };
+
+        let savedComment;
         const room = await Comment.findOne({ universityId: universitySlug });
 
         if (room) {
-          room.comment.push({
-            user: user,
-            img: userImg,
-            message: comment,
-            timestamp: new Date(),
-            userId: checkUser._id,
-          });
+          room.comment.push(newComment);
           await room.save();
+          savedComment = room.comment[room.comment.length - 1];
         } else {
           const newRoom = new Comment({
             universityId: universitySlug,
-            comment: [
-              {
-                user: user,
-                message: comment,
-                timestamp: new Date(),
-                img: userImg,
-                userId: checkUser._id,
-              },
-            ],
+            comment: [newComment],
           });
           await newRoom.save();
+          savedComment = newRoom.comment[0];
         }
 
         io.to(universitySlug).emit("comment", {
-          comment,
-          user,
-          timestamp: new Date(),
-          img: userImg,
-          userId: checkUser._id,
+          comment: savedComment.message,
+          user: savedComment.user,
+          timestamp: savedComment.timestamp,
+          img: savedComment.img,
+          userId: savedComment.userId,
+          commentId: savedComment._id,
         });
       }
     } catch (error) {
