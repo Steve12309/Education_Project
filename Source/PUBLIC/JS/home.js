@@ -132,11 +132,13 @@ function savePomoBg(fileUrl) {
 
 window.addEventListener("load", function () {
   getPomoBg();
-  getTodolist();
-  getEventlist();
   getPomoTime();
-  getTimetable();
-  getNotesData();
+  setTimeout(() => {
+    getTodolist();
+    getEventlist();
+    getTimetable();
+    getNotesData();
+  }, 5000);
 });
 
 function getPomoBg() {
