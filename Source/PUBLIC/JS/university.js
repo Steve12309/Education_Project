@@ -13,8 +13,20 @@ var popsearch = document.getElementById("pop-search");
 var popcontaisearch = document.getElementById("pop-contai-search");
 var contaisearch = document.getElementById("contai-search");
 const socket = io("http://localhost:5500", { path: "/socket.io" });
+const MAX_LOAD_TIME = 5000;
+let startTime = Date.now();
+let isPageLoaded = false;
+
+function checkLoadTime() {
+  if (Date.now() - startTime > MAX_LOAD_TIME && !isPageLoaded) {
+    window.location.reload();
+  }
+}
+
+setInterval(checkLoadTime, 1000);
 
 window.addEventListener("load", function () {
+  isPageLoaded = true;
   renderCollege(universityData);
 });
 

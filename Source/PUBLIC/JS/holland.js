@@ -77,6 +77,21 @@ hollandBtn.addEventListener("click", function () {
   createIntroduction();
 });
 var autoNext = false;
+const MAX_LOAD_TIME = 5000;
+let startTime = Date.now();
+let isPageLoaded = false;
+
+function checkLoadTime() {
+  if (Date.now() - startTime > MAX_LOAD_TIME && !isPageLoaded) {
+    window.location.reload();
+  }
+}
+
+setInterval(checkLoadTime, 1000);
+
+window.addEventListener("load", function () {
+  isPageLoaded = true;
+});
 
 function createIntroduction() {
   var quesContent = document.createElement("h4");

@@ -1215,6 +1215,14 @@ a {
   }
 }
 
-iframe#chatbotContainer {
-  width: auto !important;
+#chat-widget-push-to-talk {
+  left: 20px !important;
+}
+
+.iframe-visible {
+  left: 20px !important;
+}
+
+.iframe-hidden {
+  left: 20px !important;
 }

@@ -3,6 +3,21 @@ var testMBtn = document.getElementById("testM");
 var tescontai = document.getElementById("test-container");
 var dataContainer = document.getElementById("data-container");
 var testData = JSON.parse(dataContainer.getAttribute("data-test"));
+const MAX_LOAD_TIME = 5000;
+let startTime = Date.now();
+let isPageLoaded = false;
+
+function checkLoadTime() {
+  if (Date.now() - startTime > MAX_LOAD_TIME && !isPageLoaded) {
+    window.location.reload();
+  }
+}
+
+setInterval(checkLoadTime, 1000);
+
+window.addEventListener("load", function () {
+  isPageLoaded = true;
+});
 
 testHBtn.addEventListener("click", function (e) {
   e.preventDefault();

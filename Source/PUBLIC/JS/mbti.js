@@ -365,6 +365,20 @@ var alertInfo = document.querySelector(".alert");
 alertInfo.classList.add("hide");
 var closealertBtn = document.querySelector(".close-btn");
 var body = document.querySelector("body");
+const MAX_LOAD_TIME = 5000;
+let startTime = Date.now();
+let isPageLoaded = false;
+
+function checkLoadTime() {
+  if (Date.now() - startTime > MAX_LOAD_TIME && !isPageLoaded) {
+    window.location.reload();
+  }
+}
+
+setInterval(checkLoadTime, 1000);
+window.addEventListener("load", function () {
+  isPageLoaded = true;
+});
 
 var iM = 1;
 var webM = 1;
