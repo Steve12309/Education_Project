@@ -13,69 +13,37 @@ var popsearch = document.getElementById("pop-search");
 var popcontaisearch = document.getElementById("pop-contai-search");
 var contaisearch = document.getElementById("contai-search");
 const socket = io("http://localhost:5500", { path: "/socket.io" });
-const MAX_LOAD_TIME = 5000;
+const MAX_LOAD_TIME = 3000;
+const CHECK_INTERVAL = 100;
 let startTime = Date.now();
 let isPageLoaded = false;
 
 function checkLoadTime() {
   if (Date.now() - startTime > MAX_LOAD_TIME && !isPageLoaded) {
+    console.log("Tải lại trang vì trang mất quá nhiều thời gian để tải.");
     window.location.reload();
   }
 }
 
-setInterval(checkLoadTime, 1000);
+function checkIframe() {
+  const iframe = document.querySelector(".iframe-hidden");
+  if (
+    iframe &&
+    iframe.contentDocument &&
+    iframe.contentDocument.readyState === "complete"
+  ) {
+    startTime = Date.now();
+    isPageLoaded = true;
+    clearInterval(iframeCheckInterval);
+    setTimeout(checkLoadTime, 1000);
+  }
+}
+
+const iframeCheckInterval = setInterval(checkIframe, CHECK_INTERVAL);
 
 window.addEventListener("load", function () {
-  isPageLoaded = true;
   renderCollege(universityData);
 });
-
-function startIntro() {
-  const intro = introJs();
-  intro.setOptions({
-    steps: [
-      {
-        element: "#introduction",
-        intro:
-          "Chào mừng đến với website hướng nghiệp cho mọi lứa tuổi. Hãy cùng khám phá một chút tính năng về website của chúng tôi nhé!",
-      },
-      {
-        element: "#step-one",
-        intro:
-          "Đây là thanh navbar hay công cụ sẽ xuất hiện ở mọi trang của website chúng tôi",
-      },
-      {
-        element: "#step-two",
-        intro: "Đây chính là logo và châm ngôn chính của website chúng tôi.",
-      },
-      {
-        element: "#step-three",
-        intro:
-          "Còn đây là nơi trang chủ của chúng tôi để bạn có thể quay về trang chủ bất cứ khi nào bạn muốn.",
-      },
-      {
-        element: "#step-four",
-        intro:
-          "Kế bên đây là nơi sẽ dẫn bạn đến những bài test thú vị để tìm ra được công việc phù hợp của bạn trong tương lai dựa trên một sự pha trộn tuyệt vời",
-      },
-      {
-        element: "#step-five",
-        intro:
-          "Kế cuối đây là nơi để bạn có thế tìm hiểu về bất cứ trường đại học nào ở mọi nơi trên thế giới để từ đó đưa ra những quyết định đúng đắn hơn trong việc chọn trường để học phù hợp với năng lực và sở thích cũng như đam mê của bản thân.",
-      },
-      {
-        element: "#step-six",
-        intro:
-          "Cuối cùng là nơi để bạn có thể đọc những mẫu chuyển ngắn từ người thành công hay những videos từ họ để có thêm động lực và kinh nghiệm trên con đường đi đến thành công của bạn sau này.",
-      },
-    ],
-    showProgress: true,
-    showBullets: false,
-    disableInteraction: true,
-  });
-
-  intro.start();
-}
 
 var inputValue = "";
 searchInput.addEventListener("keyup", function (e) {
@@ -172,3 +140,35 @@ window.addEventListener("load", function () {
     history.replaceState(null, "", urlWithoutSlug);
   }
 });
+
+function startIntro() {
+  const intro = introJs();
+  intro.setOptions({
+    steps: [
+      {
+        element: "#introduction-University",
+        intro:
+          "Đây là trang bạn sẽ tìm kiếm những thông tin chi tiết về các trường đại học theo phạm vi tùy chỉnh",
+      },
+      {
+        element: ".step-one-University",
+        intro:
+          "Đây là thanh tìm kiếm để bạn có thể tìm kiếm các trường đại học cụ thể nhanh hơn",
+      },
+      {
+        element: ".step-two-University",
+        intro: "Đây là danh sách các trường đại học mà website hiện có",
+      },
+      {
+        element: ".step-three-University",
+        intro:
+          "Đây là nơi hiển thị các thông tin về trường đại học mà bạn chọn ở danh sách kế bên",
+      },
+    ],
+    showProgress: true,
+    showBullets: false,
+    disableInteraction: true,
+  });
+
+  intro.start();
+}

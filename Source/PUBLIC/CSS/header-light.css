@@ -1226,3 +1226,11 @@ a {
 .iframe-hidden {
   left: 20px !important;
 }
+
+#welcomeMessages {
+  left: 20px !important;
+}
+
+.Website {
+  display: flex;
+}

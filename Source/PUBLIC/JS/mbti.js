@@ -365,21 +365,6 @@ var alertInfo = document.querySelector(".alert");
 alertInfo.classList.add("hide");
 var closealertBtn = document.querySelector(".close-btn");
 var body = document.querySelector("body");
-const MAX_LOAD_TIME = 5000;
-let startTime = Date.now();
-let isPageLoaded = false;
-
-function checkLoadTime() {
-  if (Date.now() - startTime > MAX_LOAD_TIME && !isPageLoaded) {
-    window.location.reload();
-  }
-}
-
-setInterval(checkLoadTime, 1000);
-window.addEventListener("load", function () {
-  isPageLoaded = true;
-});
-
 var iM = 1;
 var webM = 1;
 
@@ -1894,19 +1879,22 @@ function startIntro() {
   intro.setOptions({
     steps: [
       {
-        element: ".introduction",
-        intro:
-          "Đây là nơi để bạn lựa chọn xem bạn sẽ làm bài test nào. Trong tương lai sẽ có nhiều thêm bài test và sự pha trộn giữa các bài test để từ đó đạt được kết quả chính xác nhất có thể.",
+        element: ".introduction-Test",
+        intro: "Đây là trang trắc nghiệm hướng nghiệp",
       },
       {
-        element: ".step-one",
-        intro:
-          "Đây là bài test trắc nghiệm hướng nghiệp Holland bao gồm 54 câu hỏi trắc nghiệm tất cả. Theo bài test này thì sẽ được chia thành 6 nhóm nghề và tương ứng mỗi nhóm nghề sẽ là một số ngành cụ thể thuộc vào nhóm nghề đó.",
+        element: ".step-one-Test",
+        intro: "Đây là nơi chứa đựng các bài test của website",
       },
       {
-        element: ".step-two",
+        element: ".step-two-Test",
         intro:
-          "Đây là bài test trắc nghiệm tính cách MBTI bao gồm 70 câu hỏi trắc nghiệm tất cả. Theo bài test này thì sẽ được chia thành 16 nhóm tính cách và ứng với mỗi nhóm tính cách sẽ là một số thông tin cụ thể hơn về nhóm nghề này",
+          "Đây là bài test hướng nghiệp Holland bao gồm 54 câu hỏi và kết quả rất chi tiết để bạn có thể biết được bản thân phù hợp với ngành nghề nào",
+      },
+      {
+        element: ".step-three-Test",
+        intro:
+          "Đây là bài test tính cách Mbti bao gồm 70 câu hỏi và kết quả cũng rất chi tiết và tường tận để bạn có thể hiểu thêm về bản thân",
       },
     ],
     showProgress: true,

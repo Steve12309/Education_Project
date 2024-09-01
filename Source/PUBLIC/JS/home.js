@@ -130,29 +130,22 @@ function savePomoBg(fileUrl) {
     .catch((err) => console.log(err.message));
 }
 
-const MAX_LOAD_TIME = 5000;
-
-let startTime = Date.now();
-let isPageLoaded = false;
-
-function checkLoadTime() {
-  if (Date.now() - startTime > MAX_LOAD_TIME && !isPageLoaded) {
-    window.location.reload();
+function fetchData() {
+  var isLogin = document.querySelector("#user-avar");
+  var link = isLogin.querySelector('a[href][title="Tạo tài khoản"]');
+  if (link) {
+  } else {
+    getPomoBg();
+    getPomoTime();
+    setTimeout(getTodolist, 2000);
+    setTimeout(getEventlist, 4000);
+    setTimeout(getTimetable, 6000);
+    setTimeout(getNotesData, 8000);
   }
 }
 
-setInterval(checkLoadTime, 1000);
-
 window.addEventListener("load", function () {
-  isPageLoaded = true;
-  setTimeout(() => {
-    getPomoBg();
-    getPomoTime();
-    getTodolist();
-    getEventlist();
-    getTimetable();
-    getNotesData();
-  }, 5000);
+  fetchData();
 });
 
 function getPomoBg() {
@@ -1482,38 +1475,52 @@ function startIntro() {
   intro.setOptions({
     steps: [
       {
-        element: "#introduction",
+        element: "#introduction-Home",
         intro:
-          "Chào mừng đến với website hướng nghiệp cho mọi lứa tuổi. Hãy cùng khám phá một chút tính năng về website của chúng tôi nhé!",
+          "Chào mừng đến với Website hướng nghiệp BeYourself. Hãy cùng tôi đi một vòng tham quan website này nhé!",
       },
       {
-        element: "#step-one",
+        element: ".step-one-Home",
         intro:
-          "Đây là thanh navbar hay công cụ sẽ xuất hiện ở mọi trang của website chúng tôi",
+          "Đây là thanh navbar nơi sẽ mà bạn có thể chuyển qua lại giữa các trang của website",
       },
       {
-        element: "#step-two",
-        intro: "Đây chính là logo và châm ngôn chính của website chúng tôi.",
+        element: "#step-two-Home",
+        intro: "Đây chính là logo và tên website",
       },
       {
-        element: "#step-three",
+        element: "#step-three-Home",
         intro:
-          "Còn đây là nơi trang chủ của chúng tôi để bạn có thể quay về trang chủ bất cứ khi nào bạn muốn.",
+          "Đây là trang chủ nơi mà bạn có thể sử dụng một số công cụ hỗ trợ học tập",
       },
       {
-        element: "#step-four",
+        element: "#step-four-Home",
         intro:
-          "Kế bên đây là nơi sẽ dẫn bạn đến những bài test thú vị để tìm ra được công việc phù hợp của bạn trong tương lai dựa trên một sự pha trộn tuyệt vời",
+          "Đây là trang trắc nghiệm hướng nghiệp nơi mà bạn có thể tham gia vào các bài test hướng nghiệp và xem kết quả một cách chi tiết nhất",
       },
       {
-        element: "#step-five",
+        element: "#step-five-Home",
         intro:
-          "Kế cuối đây là nơi để bạn có thế tìm hiểu về bất cứ trường đại học nào ở mọi nơi trên thế giới để từ đó đưa ra những quyết định đúng đắn hơn trong việc chọn trường để học phù hợp với năng lực và sở thích cũng như đam mê của bản thân.",
+          "Đây là trang đại học nơi mà bạn sẽ có thể tìm hiểu các thông tin chi tiết về các trường đại học trong phạm vi tùy chỉnh",
       },
       {
-        element: "#step-six",
+        element: ".step-six-Home",
         intro:
-          "Cuối cùng là nơi để bạn có thể đọc những mẫu chuyển ngắn từ người thành công hay những videos từ họ để có thêm động lực và kinh nghiệm trên con đường đi đến thành công của bạn sau này.",
+          "Đây là nơi mà bạn có thể tùy chỉnh và sử dụng thêm một số tính năng khác của website",
+      },
+      {
+        element: ".step-seven-Home",
+        intro: "Đây là công cụ pomodoro để hỗ trợ bạn trong việc học tập",
+      },
+      {
+        element: ".step-eight-Home",
+        intro:
+          "Đây là nút để bạn có thể phóng to cả màn hình của công cụ pomodoro",
+      },
+      {
+        element: ".step-nine-Home",
+        intro:
+          "Đây là nút để bạn chuyển tới nơi có thêm nhiều công cụ hỗ trợ học tập hơn như Todo-List, Timetable, Remind-Exams",
       },
     ],
     showProgress: true,
