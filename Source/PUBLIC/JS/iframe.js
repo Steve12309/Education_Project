@@ -10,6 +10,15 @@ var slugsArr = [];
 var containComment = false;
 let currenteditcomment = null;
 var elementEditing = [];
+var alertInfo = document.querySelector(".alert");
+alertInfo.classList.add("hide");
+var closealertBtn = document.querySelector(".close-btn");
+
+closealertBtn.addEventListener("click", function () {
+  console.log("hi");
+  alertInfo.classList.remove("show");
+  alertInfo.classList.add("hide");
+});
 
 function userComments(userComments) {
   userComments.forEach((userComment) => {
@@ -62,7 +71,19 @@ moment.updateLocale("vi", {
 
 saveUniBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  changeUniState();
+  var isLogin = parent.document.querySelector("#user-avar");
+  var link = isLogin.querySelector('a[href][title="Tạo tài khoản"]');
+  if (link) {
+    alertInfo.classList.add("show");
+    alertInfo.classList.remove("hide");
+    alertInfo.classList.add("showAlert");
+    setTimeout(function () {
+      alertInfo.classList.remove("show");
+      alertInfo.classList.add("hide");
+    }, 5000);
+  } else {
+    changeUniState();
+  }
 });
 
 function changeUniState() {
@@ -117,9 +138,22 @@ function saveUni(university) {
 }
 postComment.addEventListener("click", function (e) {
   e.preventDefault();
-  var comment = newComment.value;
-  socket.emit("newComment", { comment, universitySlug });
-  newComment.value = "";
+  var isLogin = parent.document.querySelector("#user-avar");
+  var link = isLogin.querySelector('a[href][title="Tạo tài khoản"]');
+  if (link) {
+    newComment.value = "";
+    alertInfo.classList.add("show");
+    alertInfo.classList.remove("hide");
+    alertInfo.classList.add("showAlert");
+    setTimeout(function () {
+      alertInfo.classList.remove("show");
+      alertInfo.classList.add("hide");
+    }, 5000);
+  } else {
+    var comment = newComment.value;
+    socket.emit("newComment", { comment, universitySlug });
+    newComment.value = "";
+  }
 });
 
 function updateTimeAgo(element, timestamp) {

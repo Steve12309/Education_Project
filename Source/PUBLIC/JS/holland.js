@@ -509,7 +509,6 @@ function GetValue() {
       analysisValue(demoBtnParentValue, demoBtnValue);
       updateColor(demoBtnParentValue, demoBtnValue);
       if (abc.length >= allowClick) {
-        console.log(abc.length, allowClick);
         if (autoNext === true) {
           if (web < 54) {
             createQuestion();
@@ -875,10 +874,32 @@ function sendResultToServerHolland(result) {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
+      checkHollandSave(data);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+function checkHollandSave(data) {
+  console.log(data);
+  if (data.success === true) {
+    alertSuccess.classList.add("show");
+    alertSuccess.classList.remove("hide");
+    alertSuccess.classList.add("showAlert");
+    setTimeout(function () {
+      alertSuccess.classList.remove("show");
+      alertSuccess.classList.add("hide");
+    }, 5000);
+  } else {
+    alertError.classList.add("show");
+    alertError.classList.remove("hide");
+    alertError.classList.add("showAlert");
+    setTimeout(function () {
+      alertError.classList.remove("show");
+      alertError.classList.add("hide");
+    }, 5000);
+  }
 }
 
 function createFinalPage(result, A, B, C, D, E, F) {

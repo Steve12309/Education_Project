@@ -42,7 +42,7 @@ const AccountFB = new Schema(
       },
     ],
     Pomoimg: { type: String },
-    Todolist: [{ type: String }],
+    Todolist: [{ task: { type: String }, status: { type: Boolean } }],
     Eventlist: [
       {
         Calendar: { type: String },
@@ -65,10 +65,7 @@ const AccountFB = new Schema(
     ],
     Notesdata: [{ type: Object }],
   },
-  { versionKey: false },
-  {
-    collection: "accountsfb",
-  }
+  { versionKey: false }
 );
 
-module.exports = mongoose.model("AccountFB", AccountFB);
+module.exports = mongoose.model("AccountFB", AccountFB, "accountsfb");

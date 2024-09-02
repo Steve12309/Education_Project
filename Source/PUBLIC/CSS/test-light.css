@@ -15,7 +15,6 @@ h3 {
   padding: 0px;
   font-size: 17px;
   font-weight: 200;
-
 }
 
 h2 {
@@ -323,7 +322,7 @@ h4 {
 }
 
 /*-----------------------------------------------------------------------------------container-----------------------------------------------------------------------*/
-.processallcontai{
+.processallcontai {
   width: 100%;
   display: flex;
   height: 50px;
@@ -353,7 +352,7 @@ h4 {
   flex-direction: column;
   justify-content: center;
   color: white;
-  border-radius:25px;
+  border-radius: 25px;
   transition: width 0.5s ease-in-out;
 }
 #choose {
@@ -377,7 +376,7 @@ h4 {
   justify-content: space-around;
   padding: 40px;
 }
-#slidembti{
+#slidembti {
   width: 48%;
   height: 100%;
   padding: 10px 10px 30px 10px;
@@ -387,14 +386,14 @@ h4 {
   overflow: hidden;
   position: relative;
 }
-#slidembti p{
-  font-family: 'hywen';
-    font-size: 14px;
-    line-height: 1.3;
-    letter-spacing: 0.5px;
-    white-space: pre-line;
-    text-align: left;
-    margin: 0;
+#slidembti p {
+  font-family: "hywen";
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+  white-space: pre-line;
+  text-align: left;
+  margin: 0;
 }
 .instruction {
   width: 100%;
@@ -408,7 +407,7 @@ h4 {
   background-color: rgba(260, 260, 260);
   text-align: left;
 }
-#contaidiagram{
+#contaidiagram {
   width: 48%;
   height: 100%;
   padding: 10px;
@@ -418,7 +417,7 @@ h4 {
   overflow: hidden;
   position: relative;
 }
-.btnpr{
+.btnpr {
   position: absolute;
   background-color: rgba(130, 130, 130, 0.5);
   border: none;
@@ -432,10 +431,10 @@ h4 {
   cursor: pointer;
   z-index: 10000;
 }
-#btnlt{
+#btnlt {
   right: 50px;
 }
-#contaiprocess{
+#contaiprocess {
   display: flex;
   flex-direction: row;
   transition: 0.5s ease-in-out;
@@ -444,7 +443,7 @@ h4 {
   left: 0;
   position: relative;
 }
-.process{
+.process {
   height: 100%;
   display: flex;
   flex-grow: 0;
@@ -453,24 +452,24 @@ h4 {
   padding: 10px;
   flex-direction: column;
 }
-.process img{
+.process img {
   width: 300px;
-    margin: 20 auto;
+  margin: 20 auto;
 }
-.process label{
+.process label {
   flex-basis: 60px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    font-size: 14px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 14px;
 }
-.contenimgprocess{
+.contenimgprocess {
   display: flex;
   flex-direction: column;
   overflow: auto;
   height: 100%;
   width: 100%;
 }
-.comment{
+.comment {
   width: 48%;
   height: 100%;
   padding: 10px;
@@ -479,7 +478,7 @@ h4 {
   background-color: transparent;
   text-align: left;
 }
-.comment h3{
+.comment h3 {
   font-size: 20px;
   font-family: system-ui;
   overflow: auto;
@@ -677,43 +676,6 @@ h4 {
   animation: hide_slide 1s ease forwards;
 }
 
-/*----------------------------------------------------------------------------Keyframe---------------------------------------------------------------------------------*/
-@keyframes hide_slide {
-  0% {
-    transform: translateX(-10px);
-  }
-
-  40% {
-    transform: translateX(0%);
-  }
-
-  80% {
-    transform: translateX(-10%);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes show_slide {
-  0% {
-    transform: translateX(100%);
-  }
-
-  40% {
-    transform: translateX(-10%);
-  }
-
-  80% {
-    transform: translateX(0%);
-  }
-
-  100% {
-    transform: translateX(-10px);
-  }
-}
-
 /*------------------------------------------------------------------------------responsible---------------------------------------------------------------------------*/
 
 @media only screen and (max-width: 1100px) {
@@ -733,7 +695,6 @@ h4 {
 }
 
 @media only screen and (max-width: 850px) {
-
   #choose {
     width: 500px;
     height: 330px;
@@ -755,7 +716,6 @@ h4 {
     width: 50%;
     height: 85%;
   }
-
 
   .dividem {
     flex-direction: column;
@@ -795,18 +755,18 @@ h4 {
     width: 100%;
     height: 46%;
   }
-  .comment{
+  .comment {
     width: 100%;
     height: 48%;
   }
-  #contaidiagram{
+  #contaidiagram {
     width: 100%;
     height: 48%;
   }
-  #slidembti{
+  #slidembti {
     width: 100%;
     height: 48%;
-    padding: 10px 10px 20px 10px;;
+    padding: 10px 10px 20px 10px;
   }
   .process img {
     padding: 20px;
@@ -816,7 +776,7 @@ h4 {
     flex-direction: row;
     overflow: hidden;
   }
-  #slidembti p{
+  #slidembti p {
     overflow: auto;
   }
 }
@@ -903,5 +863,168 @@ h4 {
   .process img {
     padding: 10px;
     width: 120px;
+  }
+}
+
+.alertsuccess {
+  background: #c0f1d3;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  border-radius: 4px;
+  border-left: 8px solid #47c07f;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.alertsuccess.showAlert {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alertsuccess.show {
+  animation: show_slide 1s ease forwards;
+}
+
+.alertsuccess .fa-circle-check {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #20a558;
+  font-size: 30px;
+}
+
+.alertsuccess .msg {
+  padding: 0 20px;
+  font-size: 18px;
+  color: #60b080;
+}
+
+.alertsuccess .close-btn {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #96e9b7;
+  padding: 20px 18px;
+  cursor: pointer;
+}
+
+.alertsuccess .close-btn:hover {
+  background: #88e4ad;
+}
+
+.alertsuccess .close-btn .fas {
+  color: #2ea862;
+  font-size: 22px;
+  line-height: 40px;
+}
+
+.alertsuccess.hide {
+  animation: hide_slide 1s ease forwards;
+}
+
+.alerterror {
+  background: #ffe1e2;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  border-radius: 4px;
+  border-left: 8px solid #ff4756;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.alerterror.showAlert {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alerterror.show {
+  animation: show_slide 1s ease forwards;
+}
+
+.alerterror .fa-exclamation-circle {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fc4858;
+  font-size: 30px;
+}
+
+.alerterror .msg {
+  padding: 0 20px;
+  font-size: 18px;
+  color: #d2757e;
+}
+
+.alerterror .close-btn {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ff99a5;
+  padding: 20px 18px;
+  cursor: pointer;
+}
+
+.alerterror .close-btn:hover {
+  background: #ff939f;
+}
+
+.alerterror .close-btn .fas {
+  color: #fa4c56;
+  font-size: 22px;
+  line-height: 40px;
+}
+
+.alerterror.hide {
+  animation: hide_slide 1s ease forwards;
+}
+
+/*----------------------------------------------------------------------------Keyframe---------------------------------------------------------------------------------*/
+@keyframes hide_slide {
+  0% {
+    transform: translateX(-10px);
+  }
+
+  40% {
+    transform: translateX(0%);
+  }
+
+  80% {
+    transform: translateX(-10%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+
+  40% {
+    transform: translateX(-10%);
+  }
+
+  80% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-10px);
   }
 }

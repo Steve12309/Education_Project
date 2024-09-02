@@ -63,6 +63,7 @@ class UserController {
               },
               { new: true }
             );
+            res.json({ success: true });
           } else {
             const { note, type, A, B, C, D, E, F } = req.body;
             await Accountfb.findOneAndUpdate(
@@ -76,6 +77,7 @@ class UserController {
               },
               { new: true }
             );
+            res.json({ success: true });
           }
         } else if (req.body.type === "Mbti") {
           const {
@@ -114,6 +116,7 @@ class UserController {
               },
               { new: true }
             );
+            res.json({ success: true });
           } else {
             await Accountfb.findOneAndUpdate(
               { name: req.user.name },
@@ -135,6 +138,7 @@ class UserController {
               },
               { new: true }
             );
+            res.json({ success: true });
           }
         }
         res.json({ success: true });
@@ -154,6 +158,7 @@ class UserController {
               },
               { new: true }
             );
+            res.json({ success: true });
           }
         } else if (req.body.type === "Mbti") {
           const {
@@ -192,10 +197,11 @@ class UserController {
               },
               { new: true }
             );
+            res.json({ success: true });
           }
         }
-        res.json({ success: true });
       }
+      res.json({ success: false });
     } catch (err) {
       console.log(err.messsage);
     }

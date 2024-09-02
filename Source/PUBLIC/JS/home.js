@@ -589,6 +589,7 @@ const saveTasksDebounced = debounce(() => {
 }, 1000);
 
 function saveTodolist(tasks) {
+  console.log(tasks);
   fetch("/save/todolist", {
     method: "POST",
     headers: {

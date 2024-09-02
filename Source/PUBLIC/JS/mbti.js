@@ -364,13 +364,29 @@ var abcM = [];
 var alertInfo = document.querySelector(".alert");
 alertInfo.classList.add("hide");
 var closealertBtn = document.querySelector(".close-btn");
+var alertSuccess = document.querySelector(".alertsuccess");
+alertSuccess.classList.add("hide");
+var closealertSuccessBtn = document.querySelector(".alertsuccess .close-btn");
+var alertError = document.querySelector(".alerterror");
+alertError.classList.add("hide");
+var closealertErrorBtn = document.querySelector(".alerterror .close-btn");
 var body = document.querySelector("body");
-var iM = 1;
-var webM = 1;
+var iM = 68;
+var webM = 68;
 
 closealertBtn.addEventListener("click", function () {
   alertInfo.classList.remove("show");
   alertInfo.classList.add("hide");
+});
+
+closealertSuccessBtn.addEventListener("click", function () {
+  alertSuccess.classList.remove("show");
+  alertSuccess.classList.add("hide");
+});
+
+closealertErrorBtn.addEventListener("click", function () {
+  alertError.classList.remove("show");
+  alertError.classList.add("hide");
 });
 
 mbtiBtn.addEventListener("click", function () {
@@ -1036,11 +1052,34 @@ function sendResultToServerMbti(result) {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
+      checkMbtiSave(data);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
+
+function checkMbtiSave(data) {
+  console.log(data);
+  if (data.success === true) {
+    alertSuccess.classList.add("show");
+    alertSuccess.classList.remove("hide");
+    alertSuccess.classList.add("showAlert");
+    setTimeout(function () {
+      alertSuccess.classList.remove("show");
+      alertSuccess.classList.add("hide");
+    }, 5000);
+  } else {
+    alertError.classList.add("show");
+    alertError.classList.remove("hide");
+    alertError.classList.add("showAlert");
+    setTimeout(function () {
+      alertError.classList.remove("show");
+      alertError.classList.add("hide");
+    }, 5000);
+  }
+}
+
 let currentSlide = 0;
 function createFinalPageM(result, A, B, C, D, noteA, noteB, noteC, noteD) {
   var contentcomment = document.createElement("h3");

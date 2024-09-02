@@ -60,11 +60,7 @@ function route(app) {
     registerController.register
   );
   app.get("/university", account.isLogin, universityController.university);
-  app.get(
-    "/university/:slug",
-    account.isLoginComment,
-    universityController.show
-  );
+  app.get("/university/:slug", account.isLogin, universityController.show);
   app.get("/test", account.isLogin, testRouter);
   app.get("/story", account.isLogin, homeRouter);
   app.post(

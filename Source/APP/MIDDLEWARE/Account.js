@@ -18,6 +18,7 @@ const isLogin = async (req, res, next) => {
       req.user = {
         name: "",
         img: "",
+        _id: "",
       };
     }
   } catch (error) {
@@ -42,19 +43,4 @@ const isLogOut = async (req, res, next) => {
   next();
 };
 
-const isLoginComment = async (req, res, next) => {
-  try {
-    if (!req.isAuthenticated()) {
-      if (!req.session.username) {
-        res.send("Đăng nhập để có thể truy cập vào trang");
-      } else {
-      }
-    } else {
-    }
-    next();
-  } catch (err) {
-    console.log(err.message);
-  }
-};
-
-module.exports = { isLogin, isLogOut, isLoginComment };
+module.exports = { isLogin, isLogOut };

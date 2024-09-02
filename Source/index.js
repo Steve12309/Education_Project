@@ -280,7 +280,6 @@ passport.use(
         if (user) {
           return done(null, user);
         }
-        console.log(profile.picture);
         const newUser = new accountggdb({
           id: profile._json.sub,
           name: profile._json.name,
