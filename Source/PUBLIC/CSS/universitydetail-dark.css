@@ -266,6 +266,11 @@ p {
   height: 40px;
 }
 
+.userComment:hover .options {
+  display: flex;
+  /* Show options on hover */
+}
+
 .btnedit {
   background-color: transparent;
   border: 1px solid rgb(260, 260, 260);

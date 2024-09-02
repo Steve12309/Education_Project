@@ -1,5 +1,4 @@
 const Quote = require("../MODELS/Quote");
-const { mongooseToObject } = require("../../UTIL/mongoose");
 const { mutipleMongooseToObject } = require("../../UTIL/mongoose");
 
 class HomeController {

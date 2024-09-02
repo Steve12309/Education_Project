@@ -33,6 +33,7 @@ var iframe = document.getElementById("iframedetail");
 secondNavbar.classList.add("out");
 introBtn.addEventListener("click", function () {
   startIntro();
+  clicklay();
 });
 //respon narbar
 xElement.addEventListener("click", function () {

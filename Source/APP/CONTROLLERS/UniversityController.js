@@ -1,4 +1,5 @@
 const University = require("../MODELS/University");
+const Quote = require("../MODELS/Quote");
 const { mongooseToObject } = require("../../UTIL/mongoose");
 const { mutipleMongooseToObject } = require("../../UTIL/mongoose");
 
@@ -30,14 +31,15 @@ class UniversityController {
           }
         );
       }
-      const data = await University.find({});
+      var dataQuote = await Quote.find({});
+      var data = await University.find({});
       res.render("university", {
-        layout: "main",
         style: "university-light.css",
         function1: "university.js",
         username: req.user.name,
         userimg: req.user.img,
         navbar: "navbar.js",
+        quotes: JSON.stringify(mutipleMongooseToObject(dataQuote)),
         universities: JSON.stringify(mutipleMongooseToObject(data)),
         toastr_render: req.toastr.render(),
       });

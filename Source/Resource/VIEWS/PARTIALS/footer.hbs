@@ -59,13 +59,15 @@
   </div>
 </div>
 
-<script>
-  var quotes = document.getElementById("data-container"); var quotesData =
-  JSON.parse(quotes.getAttribute("data-quote")); var randomIndex =
-  Math.floor(Math.random() * quotesData.length); var randomQuote =
-  quotesData[randomIndex]; var pEle = document.querySelector(".quoteContent");
-  var quoteAuthor = document.querySelector(".quoteAuthor"); if (randomQuote &&
-  pEle && quoteAuthor) { pEle.textContent = randomQuote.quote;
-  quoteAuthor.textContent = randomQuote.author; }
+<template id="data-container-quote" data-quote="{{quotes}}"></template>
 
+<script>
+  var quotes = document.getElementById("data-container-quote"); var quotesData =
+  JSON.parse(quotes.getAttribute("data-quote"));console.log(quotes.getAttribute("data-quote"));
+  var randomIndex = Math.floor(Math.random() * quotesData.length); var
+  randomQuote = quotesData[randomIndex]; var pEle =
+  document.querySelector(".quoteContent"); var quoteAuthor =
+  document.querySelector(".quoteAuthor"); if (randomQuote && pEle &&
+  quoteAuthor) { pEle.textContent = randomQuote.quote; quoteAuthor.textContent =
+  randomQuote.author; }
 </script>

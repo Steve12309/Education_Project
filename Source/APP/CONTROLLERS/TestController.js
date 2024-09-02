@@ -1,3 +1,6 @@
+const Quote = require("../MODELS/Quote");
+const { mutipleMongooseToObject } = require("../../UTIL/mongoose");
+
 class TestController {
   async test(req, res) {
     try {
@@ -26,6 +29,7 @@ class TestController {
           }
         );
       }
+      const data = await Quote.find({});
       res.render("test", {
         style: "test-light.css",
         function1: "mbti.js",
@@ -33,6 +37,7 @@ class TestController {
         navbar: "navbar.js",
         username: req.user.name,
         userimg: req.user.img,
+        quotes: JSON.stringify(mutipleMongooseToObject(data)),
         toastr_render: req.toastr.render(),
       });
     } catch (err) {

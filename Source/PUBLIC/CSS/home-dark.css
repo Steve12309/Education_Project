@@ -1,1067 +1,1091 @@
-.main-contai{
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-family: 'hywen';
-    color: white;
-    width: 100%;
-    height: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+body {
+  overflow-x: hidden;
+}
+.main-contai {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "hywen";
+  color: white;
+  width: 100%;
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 .modes button {
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(15px);
-    border: none;
-    border-radius: 30px;
-    padding: 10px 20px;
-    color: white;
-    margin: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    font-family: 'hywen';
-    font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-family: "hywen";
+  font-size: 18px;
 }
 
 .modes button:hover {
-    background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .timer {
-    font-size: 8em;
+  font-size: 8em;
 }
 
 .controls button {
-    background-color: rgb(0,0, 0,0.2);
-    backdrop-filter: blur(15px);
-    border-radius: 50%;
-    border: 2px solid transparent;
-    padding: 15px;
-    margin: 0 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    font-family: 'hywen';
+  background-color: rgb(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 15px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-family: "hywen";
 }
-.controls button img{
-    width: 20px;
-    height: 20px;
+.controls button img {
+  width: 20px;
+  height: 20px;
 }
 .controls button:hover {
-    border: 2px solid white;
+  border: 2px solid white;
 }
 
 .music-player iframe {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-#contai-timer{
-    width: 500px;
-    height: fit-content;
-    overflow: hidden;
+#contai-timer {
+  width: 500px;
+  height: fit-content;
+  overflow: hidden;
 }
-#move-contai{
-    display: flex;
-    flex-direction: row;
-    left: 0px;
-    position: relative;
-    transition: 0.5s ease-in-out;
-    height: fit-content;
+#move-contai {
+  display: flex;
+  flex-direction: row;
+  left: 0px;
+  position: relative;
+  transition: 0.5s ease-in-out;
+  height: fit-content;
 }
-#settingpage{
-    height: fit-content;
-    display: none;
+#settingpage {
+  height: fit-content;
+  display: none;
 }
-#settingpage label{
-    font-size: 14px;
+#settingpage label {
+  font-size: 14px;
 }
-#settingpage p{
-    color: rgb(220, 220, 220);
-    font-size: 12px;
+#settingpage p {
+  color: rgb(220, 220, 220);
+  font-size: 12px;
 }
-.child-move-contai{
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 500px;
-    height: fit-content;
+.child-move-contai {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 500px;
+  height: fit-content;
 }
-#changepomo-contai{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: rgb(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    border-radius: 25px;
-    height: 110px;
+#changepomo-contai {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: rgb(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  height: 110px;
 }
-#changepomo-contai div:nth-of-type(2){
-    border-left: 1px solid rgb(260, 260, 260, 0.3) ;
-    border-right: 1px solid rgb(260, 260, 260, 0.3) ;
+#changepomo-contai div:nth-of-type(2) {
+  border-left: 1px solid rgb(260, 260, 260, 0.3);
+  border-right: 1px solid rgb(260, 260, 260, 0.3);
 }
-.changepomo{
-    flex-grow: 1;
-    text-align: left;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.changepomo {
+  flex-grow: 1;
+  text-align: left;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.changepomo input{
-    width: 100%;
-    border-radius: 10px;
-    height: 25px;
-    padding: 5px;
-    border: none;
-    margin: 5px 0;
-    background-color: rgb(260, 260, 260, 0.2);
-    color: white;
-    outline: none;
+.changepomo input {
+  width: 100%;
+  border-radius: 10px;
+  height: 25px;
+  padding: 5px;
+  border: none;
+  margin: 5px 0;
+  background-color: rgb(260, 260, 260, 0.2);
+  color: white;
+  outline: none;
 }
-#changebg{
-    margin-top: 20px;
-    width: 100%;
-    background-color: rgb(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    border-radius: 25px;
-    display: flex;
-    padding: 20px;
-    height: 110px;
+#changebg {
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgb(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  display: flex;
+  padding: 20px;
+  height: 110px;
 }
-#changebg label{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 10px 0 0;
+#changebg label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px 0 0;
 }
 #close {
-    display: flex;
-    margin: 0 0 20px 0;
+  display: flex;
+  margin: 0 0 20px 0;
 }
-#imgclose{
-    cursor: pointer;
-    }
-#inclose{
-    background-color: rgb(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    border-radius: 25px;
-    padding: 0 20px;
-    font-size: 18px;
-    line-height: 30px;
-    letter-spacing: 1px;
+#imgclose {
+  cursor: pointer;
 }
-#close img{
-    width: 30px;
-    height: 30px;
+#inclose {
+  background-color: rgb(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  padding: 0 20px;
+  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: 1px;
+}
+#close img {
+  width: 30px;
+  height: 30px;
 }
 .drop-area {
-    border: 2px dashed #ccc;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    cursor: pointer;
-    width: 100%;
-    background-color: rgb(260, 260, 260, 0.2);
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  background-color: rgb(260, 260, 260, 0.2);
 }
-.drop-area:hover{
-    background-color: rgb(260, 260, 260, 0.3);
+.drop-area:hover {
+  background-color: rgb(260, 260, 260, 0.3);
 }
 .drop-area.dragover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 .close:hover,
 .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
-#controlbar{
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    display: flex;
-    flex-direction: row-reverse;
+#controlbar {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-#controlbar button{
-    background-color: transparent;
-    border-radius: 10px;
-    backdrop-filter: blur(40px);
+#controlbar button {
+  background-color: transparent;
+  border-radius: 10px;
+  backdrop-filter: blur(40px);
   padding: 5px;
-    border: none;
-    margin: 0 5px;
-    cursor: pointer;
+  border: none;
+  margin: 0 5px;
+  cursor: pointer;
 }
-#controlbar button:hover{
-    background-color: rgb(260, 260, 260, 0.1);
+#controlbar button:hover {
+  background-color: rgb(260, 260, 260, 0.1);
 }
-#controlbar button img{
-    width: 25px;
-    height: 25px;
+#controlbar button img {
+  width: 25px;
+  height: 25px;
 }
 
-#appcontai{
-    padding: 50px 10px 10px 10px;
-    width: 100%;
-    height: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    font-family: hywen;
-    font-weight: 1;
-    position: relative;
+#appcontai {
+  padding: 50px 10px 10px 10px;
+  width: 100%;
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-family: hywen;
+  font-weight: 1;
+  position: relative;
 }
-#home{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-image: url("/img/others_imgs/bg.jpg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+#home {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-image: url("/img/others_imgs/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
-#move-home{
-    height: 100%;
-    width: 100%;
-    display: flex; 
-    flex-direction: column;
-    transition-duration: 0.5s;
-    position: relative;
+#move-home {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition-duration: 0.5s;
+  position: relative;
 }
-#backfromapp{
-    position: relative;
-    top: 10px;
-    left: 10px;
-    width: 50px;
-    height: 50px;
+#backfromapp {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
 }
-#backfromapp img{
-    width: 100%;
-    height: 100%;
+#backfromapp img {
+  width: 100%;
+  height: 100%;
 }
 #contai {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 15px;
-    color: white;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 15px;
+  color: white;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .i1 {
-    grid-area: 1/1/1/2;
-    display: flex;
-    flex-direction: column;
+  grid-area: 1/1/1/2;
+  display: flex;
+  flex-direction: column;
 }
 .i3 {
-    grid-area: 1/3/1/4;
+  grid-area: 1/3/1/4;
 }
 .i2 {
-    grid-area: 1/2/1/3;
-    display: flex;
-    flex-direction: column;
+  grid-area: 1/2/1/3;
+  display: flex;
+  flex-direction: column;
 }
 
 .child {
-    border-radius: 30px;
-    background-color: rgb(50, 50, 50, 0.3);
-    backdrop-filter: blur(20px);
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
-    padding: 10px;
-    overflow: hidden;
+  border-radius: 30px;
+  background-color: rgb(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  padding: 10px;
+  overflow: hidden;
 }
-
-
 
 /*to-do list css*/
 #input-wrapper {
-    display: flex;
-    background-color: transparent;
-    gap: 10px;
-    padding: 0 0 10px 0;
-    justify-content: space-between;
+  display: flex;
+  background-color: transparent;
+  gap: 10px;
+  padding: 0 0 10px 0;
+  justify-content: space-between;
 }
 
 #title {
-    overflow: hidden;
-    width: 100%;
-    height: 35px;
+  overflow: hidden;
+  width: 100%;
+  height: 35px;
 }
 
 #titlemagic {
-    width: 100%;
-    position: relative;
-    top: 0px;
-    display: flex;
-    flex-direction: column;
-    transition-duration: 0.25s;
+  width: 100%;
+  position: relative;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  transition-duration: 0.25s;
 }
 
 #titlemagic h2 {
-    line-height: 35px;
-    margin-left: 5px;
-    font-size: 25px;
+  line-height: 35px;
+  margin-left: 5px;
+  font-size: 22px;
+  letter-spacing: 2px;
 }
 
 #contai-inputTask {
-    display: flex;
-    flex-direction: row;
-    background-color: rgb(260, 260, 260, 0.2);
-    border-radius: 20px;
-    padding-right: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(260, 260, 260, 0.2);
+  border-radius: 20px;
+  padding-right: 5px;
 }
 
 #backTask {
-    background-color: rgb(260, 260, 260,0.3);
-    border: none;
-    border-radius: 15px;
-    width: 25px;
-    height: 25px;
-    margin: auto 0;
-    padding: 5px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    cursor: pointer;
+  background-color: rgb(260, 260, 260, 0.3);
+  border: none;
+  border-radius: 15px;
+  width: 25px;
+  height: 25px;
+  margin: auto 0;
+  padding: 5px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
 #inputTask {
-    background-color: transparent;
-    width: 100%;
-    border-radius: 20px;
-    padding: 5px 10px;
-    border: none;
-    outline: none;
-    height: 35px;
-    font-size: 16px;
+  background-color: transparent;
+  width: 100%;
+  border-radius: 20px;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  height: 35px;
+  font-size: 16px;
+  color: white;
+  font-family: hywen;
+  letter-spacing: 1px;
 }
 
 #btn-addtask {
-    height: 35px;
-    width: 35px;
-    padding: 9px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background-color:rgb(260, 260, 260, 0.3);
-    cursor: pointer;
-    border: none;
+  height: 35px;
+  width: 35px;
+  padding: 9px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  border: none;
 }
-
 
 #contai-list-todo {
-    background-color: rgb(260, 260, 260,0.2);
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    padding:8px 5px 8px 8px;
+  background-color: rgb(260, 260, 260, 0.1);
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  padding: 8px 5px 8px 8px;
+  overflow: hidden;
 }
-#list{
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    border-radius: 12px;
-    padding-right: 5px;
+#list {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border-radius: 12px;
+  padding-right: 5px;
 }
 .taskcontai {
-    position: relative;
-    height: fit-content;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    background-color: rgb(260, 260, 260, 0.3);
-    word-break: break-word;
-    overflow: hidden;
-    min-height: 40px;
+  position: relative;
+  height: fit-content;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: rgb(260, 260, 260, 0.2);
+  word-break: break-word;
+  overflow: hidden;
+  min-height: 40px;
 }
 
 .task-text {
-    font-size: 17px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
 }
 
 .options {
-    display: none;
-    /* Hide options by default */
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    padding: 7.9px 2.9px 7.9px 7.9px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    gap: 7.9px;
-    background-color: rgb(0,0, 0,0.5);
-    height: 40px;
+  display: none;
+  /* Hide options by default */
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 7.9px 2.9px 7.9px 7.9px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  gap: 7.9px;
+  background-color: rgb(0, 0, 0, 0.5);
+  height: 40px;
 }
 
 .taskcontai:hover .options {
-    display: flex;
-    /* Show options on hover */
+  display: flex;
+  /* Show options on hover */
 }
 
 .btnedit {
-    background-color: transparent;
-    border: 1px solid rgb(260, 260, 260);
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 5px;
-    color: rgb(130, 130, 130);
-    cursor: pointer;
-    width: 25px;
-    height: 25px;
-    margin: auto 0
+  background-color: transparent;
+  border: 1px solid rgb(260, 260, 260);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+  color: rgb(130, 130, 130);
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin: auto 0;
 }
 
 .btndelete {
-    background-color: transparent;
-    border: 1px solid rgb(260, 260, 260);
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 5px;
-    color: rgb(130, 130, 130);
-    cursor: pointer;
-    width: 25px;
-    height: 25px;
-    margin: auto 0
+  background-color: transparent;
+  border: 1px solid rgb(260, 260, 260);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+  color: rgb(130, 130, 130);
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin: auto 0;
 }
 
 .custom-checkbox {
-    margin-top: 2px;
-    display: inline-block;
-    position: relative;
-    padding-left: 25px;
-    cursor: pointer;
-    user-select: none;
+  margin-top: 2px;
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  user-select: none;
 }
-#custom-checkbox2{
-    margin: 0;
+.custom-checkbox2 {
+  margin: 0;
 }
 
 .custom-checkbox input {
-    position: absolute;
-    opacity: 0;
-    left: 0;
+  position: absolute;
+  opacity: 0;
+  left: 0;
 }
 
 .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #eee;
-    border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
 }
 
-.custom-checkbox input:checked+.checkmark {
-    background-color: #0000ff;
+.custom-checkbox input:checked + .checkmark {
+  background-color: #0000ff;
 }
-#custom-checkbox2 input:checked+.checkmark{
-    background-color: rgb(111, 117, 105);
+.custom-checkbox2 input:checked + .checkmark {
+  background-color: rgb(111, 117, 105);
 }
 
 .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+  content: "";
+  position: absolute;
+  display: none;
 }
 
-.custom-checkbox input:checked+.checkmark:after {
-    display: block;
+.custom-checkbox input:checked + .checkmark:after {
+  display: block;
 }
 
 .custom-checkbox .checkmark:after {
-    left: 6px;
-    top: 3px;
-    width: 4px;
-    height: 9px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
+  left: 6px;
+  top: 3px;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }
-
 
 /*remind css*/
-#subject{
-    background-color: rgb(260, 260, 260, 0.5);
-    border-radius: 10px;
+#subject {
+  background-color: rgb(260, 260, 260, 0.5);
+  border-radius: 10px;
 }
 #remind-contai {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(260, 260, 260, 0.2);;
-    border-radius: 20px;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(260, 260, 260, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 #move-remind {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    transition: 0.5s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
 }
-#contai-remind-list{
-    height: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    padding: 8px 5px 8px 8px;
+#contai-remind-list {
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 8px 5px 8px 8px;
+  overflow: hidden;
 }
 .remind-list {
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    overflow: auto;
-    padding-right: 5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: auto;
+  padding-right: 5px;
 }
 
 .remind-list li {
-    white-space: pre-line;
-    padding: 10px;
-    background-color: rgb(260, 260, 260, 0.3);
-    margin-bottom:10px;
-    border-radius: 10px;
-    position: relative;
-    height: fit-content;
-    min-height: 40px;
+  white-space: pre-line;
+  padding: 10px;
+  background-color: rgb(50, 50, 50);
+  margin-bottom: 10px;
+  border-radius: 10px;
+  position: relative;
+  height: fit-content;
+  min-height: 40px;
 }
-.remind-list li button{
-    background-color: transparent;
-    border: 1px solid rgb(260, 260, 260);
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 5px;
-    color: rgb(130, 130, 130);
-    cursor: pointer;
-    width: 25px;
-    height: 25px;
-    margin: auto 0;
+.remind-list li button {
+  background-color: transparent;
+  border: 1px solid rgb(260, 260, 260);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+  color: rgb(130, 130, 130);
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin: auto 0;
 }
 #eventForm {
-    height: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    padding: 10px;
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 10px;
 }
 
 #titleremind {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 0px 10px 0px;
 }
 
 #titleremind h2 {
-    line-height: 35px;
-    margin-left: 5px;
-    font-size: 25px;
+  line-height: 35px;
+  margin-left: 5px;
+  font-size: 22px;
+  letter-spacing: 2px;
 }
 
 #toggleremind {
-    height: 35px;
-    width: 35px;
-    padding: 9px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    border-radius: 50%;
-    margin: auto 0;
-    background-color: rgb(260, 260, 260, 0.3);
-    cursor: pointer;
-    border: none;
+  height: 35px;
+  width: 35px;
+  padding: 9px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-radius: 50%;
+  margin: auto 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  border: none;
 }
 
 #eventForm div {
-    display: flex;
-    width: 100%;
-    margin-bottom: 10px;
-    height: 30px;
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 30px;
 }
 
 #eventForm div input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    background-color: rgb(260,260,260,0.5);
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: rgb(260, 260, 260, 0.5);
 }
 
 #eventForm div label {
-    width: 70px;
-    flex-grow: 0;
-    flex-shrink: 0;
+  width: 70px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 #btn-addremind {
-    width: 100%;
-    padding: 10px;
-    background-color: #eee;
-    border-radius: 10px;
-    border: none;
-    background-color: rgb(260,260,260,0.8);
+  width: 100%;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(260, 260, 260, 0.8);
 }
 
-
 .event-controls {
-    display: none;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    padding: 6px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    gap: 6px;
-    background-color: rgb(0, 0, 0, 0.5);
-    height: 40px;
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 6px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  gap: 6px;
+  background-color: rgb(0, 0, 0, 0.5);
+  height: 40px;
 }
 
 .event-item:hover .event-controls {
-    display: flex;
+  display: flex;
 }
-.event-item h1{
-    font-size: 20px;
-    padding: 0;
-    font-weight: 100;
-    background-color: rgb(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 2.5px 5px;
-    margin: 0 0 5px;
+.event-item h1 {
+  font-size: 20px;
+  padding: 0;
+  font-weight: 100;
+  background-color: black;
+  color: rgb(227, 189, 134);
+  border-radius: 5px;
+  padding: 2.5px 5px;
+  margin: 0 0 5px;
+  width: fit-content;
 }
-.event-item h2{
-    font-size: 15px;
-    font-size: 15px;
-    margin: 0 0 5px 0;
-    padding: 0 0 0 5px;
+.event-item h2 {
+  font-size: 15px;
+  font-size: 15px;
+  margin: 0 0 5px 0;
+  padding: 0 0 0 5px;
 }
-
 
 /*calendar css*/
 .i4 {
-    grid-area: 2/1/2/4;
-    position: relative;
-    padding: 0;
+  grid-area: 2/1/2/4;
+  position: relative;
+  padding: 0;
 }
 
 #timetableForm {
-    padding: 10px;
-    width: 100%;
-    height: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-#timetableForm 
-td,
+#timetableForm td,
 th {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    padding: 5px;
-    min-width: 100px;
-    background-color: rgb(227, 229, 218);
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  padding: 5px;
+  min-width: 100px;
+  background-color: rgb(227, 229, 218);
 }
 
 #timetableForm table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
 #timetableForm input {
-    width: 100%;
-    height: 100%;
-    outline: none;
-    border: none;
-    background-color:transparent;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  background-color: transparent;
 }
-.subject{
-    width: 100%;
-    height: 100%;
-    border: none;
-    background-color: transparent;
-    outline: none;
+.subject {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  color: black;
 }
 #timetable-contai {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    border-radius: 20px;
-    background-color: transparent;
-    border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1px solid black;
 }
 
 #timetable-contai table td:nth-child(1) {
-    background-color: rgb(163, 159, 147);
-    position: sticky;
-    left: 0;
-    z-index: 99;
-    color: rgb(230, 230, 230);
-  }
-  #timetable-contai th {
-    background-color: rgb(74, 74, 74);
-    color:rgb(230, 230, 230);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    font-weight: 100;
+  background-color: rgb(163, 159, 147);
+  position: sticky;
+  left: 0;
+  z-index: 99;
+  color: rgb(230, 230, 230);
 }
-#timetable-contai input[type=time]{
-    color: white;
+#timetable-contai th {
+  background-color: rgb(74, 74, 74);
+  color: rgb(260, 260, 260);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-weight: 100;
+}
+#timetable-contai input[type="time"] {
+  color: white;
 }
 #control-calendar {
-    position: relative;
-    top: 0;
-    left: 0;
-    justify-content: space-between;
-    display: flex;
-    height: 35px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    margin-bottom: 10px;
+  position: relative;
+  top: 0;
+  left: 0;
+  justify-content: space-between;
+  display: flex;
+  height: 35px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-bottom: 10px;
 }
 
 #control-calendar button {
-    padding: 5px;
-    border-radius: 50%;
-    height: 100%;
-    width: 35px;
-    background-color: rgb(260, 260, 260, 0.3);
-    border: none;
-    outline: none;
-    cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  height: 100%;
+  width: 35px;
+  background-color: rgb(260, 260, 260, 0.2);
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
-#control-timetable{
-    position: relative;
-    height: 35px;
-    margin-bottom: 10px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-between;
+#control-timetable {
+  position: relative;
+  height: 35px;
+  margin-bottom: 10px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
 }
-#control-timetable button{
-    padding: 9px;
-    height: 100%;
-    width: 35px;
-    border-radius: 50%;
-    border: none;
-    outline: none;
-    background-color: rgb(260, 260, 260,0.3);
-    cursor: pointer;
+#control-timetable button {
+  padding: 9px;
+  height: 100%;
+  width: 35px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background-color: rgb(260, 260, 260, 0.3);
+  cursor: pointer;
 }
-#showTimetableForm{
-    padding: 9px !important;
+#showTimetableForm {
+  padding: 9px !important;
 }
 #mainCalendar {
-    padding: 10px;
-    width: 100%;
-    height: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 #total-contai-calendar {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    transition-duration: 0.5s;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transition-duration: 0.5s;
 }
-#calendarContent{
-    height: 100%;
-    overflow: auto;
-    border-radius: 25px;
-    border: 1px solid black;
-    background-color: rgb(260, 260, 260, 0.2);
+#calendarContent {
+  height: 100%;
+  overflow: auto;
+  border-radius: 25px;
+  border: 1px solid black;
+  background-color: rgb(260, 260, 260, 0.1);
 }
 #calendarContent table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
 }
 
-#calendarContent td, th {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    padding: 5px;
-    min-width: 100px;
+#calendarContent td,
+th {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  padding: 5px;
+  min-width: 100px;
 }
-#calendarContent td{
-    background-color: rgb(227, 229, 218);
+#calendarContent td {
+  background-color: rgb(227, 229, 218);
 }
 #calendarContent table td:nth-child(1) {
-    background-color: rgb(163, 159, 147);
-    position: sticky;
-    left: 0;
-    z-index: 99;
-    color: rgb(230,230,230);
-  }
+  background-color: rgb(163, 159, 147);
+  position: sticky;
+  left: 0;
+  z-index: 99;
+  color: rgb(260, 260, 260);
+  text-align: center;
+}
 
-  #calendarContent th {
-    background-color: rgb(74, 74, 74);
-    color: rgb(230,230,230);
-    font-size: 16px;
-    font-weight: 100;
+#calendarContent th {
+  background-color: rgb(50, 50, 50);
+  color: rgb(260, 260, 260);
+  font-size: 16px;
+  font-weight: 100;
 }
 #calendarContent tr:nth-child(odd) {
-    background-color: rgb(230, 230, 230);
+  background-color: rgb(230, 230, 230);
 }
 #calendarContent tr:nth-child(even) {
-    background-color: rgb(250, 250, 250);
+  background-color: rgb(250, 250, 250);
 }
 
-#calendarContent input[type=text]{
-    width: 100%;
-    padding: 5px;
-    border-radius: 5px;
-    border:none;
-    outline:none;
-    background-color: rgb(210, 205, 186);
-    font-family: monospace;
+#calendarContent input[type="text"] {
+  color: black;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: rgb(210, 205, 186);
+  font-family: monospace;
 }
-.notes-input-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 5px 0;
-}
-
-.contai-event-content{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.event-content{
-    color: black;
-}
-#calendarContent td button{
-    width: 25px;
-    height: 25px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-.event-note{
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    word-break: break-word;
-    font-size: 17px;
-    background-color: rgb(210, 205, 186);
-    padding: 5px;
-    border-radius: 5px;
-    font-family: monospace;
+.notes-input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 0;
 }
 
+.contai-event-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.event-content {
+  color: black;
+  font-size: 16px;
+  line-height: 25px;
+}
+#calendarContent td button {
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.event-note {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  word-break: break-word;
+  font-size: 17px;
+  background-color: rgb(210, 205, 186);
+  padding: 5px;
+  border-radius: 5px;
+  font-family: monospace;
+}
+#calendarTitle {
+  font-size: 25px;
+  letter-spacing: 4px;
+}
 /*thống kê cho calendar*/
-.day-note-group{
-    padding: 0 0 10px 0;
+.day-note-group {
+  padding: 0 0 10px 0;
 }
-.incomplete-note-item{
-    background-color: rgb(260, 260, 260, 0.2);
-    border-radius: 10px;
-    padding: 10px;
-    position: relative;
-    margin-top: 10px;
-    word-break: break-word;
-    display: flex;
-    justify-content: space-between;
-    height: fit-content;
-    min-height: 40px;
+.incomplete-note-item {
+  background-color: rgb(210, 205, 186);
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  margin-top: 10px;
+  word-break: break-word;
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+  min-height: 40px;
 }
-.titlenotesincom{
-    display: flex;
-    flex-direction: row;
+.titlenotesincom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.incomplete-note-item h1{
-    width: fit-content;
-    padding: 0;
-    font-size: 17px;
-    font-weight: 1;
+.incomplete-note-item h1 {
+  width: fit-content;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 1;
+  color: black;
 }
-.incomplete-note-item h2{
-    font-size: 17px;
-    font-family: monospace;
-    font-weight: 400;
-    background-color: rgb(0, 0, 0, 0.1);
-    padding: 5px;
-    border-radius: 5px;
-    width: 100%;
-    margin-top: 5px;
+.incomplete-note-item h2 {
+  font-size: 17px;
+  font-family: monospace;
+  font-weight: 400;
+  background-color: rgb(227, 229, 218);
+  padding: 5px;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 5px;
+  color: black;
 }
-.incomplete-note-item h3{
-    font-size: 14px;
-    margin-block-start: unset;
-    margin-block-end: unset;
-    font-family: monospace;
-    line-height: 20px;
-    margin-left: 5px;
+.incomplete-note-item h3 {
+  font-size: 14px;
+  margin-block-start: unset;
+  margin-block-end: unset;
+  font-family: monospace;
+  line-height: 20px;
+  margin-left: 5px;
+  color: black;
 }
-.incomplete-note-item span{
-    white-space: pre-line;
-    width: 100%;
+.incomplete-note-item span {
+  white-space: pre-line;
+  width: 100%;
 }
-.incomplete-note-item input{
-    position: absolute;
-    right: 10px;
-    top: 10px;
+.incomplete-note-item input {
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
-.day-note-group h4{
-    display: flex;
-    align-items: center;
-    font-weight: 100;
+.day-note-group h4 {
+  display: flex;
+  align-items: center;
+  font-weight: 100;
 }
 .day-note-group h4::after {
-    content: '';
-    flex-grow: 1;
-    border-bottom: 2.5px dotted white; 
-    margin-left: 3px; 
+  content: "";
+  flex-grow: 1;
+  border-bottom: 2.5px dotted white;
+  margin-left: 3px;
 }
-#incompleteNotesCountDiv{
-    height: 30px;
-    margin: 0 0 10px 0;
-    flex-shrink: 0;
-    flex-grow: 0;
-    font-size: 20px;
-    display: flex;
-    flex-direction: row;
+#incompleteNotesCountDiv {
+  height: 30px;
+  margin: 0 0 10px 0;
+  flex-shrink: 0;
+  flex-grow: 0;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
 }
-#incompleteNotesCountDiv h2{
-    font-size: 25px;
-    line-height: 35px;
-    font-weight:1 ;
+#incompleteNotesCountDiv h2 {
+  font-size: 22px;
+  letter-spacing: 1px;
+  font-size: 25px;
+  line-height: 35px;
+  font-weight: 1;
 }
-#incompleteNotesCountDiv span{
-    margin-left: 10px;
-    line-height: 35px;
-    font-family: hywen;
-    font-size: 25px;
-    font-weight: 100;
+#incompleteNotesCountDiv span {
+  margin-left: 10px;
+  line-height: 35px;
+  font-family: hywen;
+  font-size: 25px;
+  font-weight: 100;
 }
-#incompleteNotesCount{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+#incompleteNotesCount {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-#contai-incompleteNotesContainer{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(260, 260, 260, 0.2);
-    border-radius: 20px;
-    padding:8px 5px 8px 8px ;
-    
+#contai-incompleteNotesContainer {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(260, 260, 260, 0.1);
+  border-radius: 20px;
+  padding: 8px 5px 8px 8px;
+  overflow: hidden;
 }
-#incompleteNotesContainer{
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    border-radius: 12px;
-    padding: 2px 5px 2px 2px;
+#incompleteNotesContainer {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border-radius: 12px;
+  padding: 2px 5px 2px 2px;
 }
 .current-day {
-    background-color: rgb(0, 0, 0, 0.5) !important;
+  background-color: black !important;
+  color: rgb(227, 189, 134) !important;
 }
-#contaibacktotimer{
-    background-color: rgb(50, 50, 50, 0.5);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgb(100, 100, 100);
-    border-bottom: 0;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    padding: 10px;
-    width: fit-content;
-    position: absolute;
-    right: 10;
-    z-index: 1;
-    bottom: -70px;
-    cursor: pointer;
-    transition-duration: 0.25s;
-    width: 80px;
-    height: 80px;
+#contaibacktotimer {
+  background-color: rgb(50, 50, 50, 0.5);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgb(100, 100, 100);
+  border-bottom: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 10px;
+  width: fit-content;
+  position: absolute;
+  right: 10;
+  z-index: 1;
+  bottom: -70px;
+  cursor: pointer;
+  transition-duration: 0.25s;
+  width: 80px;
+  height: 80px;
 }
-#contaibacktotimer:hover{
-    bottom: 0px;
+#contaibacktotimer:hover {
+  bottom: 0px;
 }
-#contaibacktotimer button{
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 10px;
-    border: none;
-    background-color: rgb(260, 260, 260, 0.2);
-    outline: none;
-    width: 100%;
-    height: 100%;
+#contaibacktotimer button {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 10px;
+  border: none;
+  background-color: rgb(260, 260, 260, 0.2);
+  outline: none;
+  width: 100%;
+  height: 100%;
+}
+.textnotescount {
+  display: flex;
+  flex-direction: row;
 }
 @media only screen and (max-width: 850px) {
+  #contai {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 15px;
+  }
 
-    #contai {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, 1fr);
-        gap: 15px
-    }
+  .i1 {
+    grid-area: 1/1/1/1;
+  }
 
-    .i1 {
-        grid-area: 1/1/1/1;
-    }
+  .i3 {
+    grid-area: 2/1/2/1;
+  }
 
-    .i3 {
-        grid-area: 2/1/2/1;
-    }
+  .i2 {
+    grid-area: 1/2/3/3;
+  }
 
-    .i2 {
-        grid-area: 1/2/3/3;
-    }
+  .i4 {
+    grid-area: 3/1/5/3;
+  }
 
-    .i4 {
-        grid-area: 3/1/5/3;
-    }
+  .calendar {
+    left: 0;
+    gap: 2.5%;
+  }
 
-    .calendar {
-        left: 0;
-        gap: 2.5%;
-    }
-
-    .day {
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: 200px;
-    }
+  .day {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 200px;
+  }
 }
 
 @media only screen and (max-width: 550px) {
- 
-
-    #contai {
-        gap: 10px
-    }
-.modes button {
+  #contai {
+    gap: 10px;
+  }
+  .modes button {
     font-size: 13px;
-}
-.timer {
+  }
+  .timer {
     font-size: 6em;
-}
-#contai-timer{
+  }
+  #contai-timer {
     width: 400px;
-}
-.child-move-contai{
+  }
+  .child-move-contai {
     width: 400px;
-}
+  }
 }

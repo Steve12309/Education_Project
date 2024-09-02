@@ -52,7 +52,7 @@
               <label for="backgroundImage">Background Image:</label>
               <input type="file" id="backgroundImage" accept="image/*" hidden />
               <div id="dropArea" class="drop-area">
-                <p>Drag & Drop image here</p>
+                <p>kéo hoặc thả ảnh vào đây</p>
               </div>
             </div>
           </div>
@@ -60,10 +60,10 @@
       </div>
 
       <div id="controlbar">
-        <button onclick="movehome()" class="step-nine-Home"><img
+        <button onclick="movehome()" class="step-ten-Home"><img
             src="/img/tool_imgs/app.png"
           /></button>
-        <button id="fullsceenbtn" class="step-eight-Home"><img
+        <button id="fullsceenbtn" class="step-nine-Home"><img
             src="/img/tool_imgs/fullscreen.png"
           /></button>
       </div>
@@ -81,7 +81,7 @@
           <div id="input-wrapper">
             <div id="title">
               <div id="titlemagic">
-                <h2>To-do list</h2>
+                <h2>Việc cần làm: </h2>
                 <div id="contai-inputTask">
                   <input id="inputTask" type="text" placeholder="Add a task" />
                   <button id="backTask" onclick="resetInput()"><img
@@ -222,4 +222,3 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/intro.js@7.2.0/intro.min.js"></script>
-<template id="data-container" data-quote="{{quotes}}"></template>
