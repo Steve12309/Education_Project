@@ -589,7 +589,6 @@ const saveTasksDebounced = debounce(() => {
 }, 1000);
 
 function saveTodolist(tasks) {
-  console.log(tasks);
   fetch("/save/todolist", {
     method: "POST",
     headers: {
@@ -843,7 +842,6 @@ function addTimetableServer(data) {
         if (noteDiv) {
           noteDiv.remove();
         }
-
         const notesBtn = eventCell.querySelector(".notes-btn");
         notesBtn.innerHTML =
           '<img src="/img/tool_imgs/edit2.png" style="width: 100%; height:100%">';
@@ -851,7 +849,6 @@ function addTimetableServer(data) {
         container.style.display = "none";
         notesBtn.style.display = "inline";
 
-        updateIncompleteNotesCountServer(dates, data);
         return;
       }
 
@@ -887,14 +884,14 @@ function addTimetableServer(data) {
       container.style.display = "none";
       notesBtn.style.display = "inline";
 
-      addCompleteNoteListenerServer(data);
-      updateIncompleteNotesCountServer(dates, data);
+      addCompleteNoteListener();
+      updateIncompleteNotesCount();
       saveNotesData(notesData);
     });
   });
 
-  addCompleteNoteListenerServer(data);
-  updateIncompleteNotesCountServer(dates, data);
+  addCompleteNoteListener();
+  updateIncompleteNotesCount();
 }
 
 function updateMainCalendar() {
@@ -1042,13 +1039,13 @@ function updateMainCalendar() {
       notesBtn.style.display = "inline";
 
       addCompleteNoteListener();
-      updateIncompleteNotesCount(dates);
+      updateIncompleteNotesCount();
       saveNotesData(notesData);
     });
   });
 
   addCompleteNoteListener();
-  updateIncompleteNotesCount(dates);
+  updateIncompleteNotesCount();
 }
 
 function addCompleteNoteListener() {
@@ -1062,118 +1059,9 @@ function addCompleteNoteListener() {
   });
 }
 
-function addCompleteNoteListenerServer(data) {
-  document.querySelectorAll(".complete-note-checkbox").forEach((checkbox) => {
-    checkbox.addEventListener("change", function () {
-      const noteKey = this.dataset.noteKey;
-      notesData[`${noteKey}_completed`] = this.checked;
-      updateIncompleteNotesCountServer(getWeekDates(currentWeekOffset), data);
-      saveNotesData(notesData);
-    });
-  });
-}
-
-function updateIncompleteNotesCountServer(dates, data) {
-  let incompleteCount = 0;
-  const incompleteNotesList = [];
-
-  for (let key in notesData) {
-    if (key.endsWith("_completed") && notesData[key] === false) {
-      const noteKey = key.replace("_completed", "");
-      const [date, time] = noteKey.split("_");
-      const notecontent = notesData[noteKey].noteText;
-      const noteDayname = notesData[noteKey].dayName;
-      const eventName = notesData[noteKey].eventname;
-      incompleteCount++;
-      console.log(eventName);
-      console.log(notesData);
-      incompleteNotesList.push({
-        key: noteKey,
-        date,
-        time,
-        note: notecontent,
-        dayName: noteDayname,
-        eventName,
-      });
-    }
-  }
-
-  incompleteNotesList.sort((a, b) => {
-    const dateComparison =
-      new Date(a.date.split("/").reverse().join("-")) -
-      new Date(b.date.split("/").reverse().join("-"));
-    return dateComparison === 0 ? a.time.localeCompare(b.time) : dateComparison;
-  });
-
-  document.getElementById("incompleteCount").textContent = incompleteCount;
-
-  const incompleteNotesContainer = document.getElementById(
-    "incompleteNotesContainer"
-  );
-  incompleteNotesContainer.innerHTML = "";
-
-  let currentDay = "";
-  incompleteNotesList.forEach((item) => {
-    if (item.date !== currentDay) {
-      currentDay = item.date;
-      const dayDiv = document.createElement("div");
-      dayDiv.className = "day-note-group";
-      const dayTitle = document.createElement("h4");
-      dayTitle.textContent = `${item.dayName} (${item.date})`;
-      dayDiv.appendChild(dayTitle);
-      incompleteNotesContainer.appendChild(dayDiv);
-    }
-
-    const noteElement = document.createElement("div");
-    noteElement.className = "incomplete-note-item";
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "incomplete-note-checkbox";
-    checkbox.checked = false;
-    checkbox.dataset.noteKey = item.key;
-    checkbox.addEventListener("change", function () {
-      const noteKey = this.dataset.noteKey;
-      notesData[`${noteKey}_completed`] = this.checked;
-      updateIncompleteNotesCount(dates, data);
-      addTimetableServer(data);
-      saveNotesData(notesData);
-    });
-
-    const noteText = document.createElement("span");
-    noteText.innerHTML = `<div class="titlenotesincom"><div class="textnotescount"><h1>${item.eventName}</h1> <h3> - ${item.time}</h3></div></div> <h2>${item.note}</h2>`;
-
-    const labelcheckbox = document.createElement("label");
-    labelcheckbox.className = "custom-checkbox custom-checkbox2";
-    const checkmark = document.createElement("div");
-    checkmark.className = "checkmark";
-    labelcheckbox.append(checkmark);
-    labelcheckbox.append(checkbox);
-
-    noteElement.appendChild(noteText);
-    noteElement.querySelector(".titlenotesincom").append(labelcheckbox);
-
-    const lastDayDiv = incompleteNotesContainer.lastElementChild;
-    lastDayDiv.appendChild(noteElement);
-  });
-
-  // Liên kết checkbox trong phần thống kê với lịch chính
-  document.querySelectorAll(".incomplete-note-checkbox").forEach((checkbox) => {
-    console.log("Done Tasks", incompleteNotesList);
-    const noteKey = checkbox.dataset.noteKey;
-    const correspondingCheckbox = document.querySelector(
-      `.complete-note-checkbox[data-note-key="${noteKey}"]`
-    );
-    if (correspondingCheckbox) {
-      checkbox.checked = correspondingCheckbox.checked;
-    }
-  });
-}
-
 function updateIncompleteNotesCount() {
   let incompleteCount = 0;
   const incompleteNotesList = [];
-
   for (let key in notesData) {
     if (key.endsWith("_completed") && notesData[key] === false) {
       const noteKey = key.replace("_completed", "");
@@ -1182,8 +1070,6 @@ function updateIncompleteNotesCount() {
       const noteDayname = notesData[noteKey].dayName;
       const eventName = notesData[noteKey].eventname;
       incompleteCount++;
-      console.log(eventName);
-      console.log(notesData);
       incompleteNotesList.push({
         key: noteKey,
         date,
@@ -1232,7 +1118,7 @@ function updateIncompleteNotesCount() {
     checkbox.addEventListener("change", function () {
       const noteKey = this.dataset.noteKey;
       notesData[`${noteKey}_completed`] = this.checked;
-      updateIncompleteNotesCount(dates);
+      updateIncompleteNotesCount();
       updateMainCalendar();
       saveNotesData(notesData);
     });
@@ -1256,7 +1142,6 @@ function updateIncompleteNotesCount() {
 
   // Liên kết checkbox trong phần thống kê với lịch chính
   document.querySelectorAll(".incomplete-note-checkbox").forEach((checkbox) => {
-    console.log("Done Tasks", incompleteNotesList);
     const noteKey = checkbox.dataset.noteKey;
     const correspondingCheckbox = document.querySelector(
       `.complete-note-checkbox[data-note-key="${noteKey}"]`

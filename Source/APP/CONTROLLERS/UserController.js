@@ -3,6 +3,7 @@ const Accountgg = require("../MODELS/Accountgg");
 const Accountfb = require("../MODELS/Accountfb");
 const University = require("../MODELS/University");
 const { mutipleMongooseToObject } = require("../../UTIL/mongoose");
+const Quote = require("../MODELS/Quote");
 
 class UserController {
   async avatar(req, res) {
@@ -410,6 +411,7 @@ class UserController {
         userimg = req.user.img;
       }
     }
+    const dataQuote = await Quote.find({});
     res.render("history", {
       layout: "main",
       style: "history-light.css",
@@ -417,6 +419,7 @@ class UserController {
       navbar: "navbar.js",
       username: req.user.name,
       userimg: userimg,
+      quotes: JSON.stringify(mutipleMongooseToObject(dataQuote)),
       tests: JSON.stringify(testsData),
     });
   }

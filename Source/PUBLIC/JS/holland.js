@@ -187,7 +187,7 @@ function arleft() {
   web--;
   allowClick--;
 }
-var i = 50;
+var i = 1;
 var allowClick = 1;
 var rightimg = "/img/arrow_imgs/right.png";
 var leftimg = "/img/arrow_imgs/left.png";
@@ -796,7 +796,7 @@ body.addEventListener("keyup", function (e) {
   }
 });
 
-var web = 50;
+var web = 1;
 function Count(e) {
   if (e.keyCode === 39) {
     if (web < 70) {

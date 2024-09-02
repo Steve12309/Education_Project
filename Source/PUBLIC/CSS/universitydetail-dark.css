@@ -461,16 +461,11 @@ tr:last-child > td {
   background-color: transparent;
 }
 
-.saveUni:hover {
-  cursor: pointer;
-}
-
 .edittedState {
   color: rgb(150, 150, 150);
   font-size: 13px;
   margin-top: 5px;
 }
-
 .alert {
   background: #ffdb9b;
   padding: 20px 40px;

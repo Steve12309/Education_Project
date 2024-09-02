@@ -475,27 +475,30 @@ a {
 
 /*Quote CSS Style*/
 .quote {
-  width: 400px;
-  background-color: orangered;
-  text-align: center;
+  background-color: bisque;
   border-radius: 10px;
   padding: 10px;
-  height: 100px;
-  word-break: break-all;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .quoteContent {
-  font-size: 16px;
-  color: black;
+  font-size: 19px;
+  color: rgb(2, 48, 33);
   margin: auto;
   font-weight: 900;
   font-style: italic;
+  margin: 0;
 }
 
 .quoteAuthor {
   font-size: 20px;
-  color: black;
+  color: rgb(2, 48, 33);
   font-weight: 900;
+  margin: 0;
+  text-align: right;
 }
 
 /*Blur Effect For Quote CSS Style*/
@@ -528,8 +531,13 @@ a {
   display: flex;
   gap: 30px;
   justify-content: center;
+  padding: 0 20px;
 }
-
+.upcontent {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+}
 #footer {
   position: absolute;
   background-image: url("/img/others_imgs/footer.png");
@@ -542,20 +550,14 @@ a {
 }
 #footer-ifo {
   width: 60%;
+  height: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  overflow: hidden;
 }
-
-.contact > p {
-  font-size: 16px;
-  width: 340px;
-  height: auto;
-  word-break: break-all;
-}
-
 .footer-col {
   padding: 20px;
-  width: 33%;
+  width: 100%;
   height: fit-content;
 }
 #footer-logo {
@@ -569,6 +571,15 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.contact > p {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 5px 0;
+  color: black;
+  word-break: break-all;
+}
+
 #footer-logo img {
   margin-top: 30px;
   width: 240px;
@@ -982,17 +993,32 @@ a {
 
 @media only screen and (max-width: 850px) {
   #footer h4 {
-    font-size: 22px;
+    font-size: 20px;
+  }
+  #footer ul {
+    margin-top: 10px;
   }
   #footer li {
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 4px;
   }
   .footer-col {
-    width: 50%;
+    padding: 10px;
   }
   #user-avar {
     margin: auto 0 auto auto;
+  }
+  .extra-info {
+    padding: 10px 10px 0px 10px;
+  }
+  .contact > p {
+    font-size: 16px;
+  }
+  .quoteContent {
+    font-size: 17px;
+  }
+  .quoteAuthor {
+    font-size: 17px;
   }
 }
 @media only screen and (max-width: 550px) {
@@ -1039,6 +1065,29 @@ a {
     width: 100%;
     height: fit-content;
   }
+  .upcontent {
+    flex-direction: column;
+  }
+  .contact > p {
+    font-size: 20px;
+  }
+  #footer li {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  #footer h4 {
+    font-size: 25px;
+  }
+  .extra-info {
+    flex-direction: column;
+    padding: 20px 20px 90px 20px;
+  }
+  .quoteContent {
+    font-size: 24px;
+  }
+  .quoteAuthor {
+    font-size: 22px;
+  }
   #setting2 {
     width: 100vw;
     right: 0px;
@@ -1079,6 +1128,7 @@ a {
 }
 
 .alert {
+  text-align: center;
   margin-bottom: 5px;
   overflow: hidden;
   opacity: 0;
@@ -1157,9 +1207,6 @@ a {
   gap: 15px;
   margin-top: 10px;
   font-size: 16px;
-  animation: appear linear;
-  animation-timeline: view();
-  animation-range: entry 30%;
 }
 
 .uniContainer {
@@ -1167,9 +1214,9 @@ a {
   display: flex;
   position: relative;
   gap: 10px;
-  padding: 6px;
+  padding: 10px;
   background-color: rgba(250, 250, 250);
-  border-radius: 15px;
+  border-radius: 20px;
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
@@ -1181,16 +1228,17 @@ a {
 }
 
 .uniName {
-  height: auto;
+  height: fit-content;
   color: black;
   font-size: 25px;
-  font-weight: 900px;
+  font-weight: 900;
+  margin: auto 0;
 }
 
 .uniImg {
-  margin-top: 21px;
-  width: 100%;
-  height: 100%;
+  width: 50px !important;
+  height: 50px !important;
+  margin: 0;
 }
 
 @keyframes scroll {

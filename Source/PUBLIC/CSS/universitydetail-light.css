@@ -457,23 +457,18 @@ tr:last-child > td {
   background-color: transparent;
 }
 
-.saveUni:hover {
-  cursor: pointer;
-}
-
 .edittedState {
   color: rgb(150, 150, 150);
   font-size: 13px;
   margin-top: 5px;
 }
-
 .alert {
   background: #ffdb9b;
   padding: 20px 40px;
   min-width: 420px;
-  position: absolute;
+  position: fixed;
   right: 0;
-  top: 60px;
+  top: 10px;
   border-radius: 4px;
   border-left: 8px solid #ffa502;
   overflow: hidden;

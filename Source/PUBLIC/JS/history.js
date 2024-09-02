@@ -4,6 +4,7 @@ var tescontai = document.getElementById("test-container");
 var dataContainer = document.getElementById("data-container");
 var testData = JSON.parse(dataContainer.getAttribute("data-test"));
 const MAX_LOAD_TIME = 3000;
+const CHECK_INTERVAL = 100;
 let startTime = Date.now();
 let isPageLoaded = false;
 
@@ -21,18 +22,14 @@ function checkIframe() {
     iframe.contentDocument &&
     iframe.contentDocument.readyState === "complete"
   ) {
-    // Đặt lại thời gian bắt đầu khi iframe đã tải xong
     startTime = Date.now();
     isPageLoaded = true;
-    setTimeout(checkLoadTime, 1000); // Kiểm tra sau 1 giây
-  } else {
-    checkIframe();
+    clearInterval(iframeCheckInterval);
+    setTimeout(checkLoadTime, 1000);
   }
 }
 
-window.addEventListener("load", function () {
-  checkIframe();
-});
+const iframeCheckInterval = setInterval(checkIframe, CHECK_INTERVAL);
 
 testHBtn.addEventListener("click", function (e) {
   e.preventDefault();
