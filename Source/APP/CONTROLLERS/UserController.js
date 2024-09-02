@@ -137,6 +137,7 @@ class UserController {
             );
           }
         }
+        res.json({ success: true });
       } else {
         if (req.body.type === "Holland") {
           const { note, type, A, B, C, D, E, F } = req.body;
@@ -193,6 +194,7 @@ class UserController {
             );
           }
         }
+        res.json({ success: true });
       }
     } catch (err) {
       console.log(err.messsage);
@@ -231,6 +233,7 @@ class UserController {
             await checkUser.save();
           }
         }
+        res.json({ success: true });
       }
     } else if (req.user) {
       if (req.user.provider !== "facebook") {
@@ -305,6 +308,7 @@ class UserController {
           }
         }
       }
+      res.json({ success: true });
     }
   }
 
@@ -434,6 +438,7 @@ class UserController {
       );
       checkUni.universities = updatedUniversities;
       await checkUni.save();
+      res.json({ success: true });
     }
   }
 
@@ -448,6 +453,7 @@ class UserController {
         },
         { new: true }
       );
+      res.json({ success: true });
     } else if (req.user) {
       switch (req.user.provider) {
         case "google":
@@ -460,6 +466,7 @@ class UserController {
             },
             { new: true }
           );
+          res.json({ success: true });
           break;
         case "facebook":
           await Accountfb.findOneAndUpdate(
@@ -471,6 +478,7 @@ class UserController {
             },
             { new: true }
           );
+          res.json({ success: true });
           break;
       }
     }
@@ -519,6 +527,7 @@ class UserController {
             $push: { Todolist: { $each: tasks } },
           }
         );
+        res.json({ success: true });
       }
     } else if (req.user) {
       switch (req.user.provider) {
@@ -538,6 +547,7 @@ class UserController {
                 $push: { Todolist: { $each: tasks } },
               }
             );
+            res.json({ success: true });
           }
 
           break;
@@ -557,6 +567,7 @@ class UserController {
                 $push: { Todolist: { $each: tasks } },
               }
             );
+            res.json({ success: true });
           }
 
           break;
@@ -607,6 +618,7 @@ class UserController {
             $push: { Eventlist: { $each: events } },
           }
         );
+        res.json({ success: true });
       }
     } else if (req.user) {
       switch (req.user.provider) {
@@ -626,6 +638,7 @@ class UserController {
                 $push: { Eventlist: { $each: events } },
               }
             );
+            res.json({ success: true });
           }
 
           break;
@@ -645,6 +658,7 @@ class UserController {
                 $push: { Eventlist: { $each: events } },
               }
             );
+            res.json({ success: true });
           }
 
           break;
@@ -695,6 +709,7 @@ class UserController {
             $push: { Pomotime: { $each: timers } },
           }
         );
+        res.json({ success: true });
       }
     } else if (req.user) {
       switch (req.user.provider) {
@@ -714,6 +729,7 @@ class UserController {
                 $push: { Pomotime: { $each: timers } },
               }
             );
+            res.json({ success: true });
           }
 
           break;
@@ -733,6 +749,7 @@ class UserController {
                 $push: { Pomotime: { $each: timers } },
               }
             );
+            res.json({ success: true });
           }
 
           break;
@@ -784,6 +801,7 @@ class UserController {
         checkUser.Timetable.push(data);
       });
       await checkUser.save();
+      res.json({ success: true });
     }
   }
 
@@ -827,6 +845,7 @@ class UserController {
       await checkUser.save();
       checkUser.Notesdata.push(datas);
       await checkUser.save();
+      res.json({ success: true });
     }
   }
 
