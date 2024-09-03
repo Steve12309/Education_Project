@@ -99,6 +99,7 @@ function createFinalPage(result, A, B, C, D, E, F) {
       
       Ngành nghề phù hợp với nhóm này bao gồm: Các ngành về văn chương; báo chí (bình luận viên, dẫn chương trình…); điện ảnh, sân khấu, mỹ thuật, ca nhạc, múa, kiến trúc, thời trang, hội họa, giáo viên dạy sử/Anh văn, bảo tàng, bảo tồn...`;
       contentcomment.innerHTML = notes;
+      break;
     }
     case "D": {
       notes = `Nhóm nghề có thể phù hợp với bạn nhất là nhóm D 
