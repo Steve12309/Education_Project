@@ -336,15 +336,14 @@ app.use((req, res, next) => {
   const acceptHeader = req.headers.accept || "";
   if (
     acceptHeader.includes("text/html") &&
-    req.path !== "/login" &&
-    req.path !== "/logout" &&
-    req.path !== "/register" &&
-    req.path !== "/createaccount" &&
-    req.path !== "/createnewpass" &&
-    req.path !== "/login/forgetpassword" &&
-    req.path !== `/createnewpass/${req.session.token}`
+    (req.path === "/" ||
+      req.path === "/test" ||
+      req.path === "/university" ||
+      req.path === "/history/test")
   ) {
     req.session.currentPath = req.path;
+  } else {
+    req.session.currentPath = "/";
   }
   next();
 });

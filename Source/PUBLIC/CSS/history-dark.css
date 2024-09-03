@@ -282,3 +282,40 @@ body {
   backdrop-filter: blur(40px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
+
+@media only screen and (max-width: 850px) {
+  .comment {
+    width: 100%;
+    height: 48%;
+  }
+  #contaidiagram {
+    width: 100%;
+    height: 48%;
+  }
+  #slidembti {
+    width: 100%;
+    height: 48%;
+    padding: 10px 10px 20px 10px;
+  }
+  .process img {
+    padding: 20px;
+    margin: 0;
+  }
+  .contenimgprocess {
+    flex-direction: row;
+    overflow: hidden;
+  }
+  #slidembti p {
+    overflow: auto;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  h2 {
+    font-size: 22px;
+  }
+  .process img {
+    padding: 10px;
+    width: 120px;
+  }
+}

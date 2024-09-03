@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="child-move-contai" id="settingpage">
-            <span id="close"><img
+            <span id="close" title="Chuyển qua chế độ pomodoro"><img
                 id="imgclose"
                 src="/img/tool_imgs/back1.png"
               />
@@ -60,18 +60,22 @@
       </div>
 
       <div id="controlbar">
-        <button onclick="movehome()" class="step-ten-Home"><img
-            src="/img/tool_imgs/app.png"
-          /></button>
-        <button id="fullsceenbtn" class="step-nine-Home"><img
-            src="/img/tool_imgs/fullscreen.png"
-          /></button>
+        <button
+          onclick="movehome()"
+          class="step-ten-Home"
+          title="Chuyển qua các công cụ khác"
+        ><img src="/img/tool_imgs/app.png" /></button>
+        <button
+          id="fullsceenbtn"
+          class="step-nine-Home"
+          title="Chuyển qua chế độ toàn màn hình"
+        ><img src="/img/tool_imgs/fullscreen.png" /></button>
       </div>
     </div>
 
     <div id="appcontai">
       <div id="contaibacktotimer">
-        <button onclick="movehome()"><img
+        <button onclick="movehome()" title="Chuyển qua chế độ pomodoro"><img
             src="/img/tool_imgs/up.png"
             style="width: 100%; height:100%"
           /></button>
@@ -84,14 +88,22 @@
                 <h2>Việc cần làm: </h2>
                 <div id="contai-inputTask">
                   <input id="inputTask" type="text" placeholder="Add a task" />
-                  <button id="backTask" onclick="resetInput()"><img
+                  <button
+                    id="backTask"
+                    onclick="resetInput()"
+                    title="Thoát tạo việc cần làm hoặc chỉnh sửa việc cần làm"
+                  ><img
                       src="/img/tool_imgs/turn-back.png"
                       style="width: 100%; height:100%"
                     /></button>
                 </div>
               </div>
             </div>
-            <button id="btn-addtask" onclick="addTask()"><img
+            <button
+              id="btn-addtask"
+              onclick="addTask()"
+              title="Thêm việc cần làm"
+            ><img
                 src="/img/tool_imgs/edit.png"
                 style="width: 100%; height:100%"
               /></button>
@@ -103,7 +115,11 @@
         <div class="child i2">
           <div id="titleremind">
             <h2>Lịch Kiểm Tra</h2>
-            <button onclick="toggleremind()" id="toggleremind"><img
+            <button
+              onclick="toggleremind()"
+              id="toggleremind"
+              title="Tạo nhắc kiểm tra"
+            ><img
                 src="/img/tool_imgs/edit.png"
                 style="width: 100%; height:100%"
               /></button>
@@ -111,11 +127,11 @@
           <div id="remind-contai">
             <div id="move-remind">
               <form id="eventForm">
-                <div>
+                <div title="Chọn ngày kiểm tra">
                   <label for="eventDate">Ngày:</label>
                   <input type="date" id="eventDate" required />
                 </div>
-                <div>
+                <div title="Chọn môn kiểm tra">
                   <label for="subject">Môn:</label>
                   <select id="subject" class="subject">
                     <option value=""></option>
@@ -135,7 +151,11 @@
                     <option value="HĐTN">HĐTN</option>
                   </select>
                 </div>
-                <button id="btn-addremind" type="submit">Thêm nhắc nhở</button>
+                <button
+                  id="btn-addremind"
+                  type="submit"
+                  title="Thêm nhắc kiểm tra"
+                >Thêm nhắc nhở</button>
               </form>
               <div id="contai-remind-list">
                 <ul class="remind-list"></ul>
@@ -160,11 +180,14 @@
               <div id="control-timetable">
                 <h2>Thời khoá biểu</h2>
                 <div>
-                  <button id="saveTimetable"><img
+                  <button id="saveTimetable" title="Lưu thời khóa biểu"><img
                       src="/img/tool_imgs/check.png"
                       style="width: 100%; height:100%"
                     /></button>
-                  <button id="backfromcalendarform"><img
+                  <button
+                    id="backfromcalendarform"
+                    title="Thoái khỏi tạo thời khóa biểu"
+                  ><img
                       src="/img/tool_imgs/turn-back.png"
                       style="width: 100%; height:100%"
                     /></button>
@@ -194,18 +217,18 @@
             <div id="mainCalendar">
               <div id="control-calendar">
                 <div>
-                  <button id="prevWeek"><img
+                  <button id="prevWeek" title="Chuyển sang tuần trước đó"><img
                       src="/img/tool_imgs/back1.png"
                       style="width: 100%; height:100%"
                     /></button>
-                  <button id="nextWeek"><img
+                  <button id="nextWeek" title="Chuyển sang tuần kế tiếp"><img
                       src="/img/tool_imgs/lauch1.png"
                       style="width: 100%; height:100%"
                     /></button>
                 </div>
                 <h2 id="calendarTitle"></h2>
                 <div>
-                  <button id="showTimetableForm"><img
+                  <button id="showTimetableForm" title="Tạo thời khóa biểu"><img
                       src="/img/tool_imgs/plus.png"
                       style="width: 100%; height:100%"
                     /></button>

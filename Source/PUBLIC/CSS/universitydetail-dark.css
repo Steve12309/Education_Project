@@ -459,6 +459,7 @@ tr:last-child > td {
   border: none;
   outline: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .edittedState {

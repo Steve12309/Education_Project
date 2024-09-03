@@ -174,8 +174,8 @@ socket.on("comment", (comment) => {
     </div>
     <p class="userContent">${comment.comment}</p>
     <div class="options">
-      <button class="btnedit" onclick="editcomment(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
-      <button class="btndelete" onclick="deletecomment(this)"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
+      <button class="btnedit" onclick="editcomment(this)" title="Chỉnh sửa bình luận"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
+      <button class="btndelete" onclick="deletecomment(this)" title="Xóa bình luận"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
     </div>
   `;
   var timeElement = document.createElement("p");
@@ -245,8 +245,8 @@ socket.on("loadComments", (comments) => {
     </div>
     <p class="userContent">${comment.message}</p>
     <div class="options">
-      <button class="btnedit" onclick="editcomment(this)"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
-      <button class="btndelete" onclick="deletecomment(this)"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
+      <button class="btnedit" onclick="editcomment(this)" title="Chỉnh sửa bình luận"><img src="/img/tool_imgs/edit.png" style="width: 100%; height:100%"></button>
+      <button class="btndelete" onclick="deletecomment(this)" title="Xóa bình luận"><img src="/img/tool_imgs/delete.png" style="width: 100%; height:100%"></button>
     </div>
   `;
     var timeElement = document.createElement("p");
@@ -286,8 +286,8 @@ function editcomment(buttonedit) {
     editdiv.classList.add("editdiv");
     editdiv.innerHTML = `<textarea class="editextarea"></textarea>
     <div class="controlcomment">
-    <button class="btn-savecomment"><img src="/img/tool_imgs/check-green.png"></button>
-    <button class="btn-canceledit"><img src="/img/tool_imgs/turn-back-red.png"></button>
+    <button class="btn-savecomment" title="Lưu chỉnh sửa bình luận"><img src="/img/tool_imgs/check-green.png"></button>
+    <button class="btn-canceledit" title="Thoát khỏi chế độ chỉnh sửa bình luận"><img src="/img/tool_imgs/turn-back-red.png"></button>
     </div>`;
     currenteditcomment.appendChild(editdiv);
     currenteditcomment.querySelector(".editextarea").value = contentcomment;
