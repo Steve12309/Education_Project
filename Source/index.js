@@ -156,7 +156,6 @@ io.on("connection", async (socket) => {
           });
       } else {
         io.emit("loadComments", []);
-        console.log("No comments found");
       }
     });
   });
